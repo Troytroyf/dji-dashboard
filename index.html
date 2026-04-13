@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DJI × Otto Q1 2026 广告投放效果看板</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0D1117;color:#E6EDF3;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;line-height:1.5}
+  a{color:#4184E4;text-decoration:none}
+
+  /* Layout */
+  .header{background:#161B22;border-bottom:1px solid #2D333B;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+  .header-left{display:flex;align-items:center;gap:14px}
+  .logo-box{width:36px;height:36px;background:#E5534B;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:11px;letter-spacing:-0.5px}
+  .header-title{font-size:16px;font-weight:700;color:#E6EDF3}
+  .header-sub{font-size:12px;color:#6E7681;margin-top:2px}
+  .header-right{display:flex;align-items:center;gap:8px;font-size:12px;color:#6E7681}
+  .dot-green{width:8px;height:8px;background:#347D39;border-radius:50%;display:inline-block}
+
+  /* Nav tabs */
+  .nav{background:#161B22;border-bottom:1px solid #2D333B;padding:0 28px;display:flex;gap:4px}
+  .nav-tab{padding:10px 16px;font-size:13px;color:#6E7681;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s}
+  .nav-tab:hover{color:#E6EDF3}
+  .nav-tab.active{color:#E6EDF3;border-bottom-color:#E5534B}
+
+  /* Sections */
+  .section{display:none;padding:24px 28px;max-width:1400px;margin:0 auto}
+  .section.active{display:block}
+
+  /* Banner */
+  .banner{border-radius:8px;padding:14px 20px;margin-bottom:20px;display:flex;align-items:center;gap:12px;font-size:13px}
+  .banner.green{background:rgba(52,125,57,.15);border:1px solid rgba(52,125,57,.4)}
+  .banner.yellow{background:rgba(198,144,38,.15);border:1px solid rgba(198,144,38,.4)}
+  .banner.red{background:rgba(229,83,75,.15);border:1px solid rgba(229,83,75,.4)}
+  .banner-icon{font-size:20px}
+  .banner-text{flex:1}
+  .banner-title{font-weight:700;font-size:14px;margin-bottom:2px}
+
+  /* KPI cards */
+  .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:24px}
+  .kpi-card{background:#161B22;border:1px solid #2D333B;border-radius:8px;padding:16px;position:relative;overflow:hidden}
+  .kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+  .kpi-card.red::before{background:#E5534B}
+  .kpi-card.blue::before{background:#4184E4}
+  .kpi-card.green::before{background:#347D39}
+  .kpi-card.yellow::before{background:#C69026}
+  .kpi-card.purple::before{background:#A371F7}
+  .kpi-card.teal::before{background:#2EA8A0}
+  .kpi-label{font-size:11px;color:#6E7681;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+  .kpi-value{font-size:24px;font-weight:700;color:#E6EDF3;line-height:1.1}
+  .kpi-sub{font-size:11px;color:#6E7681;margin-top:4px}
+
+  /* Panels */
+  .panel{background:#161B22;border:1px solid #2D333B;border-radius:8px;margin-bottom:16px;overflow:hidden}
+  .panel-header{padding:14px 18px;border-bottom:1px solid #2D333B;display:flex;align-items:center;justify-content:space-between}
+  .panel-title{font-size:13px;font-weight:600;color:#E6EDF3;text-transform:uppercase;letter-spacing:.5px}
+  .panel-sub{font-size:11px;color:#6E7681}
+  .panel-body{padding:18px}
+
+  /* Charts grid */
+  .chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  .chart-grid.three{grid-template-columns:1fr 1fr 1fr}
+  .chart-wrap{position:relative;height:300px}
+  .chart-wrap.tall{height:380px}
+  .chart-wrap.short{height:240px}
+
+  /* Tables */
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{padding:10px 12px;text-align:left;font-size:11px;color:#6E7681;text-transform:uppercase;letter-spacing:.6px;border-bottom:1px solid #2D333B;white-space:nowrap}
+  th.r{text-align:right}
+  td{padding:9px 12px;border-bottom:1px solid #21262D;color:#C9D1D9;vertical-align:middle}
+  td.r{text-align:right}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:rgba(255,255,255,.03)}
+
+  /* Badges */
+  .badge{display:inline-block;padding:2px 7px;border-radius:10px;font-size:11px;font-weight:600;white-space:nowrap}
+  .badge.green{background:rgba(52,125,57,.2);color:#57AB5A}
+  .badge.yellow{background:rgba(198,144,38,.2);color:#C69026}
+  .badge.red{background:rgba(229,83,75,.2);color:#E5534B}
+  .badge.blue{background:rgba(65,132,228,.2);color:#4184E4}
+  .badge.cat{color:#fff;padding:2px 8px}
+
+  /* View toggle */
+  .view-toggle{display:flex;gap:4px;background:#0D1117;border-radius:6px;padding:3px}
+  .view-btn{padding:5px 12px;border-radius:4px;font-size:12px;cursor:pointer;border:none;background:transparent;color:#6E7681;transition:all .15s}
+  .view-btn.active{background:#E5534B;color:#fff;font-weight:600}
+
+  /* Progress bar */
+  .pbar-wrap{display:flex;align-items:center;gap:8px}
+  .pbar{flex:1;height:6px;background:#21262D;border-radius:3px;overflow:hidden}
+  .pbar-fill{height:100%;border-radius:3px;transition:width .3s}
+  .pbar-val{font-size:12px;color:#6E7681;min-width:40px;text-align:right}
+
+  /* Alerts */
+  .alert-group{margin-bottom:16px}
+  .alert-group-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;padding:6px 12px;border-radius:4px;display:inline-block}
+  .alert-group-title.red{background:rgba(229,83,75,.15);color:#E5534B}
+  .alert-group-title.yellow{background:rgba(198,144,38,.15);color:#C69026}
+  .alert-group-title.blue{background:rgba(65,132,228,.15);color:#4184E4}
+  .alert-card{background:#0D1117;border:1px solid #2D333B;border-radius:6px;padding:12px 16px;margin-bottom:8px;display:flex;gap:12px}
+  .alert-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+  .alert-body{flex:1}
+  .alert-title{font-weight:600;color:#E6EDF3;margin-bottom:3px}
+  .alert-data{font-size:12px;color:#6E7681;margin-bottom:4px}
+  .alert-action{font-size:12px;color:#4184E4}
+
+  /* Four-view comparison */
+  .view-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+  .view-card{background:#0D1117;border:1px solid #2D333B;border-radius:8px;padding:14px;cursor:pointer;transition:border-color .2s}
+  .view-card:hover{border-color:#4184E4}
+  .view-card.active{border-color:#E5534B;background:rgba(229,83,75,.07)}
+  .view-card-label{font-size:11px;color:#6E7681;text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
+  .view-card-val{font-size:20px;font-weight:700;color:#E6EDF3}
+  .view-card-sub{font-size:11px;color:#6E7681;margin-top:3px}
+
+  /* Section title */
+  .sec-title{font-size:15px;font-weight:700;color:#E6EDF3;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid #2D333B}
+
+  /* Scrollable table */
+  .table-scroll{overflow-x:auto}
+
+  /* Delivery pill */
+  .delivery{font-size:11px;color:#6E7681}
+
+  /* Number highlight */
+  .num-green{color:#57AB5A;font-weight:600}
+  .num-yellow{color:#C69026;font-weight:600}
+  .num-red{color:#E5534B;font-weight:600}
+  .num-blue{color:#4184E4;font-weight:600}
+
+  @media(max-width:900px){
+    .chart-grid,.view-grid{grid-template-columns:1fr}
+    .chart-grid.three{grid-template-columns:1fr}
+    .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="logo-box">DJI</div>
+    <div>
+      <div class="header-title">广告投放效果看板 · Otto Marketplace</div>
+      <div class="header-sub">Q1 2026 · 数据截止 2026-03-30</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="dot-green"></span>
+    Spend €28.3K · 11.2M曝光 · 2,707 Campaign订单
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="nav-tab active" onclick="switchTab(this,'tab-overview')">§1 总览</div>
+  <div class="nav-tab" onclick="switchTab(this,'tab-category')">§2 品类效率</div>
+  <div class="nav-tab" onclick="switchTab(this,'tab-compare')">§3 四口径对比</div>
+  <div class="nav-tab" onclick="switchTab(this,'tab-top')">§4 产品TOP榜</div>
+  <div class="nav-tab" onclick="switchTab(this,'tab-alert')">§5 异常预警</div>
+</div>
+
+<!-- §1 总览 -->
+<div id="tab-overview" class="section active">
+
+  <div class="banner green">
+    <div class="banner-icon">✅</div>
+    <div class="banner-text">
+      <div class="banner-title">整体健康 · Campaign ROAS 4,415% · CRR 2.26%</div>
+      <div>Q1 2026 Otto广告投放效率优秀：整体花费€28.3K撬动€125万Campaign销售额，ROAS远超400%健康线；Mini 5 Pro Fly More是最高效率单品（ROAS 8,681%），Drone品类贡献最大销售体量（€50.4万）。</div>
+    </div>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi-card red">
+      <div class="kpi-label">总花费 Spend</div>
+      <div class="kpi-value">€28,333</div>
+      <div class="kpi-sub">CPC €0.59 · 48,101次点击</div>
+    </div>
+    <div class="kpi-card blue">
+      <div class="kpi-label">总曝光 Impressions</div>
+      <div class="kpi-value">11.16M</div>
+      <div class="kpi-sub">CTR 0.43% · 94.4%投放率</div>
+    </div>
+    <div class="kpi-card green">
+      <div class="kpi-label">Campaign 销售额</div>
+      <div class="kpi-value">€1.251M</div>
+      <div class="kpi-sub">2,707单 · 2,839件</div>
+    </div>
+    <div class="kpi-card yellow">
+      <div class="kpi-label">Campaign ROAS</div>
+      <div class="kpi-value">4,415%</div>
+      <div class="kpi-sub">CRR 2.26% · CPO €10.47</div>
+    </div>
+    <div class="kpi-card purple">
+      <div class="kpi-label">Brand 销售额</div>
+      <div class="kpi-value">€1.295M</div>
+      <div class="kpi-sub">ROAS 4,571% · CRR 2.19%</div>
+    </div>
+    <div class="kpi-card teal">
+      <div class="kpi-label">CVR 转化率</div>
+      <div class="kpi-value">6.10%</div>
+      <div class="kpi-sub">点击→购买 · Product口径 3.41%</div>
+    </div>
+  </div>
+
+  <div class="chart-grid">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">各品类 Campaign 销售额分布</div>
+        <div class="panel-sub">按销售额降序</div>
+      </div>
+      <div class="panel-body">
+        <div class="chart-wrap"><canvas id="chartCatSales"></canvas></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">各品类 Spend vs Campaign ROAS</div>
+        <div class="panel-sub">气泡大小=销售额</div>
+      </div>
+      <div class="panel-body">
+        <div class="chart-wrap"><canvas id="chartSpendRoas"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">四口径 销售额 & ROAS 对比</div>
+      <div class="panel-sub">Brand ≥ Campaign ≥ Assortment ≥ Product</div>
+    </div>
+    <div class="panel-body">
+      <div class="chart-wrap short"><canvas id="chartFourView"></canvas></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- §2 品类效率 -->
+<div id="tab-category" class="section">
+  <div class="sec-title">品类广告效率分析</div>
+
+  <div class="chart-grid three">
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title">各品类 Spend 分配</div></div>
+      <div class="panel-body"><div class="chart-wrap short"><canvas id="chartCatSpend"></canvas></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title">Campaign ROAS by 品类</div></div>
+      <div class="panel-body"><div class="chart-wrap short"><canvas id="chartCatRoas"></canvas></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title">Campaign CRR by 品类</div></div>
+      <div class="panel-body"><div class="chart-wrap short"><canvas id="chartCatCrr"></canvas></div></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">品类综合效率明细</div>
+      <div class="panel-sub">Campaign口径 · 按销售额降序</div>
+    </div>
+    <div class="panel-body table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>品类</th>
+            <th class="r">Spend</th>
+            <th class="r">曝光</th>
+            <th class="r">CTR</th>
+            <th class="r">Camp订单</th>
+            <th class="r">Camp销售额</th>
+            <th class="r">Campaign ROAS</th>
+            <th class="r">CRR</th>
+            <th class="r">Brand销售额</th>
+            <th class="r">Brand ROAS</th>
+            <th class="r">Spend占比</th>
+          </tr>
+        </thead>
+        <tbody id="tbCat"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- §3 四口径对比 -->
+<div id="tab-compare" class="section">
+  <div class="sec-title">四口径 Post-Click 归因对比</div>
+
+  <div class="view-grid">
+    <div class="view-card active" id="vc-brand" onclick="setViewCard('brand')">
+      <div class="view-card-label">Brand Performance</div>
+      <div class="view-card-val">€1,295,250</div>
+      <div class="view-card-sub">2,936单 · ROAS 4,571% · CRR 2.19%</div>
+    </div>
+    <div class="view-card" id="vc-assortment" onclick="setViewCard('assortment')">
+      <div class="view-card-label">Assortment Performance</div>
+      <div class="view-card-val">€1,176,047</div>
+      <div class="view-card-sub">2,512单 · ROAS 4,151% · CRR 2.41%</div>
+    </div>
+    <div class="view-card" id="vc-campaign" onclick="setViewCard('campaign')">
+      <div class="view-card-label">Campaign Performance</div>
+      <div class="view-card-val">€1,250,947</div>
+      <div class="view-card-sub">2,707单 · ROAS 4,415% · CRR 2.26%</div>
+    </div>
+    <div class="view-card" id="vc-product" onclick="setViewCard('product')">
+      <div class="view-card-label">Product Performance</div>
+      <div class="view-card-val">€769,751</div>
+      <div class="view-card-sub">1,640单 · ROAS 2,717% · CRR 3.68%</div>
+    </div>
+  </div>
+
+  <div class="chart-grid">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">TOP12产品 — 当前口径销售额</div>
+        <div class="panel-sub" id="compareViewLabel">Campaign Performance</div>
+      </div>
+      <div class="panel-body"><div class="chart-wrap tall"><canvas id="chartCompareBar"></canvas></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">四口径 Sales 漏斗对比</div>
+        <div class="panel-sub">显示各口径归因差异</div>
+      </div>
+      <div class="panel-body"><div class="chart-wrap tall"><canvas id="chartFunnel"></canvas></div></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">产品四口径详细数据</div>
+      <div class="panel-sub">点击上方卡片切换口径高亮</div>
+    </div>
+    <div class="panel-body table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>产品</th>
+            <th class="r">Spend</th>
+            <th class="r">Brand销额</th>
+            <th class="r">Assort销额</th>
+            <th class="r">Camp销额</th>
+            <th class="r">Prod销额</th>
+            <th class="r">Camp ROAS</th>
+            <th class="r">Camp CRR</th>
+            <th class="r">归因差 B-P</th>
+          </tr>
+        </thead>
+        <tbody id="tbCompare"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- §4 产品TOP榜 -->
+<div id="tab-top" class="section">
+  <div class="sec-title">产品 TOP 榜单</div>
+
+  <div class="chart-grid">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">🔝 TOP 12 — 按 Spend 排序</div>
+        <div class="panel-sub">广告投入最大的产品</div>
+      </div>
+      <div class="panel-body"><div class="chart-wrap tall"><canvas id="chartTopSpend"></canvas></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">🏆 TOP 10 — Campaign ROAS 最高</div>
+        <div class="panel-sub">最小5单 · 效率最优</div>
+      </div>
+      <div class="panel-body"><div class="chart-wrap tall"><canvas id="chartTopRoas"></canvas></div></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">⚠️ CRR 最高（效率最差）产品 TOP 8</div>
+      <div class="panel-sub">Campaign口径 · 最小5单 · CRR越高=越费钱</div>
+    </div>
+    <div class="panel-body"><div class="chart-wrap short"><canvas id="chartWorstCrr"></canvas></div></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">完整产品列表</div>
+      <div class="panel-sub">按Campaign销售额降序 · 共57个SKU</div>
+    </div>
+    <div class="panel-body table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>品类</th>
+            <th>产品名称</th>
+            <th class="r">Spend</th>
+            <th class="r">CPC</th>
+            <th class="r">点击</th>
+            <th class="r">CVR</th>
+            <th class="r">Camp订单</th>
+            <th class="r">Camp销售额</th>
+            <th class="r">Camp ROAS</th>
+            <th class="r">CRR</th>
+            <th class="r">CPO</th>
+            <th class="r">投放率</th>
+          </tr>
+        </thead>
+        <tbody id="tbAll"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- §5 异常预警 -->
+<div id="tab-alert" class="section">
+  <div class="sec-title">异常预警 & 优化建议</div>
+
+  <div class="alert-group">
+    <div class="alert-group-title red">🔴 高优先级 — 效率异常，建议立即评估</div>
+    <div class="alert-card">
+      <div class="alert-icon">💸</div>
+      <div class="alert-body">
+        <div class="alert-title">DJI Flip (RC 2) — Campaign CRR 12.95%，远超均值</div>
+        <div class="alert-data">Spend €459 · Camp 8单 · Camp Sales €3,545 · ROAS 772% · CRR 12.95%（均值2.26%的5.7倍）</div>
+        <div class="alert-action">→ 建议：暂停或大幅降低MaxCPC（当前€0.94），转移预算至Mini 5 Pro / Neo 2系列</div>
+      </div>
+    </div>
+    <div class="alert-card">
+      <div class="alert-icon">📉</div>
+      <div class="alert-body">
+        <div class="alert-title">DJI Neo (ohne Fernsteuerung) — CRR 14.41%，ROAS仅694%</div>
+        <div class="alert-data">Spend €232 · Camp 5单 · Camp Sales €1,613 · CVR 1.97%（最低之一）</div>
+        <div class="alert-action">→ 建议：检查落地页相关性，考虑暂停投放；配件类产品广告ROI持续为负</div>
+      </div>
+    </div>
+    <div class="alert-card">
+      <div class="alert-icon">🎯</div>
+      <div class="alert-body">
+        <div class="alert-title">Osmo Mobile 7 — Assortment ROAS仅1,132%，归因差异最大</div>
+        <div class="alert-data">Brand Sales €11,658 vs Assortment Sales €7,630（差额€4,028，归因差35%）· 说明大量销售来自品牌搜索而非本产品直接跳转</div>
+        <div class="alert-action">→ 建议：复查Osmo Mobile品线广告策略，Brand归因过高可能是搜索词拦截竞品</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert-group">
+    <div class="alert-group-title yellow">🟡 中优先级 — 本周内评估优化</div>
+    <div class="alert-card">
+      <div class="alert-icon">🚀</div>
+      <div class="alert-body">
+        <div class="alert-title">Mini 5 Pro Fly More — ROAS 8,681%，预算可能不足</div>
+        <div class="alert-data">Spend仅€1,418（占总预算5%）· Camp Sales €123,109 · 128单 · CRR仅1.15%</div>
+        <div class="alert-action">→ 建议：这是整个账户效率最高的SKU，建议将Flip/Neo老款节省的预算转移至此产品</div>
+      </div>
+    </div>
+    <div class="alert-card">
+      <div class="alert-icon">📊</div>
+      <div class="alert-body">
+        <div class="alert-title">Osmo Pocket 3 Kreativ Combo — 消耗最大但CRR 1.91%，效率仍优</div>
+        <div class="alert-data">Spend €6,677（占总23.6%）· Camp Sales €350,387 · 730单 · 交付率22.26%（最高）</div>
+        <div class="alert-action">→ 建议：持续保持预算，重点提升CTR（当前0.79%）→ 优化素材可进一步降低CPC</div>
+      </div>
+    </div>
+    <div class="alert-card">
+      <div class="alert-icon">🔍</div>
+      <div class="alert-body">
+        <div class="alert-title">RS品类整体ROAS偏低，CRR偏高</div>
+        <div class="alert-data">RS Gimbal系列合计Spend约€397 · Camp Sales偏低 · RS 4 PRO Combo CRR 12.02%</div>
+        <div class="alert-action">→ 建议：RS品类受众窄，考虑降低MaxCPC至€0.40-0.50，专注高购买意向关键词</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert-group">
+    <div class="alert-group-title blue">🔵 数据盲区警示</div>
+    <div class="alert-card">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-body">
+        <div class="alert-title">以下结论基于不完整信息，仅供参考</div>
+        <div class="alert-data">缺失数据：① 竞品广告数据（无法判断份额抢夺） ② 库存数据（高ROAS产品可能断货） ③ 有机销售数据（无法区分广告增量 vs 自然增量） ④ 历史同期数据（无法判断QoQ/YoY趋势）</div>
+        <div class="alert-action">→ 所有"暂停/增加预算"建议需结合库存状态确认后再执行</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ===== DATA =====
+const TOTAL = {"spend": 28333.19, "cpc": 0.59, "impressions": 11160984, "clicks": 48101, "ctr": 0.43, "cvr": 6.1, "brand": {"orders": 2936.0, "units": 3251.0, "sales": 1295250.18, "roas": 4571.49, "crr": 2.19, "cpo": 9.65}, "assortment": {"orders": 2512.0, "units": 2556.0, "sales": 1176046.79, "roas": 4150.77, "crr": 2.41, "cpo": 11.28}, "campaign": {"orders": 2707.0, "units": 2839.0, "sales": 1250946.83, "roas": 4415.13, "crr": 2.26, "cpo": 10.47, "roas_calc": 4415.1, "crr_calc": 2.26}, "product": {"orders": 1640.0, "units": 1655.0, "sales": 769751.37, "roas": 2716.78, "crr": 3.68, "cpo": 17.28}, "delivery": 94.44};
+const PRODUCTS = [{"category": "Osmo pocket", "name": "DJI Osmo Pocket 3 Kreativ Combo Camcorder (4K Ultra HD, Bluetooth)", "article": "65487017", "maxCpc": 0.46, "spend": 6677.2, "cpc": 0.63, "impressions": 1357846, "clicks": 10678, "ctr": 0.79, "cvr": 7.02, "brand": {"orders": 750.0, "units": 823.0, "sales": 353913.68, "roas": 5300.33, "crr": 1.89, "cpo": 8.9}, "assortment": {"orders": 686.0, "units": 696.0, "sales": 335041.05, "roas": 5017.69, "crr": 1.99, "cpo": 9.73}, "campaign": {"orders": 730.0, "units": 764.0, "sales": 350386.57, "roas": 5247.51, "crr": 1.91, "cpo": 9.15}, "product": {"orders": 556.0, "units": 558.0, "sales": 281019.21, "roas": 4208.64, "crr": 2.38, "cpo": 0.02}, "delivery": 22.26}, {"category": "Drone", "name": "DJI Mavic 4 Pro 512GB Creator Combo Drohne (6016 x 3384, 6K/60 fps HDR, DJI RC Pro 2 Fernsteuerung, 3 Akkus und Ladestation)", "article": "34907506", "maxCpc": 0.94, "spend": 2737.09, "cpc": 0.78, "impressions": 1273430, "clicks": 3493, "ctr": 0.27, "cvr": 2.29, "brand": {"orders": 80.0, "units": 82.0, "sales": 77568.59, "roas": 2833.98, "crr": 3.53, "cpo": 34.21}, "assortment": {"orders": 61.0, "units": 62.0, "sales": 72187.01, "roas": 2637.36, "crr": 3.79, "cpo": 44.87}, "campaign": {"orders": 61.0, "units": 62.0, "sales": 67912.17, "roas": 2481.18, "crr": 4.03, "cpo": 44.87}, "product": {"orders": 10.0, "units": 10.0, "sales": 35346.92, "roas": 1291.41, "crr": 7.74, "cpo": 0.08}, "delivery": 9.12}, {"category": "Drone", "name": "DJI Mavic 4 Pro Drohne (6016 x 3384, 6K/60 fps HDR, DJI RC 2 Fernsteuerung)", "article": "64983837", "maxCpc": 0.94, "spend": 976.09, "cpc": 0.69, "impressions": 852612, "clicks": 1411, "ctr": 0.17, "cvr": 2.48, "brand": {"orders": 35.0, "units": 35.0, "sales": 35666.11, "roas": 3653.98, "crr": 2.74, "cpo": 27.89}, "assortment": {"orders": 30.0, "units": 30.0, "sales": 33993.06, "roas": 3482.57, "crr": 2.87, "cpo": 32.54}, "campaign": {"orders": 31.0, "units": 31.0, "sales": 34580.71, "roas": 3542.78, "crr": 2.82, "cpo": 31.49}, "product": {"orders": 5.0, "units": 5.0, "sales": 10002.35, "roas": 1024.74, "crr": 9.76, "cpo": 0.1}, "delivery": 3.25}, {"category": "Osmo pocket", "name": "DJI Osmo Pocket 3 Camcorder (4K Ultra HD, Bluetooth)", "article": "53373865", "maxCpc": 0.46, "spend": 2746.61, "cpc": 0.45, "impressions": 784334, "clicks": 6088, "ctr": 0.78, "cvr": 6.57, "brand": {"orders": 400.0, "units": 427.0, "sales": 155485.53, "roas": 5661.0, "crr": 1.77, "cpo": 6.87}, "assortment": {"orders": 347.0, "units": 351.0, "sales": 146015.86, "roas": 5316.22, "crr": 1.88, "cpo": 7.92}, "campaign": {"orders": 380.0, "units": 389.0, "sales": 153722.81, "roas": 5596.82, "crr": 1.79, "cpo": 7.23}, "product": {"orders": 247.0, "units": 248.0, "sales": 96445.11, "roas": 3511.42, "crr": 2.85, "cpo": 0.03}, "delivery": 9.16}, {"category": "Drone", "name": "DJI Air 3S Fly More Combo (DJI RC 2) Drohne (4K Ultra HD, DJI RC 2 Fernsteuerung, 3 Akkus, Ladestation und Umhängetasche)", "article": "55960237", "maxCpc": 0.94, "spend": 1217.23, "cpc": 0.7, "impressions": 630284, "clicks": 1743, "ctr": 0.28, "cvr": 2.87, "brand": {"orders": 50.0, "units": 63.0, "sales": 49465.63, "roas": 4063.79, "crr": 2.46, "cpo": 24.34}, "assortment": {"orders": 37.0, "units": 37.0, "sales": 44429.89, "roas": 3650.08, "crr": 2.74, "cpo": 32.9}, "campaign": {"orders": 43.0, "units": 49.0, "sales": 47468.85, "roas": 3899.74, "crr": 2.56, "cpo": 28.31}, "product": {"orders": 18.0, "units": 18.0, "sales": 28395.58, "roas": 2332.8, "crr": 4.29, "cpo": 0.04}, "delivery": 4.06}, {"category": "Drone", "name": "DJI DJI Mavic 4 Pro Fly More Combo Drohne (6016 x 3384, 6K/60 fps HDR, DJI RC 2 Fernsteuerung, 3 Akkus und Ladestation)", "article": "81990243", "maxCpc": 0.94, "spend": 576.0, "cpc": 0.72, "impressions": 521841, "clicks": 802, "ctr": 0.15, "cvr": 1.75, "brand": {"orders": 14.0, "units": 14.0, "sales": 15965.03, "roas": 2771.71, "crr": 3.61, "cpo": 41.14}, "assortment": {"orders": 13.0, "units": 13.0, "sales": 15691.13, "roas": 2724.15, "crr": 3.67, "cpo": 44.31}, "campaign": {"orders": 13.0, "units": 13.0, "sales": 15656.03, "roas": 2718.06, "crr": 3.68, "cpo": 44.31}, "product": {"orders": 2.0, "units": 2.0, "sales": 5398.0, "roas": 937.15, "crr": 10.67, "cpo": 0.11}, "delivery": 1.92}, {"category": "Drone", "name": "DJI Mini 5 Pro Fly More Combo (DJI RC2) Drohne (4K Ultra HD, DJI RC 2 Fernsteuerung, 3 Akkus, Ladestation, Filterset und Tasche)", "article": "94706658", "maxCpc": 0.94, "spend": 1418.15, "cpc": 0.67, "impressions": 405210, "clicks": 2116, "ctr": 0.52, "cvr": 6.62, "brand": {"orders": 140.0, "units": 152.0, "sales": 127898.23, "roas": 9018.67, "crr": 1.11, "cpo": 10.13}, "assortment": {"orders": 124.0, "units": 130.0, "sales": 122860.57, "roas": 8663.44, "crr": 1.15, "cpo": 11.44}, "campaign": {"orders": 128.0, "units": 136.0, "sales": 123109.18, "roas": 8680.97, "crr": 1.15, "cpo": 11.08}, "product": {"orders": 96.0, "units": 100.0, "sales": 104026.91, "roas": 7335.4, "crr": 1.36, "cpo": 0.01}, "delivery": 4.73}, {"category": "Osmo 360", "name": "DJI Osmo 360 Adventure Combo Action Cam (8K, Bluetooth, WLAN (Wi-Fi), 360°-Kamera)", "article": "62635947", "maxCpc": 0.53, "spend": 1068.1, "cpc": 0.8, "impressions": 402870, "clicks": 1330, "ctr": 0.33, "cvr": 4.51, "brand": {"orders": 60.0, "units": 65.0, "sales": 23909.12, "roas": 2238.47, "crr": 4.47, "cpo": 17.8}, "assortment": {"orders": 48.0, "units": 49.0, "sales": 21999.74, "roas": 2059.71, "crr": 4.86, "cpo": 22.25}, "campaign": {"orders": 51.0, "units": 53.0, "sales": 23259.98, "roas": 2177.7, "crr": 4.59, "cpo": 20.94}, "product": {"orders": 21.0, "units": 21.0, "sales": 10845.98, "roas": 1015.45, "crr": 9.85, "cpo": 0.1}, "delivery": 3.56}, {"category": "Osmo Nano", "name": "DJI DJI Osmo Nano Standard Combo (128GB) Camcorder (4K Ultra HD, Bluetooth, WLAN (Wi-Fi)", "article": "61339708", "maxCpc": 0.46, "spend": 829.46, "cpc": 0.55, "impressions": 386041, "clicks": 1499, "ctr": 0.39, "cvr": 6.14, "brand": {"orders": 92.0, "units": 101.0, "sales": 28341.14, "roas": 3416.82, "crr": 2.93, "cpo": 9.02}, "assortment": {"orders": 76.0, "units": 76.0, "sales": 25089.89, "roas": 3024.85, "crr": 3.31, "cpo": 10.91}, "campaign": {"orders": 85.0, "units": 88.0, "sales": 27896.02, "roas": 3363.15, "crr": 2.97, "cpo": 9.76}, "product": {"orders": 44.0, "units": 44.0, "sales": 12524.87, "roas": 1510.0, "crr": 6.62, "cpo": 0.07}, "delivery": 2.76}, {"category": "Osmo Action", "name": "DJI Osmo Action 6 Adventure Combo Action Cam (4K Ultra HD, Bluetooth, WLAN (Wi-Fi)", "article": "20706922", "maxCpc": 0.53, "spend": 684.91, "cpc": 0.67, "impressions": 340595, "clicks": 1020, "ctr": 0.3, "cvr": 9.31, "brand": {"orders": 95.0, "units": 114.0, "sales": 37729.37, "roas": 5508.66, "crr": 1.82, "cpo": 7.21}, "assortment": {"orders": 70.0, "units": 73.0, "sales": 32607.44, "roas": 4760.84, "crr": 2.1, "cpo": 9.78}, "campaign": {"orders": 84.0, "units": 94.0, "sales": 36172.56, "roas": 5281.36, "crr": 1.89, "cpo": 8.15}, "product": {"orders": 48.0, "units": 48.0, "sales": 22848.3, "roas": 3335.96, "crr": 3.0, "cpo": 0.03}, "delivery": 2.28}, {"category": "Drone", "name": "DJI Mini 5 Pro Drohne (4K Ultra HD, DJI RC-N3 Fernsteuerung)", "article": "37208469", "maxCpc": 0.94, "spend": 771.67, "cpc": 0.55, "impressions": 325680, "clicks": 1398, "ctr": 0.43, "cvr": 3.65, "brand": {"orders": 51.0, "units": 52.0, "sales": 34572.49, "roas": 4480.22, "crr": 2.23, "cpo": 15.13}, "assortment": {"orders": 43.0, "units": 43.0, "sales": 31766.83, "roas": 4116.63, "crr": 2.43, "cpo": 17.95}, "campaign": {"orders": 44.0, "units": 44.0, "sales": 32283.93, "roas": 4183.64, "crr": 2.39, "cpo": 17.54}, "product": {"orders": 14.0, "units": 14.0, "sales": 11010.81, "roas": 1426.88, "crr": 7.01, "cpo": 0.07}, "delivery": 2.57}, {"category": "Osmo Nano", "name": "DJI DJI Osmo Nano Standard Combo (64GB) Camcorder (4K Ultra HD, Bluetooth, WLAN (Wi-Fi)", "article": "65055835", "maxCpc": 0.46, "spend": 359.99, "cpc": 0.56, "impressions": 292824, "clicks": 638, "ctr": 0.22, "cvr": 3.76, "brand": {"orders": 24.0, "units": 24.0, "sales": 7914.39, "roas": 2198.5, "crr": 4.55, "cpo": 15.0}, "assortment": {"orders": 22.0, "units": 22.0, "sales": 7726.39, "roas": 2146.28, "crr": 4.66, "cpo": 16.36}, "campaign": {"orders": 24.0, "units": 24.0, "sales": 7914.39, "roas": 2198.5, "crr": 4.55, "cpo": 15.0}, "product": {"orders": 6.0, "units": 6.0, "sales": 1674.0, "roas": 465.01, "crr": 21.5, "cpo": 0.22}, "delivery": 1.2}, {"category": "Osmo Action", "name": "DJI Osmo Action 6 Standard Combo Action Cam (4K Ultra HD, Bluetooth, WLAN (Wi-Fi)", "article": "15017339", "maxCpc": 0.53, "spend": 401.73, "cpc": 0.64, "impressions": 248567, "clicks": 628, "ctr": 0.25, "cvr": 9.39, "brand": {"orders": 59.0, "units": 75.0, "sales": 24608.6, "roas": 6125.66, "crr": 1.63, "cpo": 6.81}, "assortment": {"orders": 54.0, "units": 57.0, "sales": 22629.58, "roas": 5633.03, "crr": 1.78, "cpo": 7.44}, "campaign": {"orders": 57.0, "units": 62.0, "sales": 24064.58, "roas": 5990.24, "crr": 1.67, "cpo": 7.05}, "product": {"orders": 35.0, "units": 36.0, "sales": 13643.98, "roas": 3396.31, "crr": 2.94, "cpo": 0.03}, "delivery": 1.34}, {"category": "Drone", "name": "DJI Flip (RC 2) Drohne (4K Ultra HD, DJI RC 2 Fernsteuerung)", "article": "56499621", "maxCpc": 0.94, "spend": 459.1, "cpc": 0.56, "impressions": 240439, "clicks": 823, "ctr": 0.34, "cvr": 1.34, "brand": {"orders": 11.0, "units": 11.0, "sales": 4108.58, "roas": 894.92, "crr": 11.17, "cpo": 41.74}, "assortment": {"orders": 10.0, "units": 10.0, "sales": 4069.58, "roas": 886.43, "crr": 11.28, "cpo": 45.91}, "campaign": {"orders": 8.0, "units": 8.0, "sales": 3545.47, "roas": 772.27, "crr": 12.95, "cpo": 57.39}, "product": {"orders": 2.0, "units": 2.0, "sales": 1107.01, "roas": 241.13, "crr": 41.47, "cpo": 0.41}, "delivery": 1.53}, {"category": "Osmo Action", "name": "DJI Osmo Action 5 Pro Adventure Combo Action Cam (4K Ultra HD, Bluetooth, WLAN (Wi-Fi)", "article": "60731716", "maxCpc": 0.53, "spend": 444.71, "cpc": 0.56, "impressions": 222277, "clicks": 788, "ctr": 0.35, "cvr": 7.61, "brand": {"orders": 60.0, "units": 66.0, "sales": 23386.71, "roas": 5258.87, "crr": 1.9, "cpo": 7.41}, "assortment": {"orders": 57.0, "units": 57.0, "sales": 21927.01, "roas": 4930.63, "crr": 2.03, "cpo": 7.8}, "campaign": {"orders": 58.0, "units": 60.0, "sales": 22704.01, "roas": 5105.35, "crr": 1.96, "cpo": 7.67}, "product": {"orders": 29.0, "units": 29.0, "sales": 11173.31, "roas": 2512.49, "crr": 3.98, "cpo": 0.04}, "delivery": 1.48}, {"category": "Drone", "name": "DJI Neo 2 Motion Fly More Combo Drohne (4K Ultra HD, DJI Goggles N3, DJI RC Motion 3, 3 Akkus und Ladestation)", "article": "43091822", "maxCpc": 0.94, "spend": 387.23, "cpc": 0.53, "impressions": 189972, "clicks": 725, "ctr": 0.38, "cvr": 4.69, "brand": {"orders": 34.0, "units": 36.0, "sales": 14776.91, "roas": 3816.06, "crr": 2.62, "cpo": 11.39}, "assortment": {"orders": 30.0, "units": 31.0, "sales": 14541.98, "roas": 3755.39, "crr": 2.66, "cpo": 12.91}, "campaign": {"orders": 31.0, "units": 31.0, "sales": 14629.98, "roas": 3778.11, "crr": 2.65, "cpo": 12.49}, "product": {"orders": 14.0, "units": 14.0, "sales": 8086.99, "roas": 2088.42, "crr": 4.79, "cpo": 0.05}, "delivery": 1.29}, {"category": "Drone", "name": "DJI Neo 2 Fly More Combo Drohne (4K Ultra HD, RC-N3 Fernsteuerung, 3 Akkus, Digitaler Sendeempfänger und Ladestation)", "article": "26969851", "maxCpc": 0.94, "spend": 573.62, "cpc": 0.42, "impressions": 189917, "clicks": 1351, "ctr": 0.71, "cvr": 7.77, "brand": {"orders": 105.0, "units": 113.0, "sales": 38969.52, "roas": 6793.61, "crr": 1.47, "cpo": 5.46}, "assortment": {"orders": 93.0, "units": 93.0, "sales": 36675.83, "roas": 6393.75, "crr": 1.56, "cpo": 6.17}, "campaign": {"orders": 92.0, "units": 92.0, "sales": 36887.02, "roas": 6430.57, "crr": 1.56, "cpo": 6.24}, "product": {"orders": 66.0, "units": 66.0, "sales": 26118.4, "roas": 4553.26, "crr": 2.2, "cpo": 0.02}, "delivery": 1.91}, {"category": "Osmo Action", "name": "DJI Osmo Action 4 Standard Combo Camcorder (4K Ultra HD, Bluetooth, WLAN (Wi-Fi)", "article": "52058747", "maxCpc": 0.46, "spend": 246.08, "cpc": 0.61, "impressions": 183131, "clicks": 405, "ctr": 0.22, "cvr": 4.2, "brand": {"orders": 17.0, "units": 18.0, "sales": 5649.05, "roas": 2295.62, "crr": 4.36, "cpo": 14.48}, "assortment": {"orders": 15.0, "units": 15.0, "sales": 4221.22, "roas": 1715.39, "crr": 5.83, "cpo": 16.41}, "campaign": {"orders": 17.0, "units": 17.0, "sales": 5610.21, "roas": 2279.83, "crr": 4.39, "cpo": 14.48}, "product": {"orders": 7.0, "units": 7.0, "sales": 1507.3, "roas": 612.52, "crr": 16.33, "cpo": 0.16}, "delivery": 0.82}, {"category": "Drone", "name": "DJI Avata 2 Fly Smart Combo (drei Akkus) Drohne (4K Ultra HD)", "article": "31310246", "maxCpc": 0.94, "spend": 610.08, "cpc": 0.65, "impressions": 168453, "clicks": 936, "ctr": 0.56, "cvr": 3.1, "brand": {"orders": 29.0, "units": 33.0, "sales": 17654.01, "roas": 2893.72, "crr": 3.46, "cpo": 21.04}, "assortment": {"orders": 24.0, "units": 25.0, "sales": 16112.78, "roas": 2641.09, "crr": 3.79, "cpo": 25.42}, "campaign": {"orders": 26.0, "units": 26.0, "sales": 17182.94, "roas": 2816.51, "crr": 3.55, "cpo": 23.46}, "product": {"orders": 5.0, "units": 5.0, "sales": 3943.47, "roas": 646.39, "crr": 15.47, "cpo": 0.15}, "delivery": 2.03}, {"category": "Osmo Mobile", "name": "DJI Osmo Mobile 7 Gimbal", "article": "21832102", "maxCpc": 0.74, "spend": 674.31, "cpc": 0.64, "impressions": 141349, "clicks": 1052, "ctr": 0.74, "cvr": 9.51, "brand": {"orders": 100.0, "units": 116.0, "sales": 11658.1, "roas": 1728.89, "crr": 5.78, "cpo": 6.74}, "assortment": {"orders": 88.0, "units": 90.0, "sales": 7630.32, "roas": 1131.57, "crr": 8.84, "cpo": 7.66}, "campaign": {"orders": 88.0, "units": 99.0, "sales": 10738.63, "roas": 1592.54, "crr": 6.28, "cpo": 7.66}, "product": {"orders": 57.0, "units": 59.0, "sales": 4139.57, "roas": 613.9, "crr": 16.29, "cpo": 0.16}, "delivery": 2.25}, {"category": "Osmo Mobile", "name": "DJI Osmo Mobile 8 Gimbal", "article": "36343360", "maxCpc": 0.74, "spend": 397.79, "cpc": 0.47, "impressions": 133844, "clicks": 851, "ctr": 0.64, "cvr": 9.28, "brand": {"orders": 79.0, "units": 98.0, "sales": 17102.59, "roas": 4299.4, "crr": 2.33, "cpo": 5.04}, "assortment": {"orders": 66.0, "units": 67.0, "sales": 8994.86, "roas": 2261.21, "crr": 4.42, "cpo": 6.03}, "campaign": {"orders": 75.0, "units": 86.0, "sales": 16588.84, "roas": 4170.25, "crr": 2.4, "cpo": 5.3}, "product": {"orders": 51.0, "units": 52.0, "sales": 7491.86, "roas": 1883.37, "crr": 5.31, "cpo": 0.05}, "delivery": 1.33}, {"category": "Drone", "name": "DJI Mini 3 Fly More Combo & DJI RC Drohne (4K Ultra HD)", "article": "37255441", "maxCpc": 0.94, "spend": 358.83, "cpc": 0.55, "impressions": 121984, "clicks": 656, "ctr": 0.54, "cvr": 6.55, "brand": {"orders": 43.0, "units": 44.0, "sales": 22884.7, "roas": 6377.59, "crr": 1.57, "cpo": 8.34}, "assortment": {"orders": 36.0, "units": 36.0, "sales": 20510.37, "roas": 5715.9, "crr": 1.75, "cpo": 9.97}, "campaign": {"orders": 37.0, "units": 38.0, "sales": 20765.27, "roas": 5786.94, "crr": 1.73, "cpo": 9.7}, "product": {"orders": 21.0, "units": 21.0, "sales": 11147.79, "roas": 3106.71, "crr": 3.22, "cpo": 0.03}, "delivery": 1.2}, {"category": "RS", "name": "DJI RS 4 Mini Combo Gimbal", "article": "24141547", "maxCpc": 0.74, "spend": 117.18, "cpc": 0.5, "impressions": 118126, "clicks": 234, "ctr": 0.2, "cvr": 7.69, "brand": {"orders": 18.0, "units": 19.0, "sales": 6156.41, "roas": 5253.81, "crr": 1.9, "cpo": 6.51}, "assortment": {"orders": 11.0, "units": 11.0, "sales": 3826.66, "roas": 3265.63, "crr": 3.06, "cpo": 10.65}, "campaign": {"orders": 16.0, "units": 17.0, "sales": 5877.42, "roas": 5015.72, "crr": 1.99, "cpo": 7.32}, "product": {"orders": 6.0, "units": 6.0, "sales": 2605.76, "roas": 2223.72, "crr": 4.5, "cpo": 0.04}, "delivery": 0.39}, {"category": "Osmo Action", "name": "DJI Osmo Action 5 Pro Standard Combo Action Cam (4K Ultra HD, Bluetooth, WLAN (Wi-Fi)", "article": "34616334", "maxCpc": 0.53, "spend": 257.23, "cpc": 0.5, "impressions": 112663, "clicks": 512, "ctr": 0.45, "cvr": 8.2, "brand": {"orders": 42.0, "units": 50.0, "sales": 13072.42, "roas": 5082.0, "crr": 1.97, "cpo": 6.12}, "assortment": {"orders": 39.0, "units": 39.0, "sales": 12144.11, "roas": 4721.11, "crr": 2.12, "cpo": 6.6}, "campaign": {"orders": 41.0, "units": 42.0, "sales": 12701.11, "roas": 4937.65, "crr": 2.03, "cpo": 6.27}, "product": {"orders": 21.0, "units": 21.0, "sales": 6250.69, "roas": 2430.0, "crr": 4.12, "cpo": 0.04}, "delivery": 0.86}, {"category": "Mic", "name": "DJI Mikrofon MIC Mini (2 TX + 1 RX + Ladeschale)", "article": "61471625", "maxCpc": 0.3, "spend": 304.08, "cpc": 0.34, "impressions": 110928, "clicks": 900, "ctr": 0.81, "cvr": 15.67, "brand": {"orders": 141.0, "units": 170.0, "sales": 21356.65, "roas": 7023.37, "crr": 1.42, "cpo": 2.16}, "assortment": {"orders": 106.0, "units": 110.0, "sales": 9107.99, "roas": 2995.26, "crr": 3.34, "cpo": 2.87}, "campaign": {"orders": 124.0, "units": 139.0, "sales": 20565.86, "roas": 6763.31, "crr": 1.48, "cpo": 2.45}, "product": {"orders": 95.0, "units": 99.0, "sales": 7959.36, "roas": 2617.52, "crr": 3.82, "cpo": 0.04}, "delivery": 1.01}, {"category": "Mic", "name": "DJI Mini 3 & DJI RC Drohne (4K Ultra HD)", "article": "43430342", "maxCpc": 0.94, "spend": 257.65, "cpc": 0.5, "impressions": 110491, "clicks": 515, "ctr": 0.47, "cvr": 2.33, "brand": {"orders": 12.0, "units": 12.0, "sales": 5845.4, "roas": 2268.74, "crr": 4.41, "cpo": 21.47}, "assortment": {"orders": 12.0, "units": 12.0, "sales": 5845.4, "roas": 2268.74, "crr": 4.41, "cpo": 21.47}, "campaign": {"orders": 12.0, "units": 12.0, "sales": 5845.4, "roas": 2268.74, "crr": 4.41, "cpo": 21.47}, "product": {"orders": 9.0, "units": 9.0, "sales": 4122.77, "roas": 1600.14, "crr": 6.25, "cpo": 0.06}, "delivery": 0.86}, {"category": "Drone", "name": "DJI Air 3S (DJI RC-N3) Drohne (4K Ultra HD, DJI RC-N3 Fernsteuerung)", "article": "10996643", "maxCpc": 0.94, "spend": 133.22, "cpc": 0.66, "impressions": 110305, "clicks": 202, "ctr": 0.18, "cvr": 3.47, "brand": {"orders": 7.0, "units": 7.0, "sales": 7902.92, "roas": 5932.23, "crr": 1.69, "cpo": 19.03}, "assortment": {"orders": 7.0, "units": 7.0, "sales": 7902.92, "roas": 5932.23, "crr": 1.69, "cpo": 19.03}, "campaign": {"orders": 6.0, "units": 6.0, "sales": 6513.92, "roas": 4889.6, "crr": 2.05, "cpo": 22.2}, "product": {"orders": 0.0, "units": 0.0, "sales": 0.0, "roas": 0.0, "crr": 0.0, "cpo": 0.0}, "delivery": 0.44}, {"category": "Drone", "name": "DJI Air 3S Fly More Combo (DJI RC-N3) Drohne (4K Ultra HD, DJI RC-N3 Fernsteuerung, 3 Akkus, Ladestation und Umhängetasche)", "article": "47188953", "maxCpc": 0.94, "spend": 107.8, "cpc": 0.67, "impressions": 101358, "clicks": 161, "ctr": 0.16, "cvr": 1.86, "brand": {"orders": 3.0, "units": 3.0, "sales": 3597.0, "roas": 3336.73, "crr": 3.0, "cpo": 35.93}, "assortment": {"orders": 3.0, "units": 3.0, "sales": 3597.0, "roas": 3336.73, "crr": 3.0, "cpo": 35.93}, "campaign": {"orders": 3.0, "units": 3.0, "sales": 3597.0, "roas": 3336.73, "crr": 3.0, "cpo": 35.93}, "product": {"orders": 0.0, "units": 0.0, "sales": 0.0, "roas": 0.0, "crr": 0.0, "cpo": 0.0}, "delivery": 0.36}, {"category": "RS", "name": "DJI DJI RS 4 Gimbal", "article": "22217429", "maxCpc": 0.74, "spend": 144.31, "cpc": 0.54, "impressions": 100986, "clicks": 269, "ctr": 0.27, "cvr": 4.09, "brand": {"orders": 11.0, "units": 11.0, "sales": 3814.84, "roas": 2643.5, "crr": 3.78, "cpo": 13.12}, "assortment": {"orders": 10.0, "units": 10.0, "sales": 3739.55, "roas": 2591.33, "crr": 3.86, "cpo": 14.43}, "campaign": {"orders": 10.0, "units": 10.0, "sales": 3565.84, "roas": 2470.96, "crr": 4.05, "cpo": 14.43}, "product": {"orders": 7.0, "units": 7.0, "sales": 3212.65, "roas": 2226.21, "crr": 4.49, "cpo": 0.04}, "delivery": 0.48}, {"category": "Osmo Mobile", "name": "DJI OSMO MOBILE 7 Pro Gimbal", "article": "87168129", "maxCpc": 0.74, "spend": 306.08, "cpc": 0.42, "impressions": 87546, "clicks": 729, "ctr": 0.83, "cvr": 12.35, "brand": {"orders": 90.0, "units": 98.0, "sales": 15004.43, "roas": 4902.13, "crr": 2.04, "cpo": 3.4}, "assortment": {"orders": 75.0, "units": 75.0, "sales": 9990.4, "roas": 3263.98, "crr": 3.06, "cpo": 4.08}, "campaign": {"orders": 85.0, "units": 90.0, "sales": 14314.82, "roas": 4676.82, "crr": 2.14, "cpo": 3.6}, "product": {"orders": 47.0, "units": 47.0, "sales": 5202.16, "roas": 1699.61, "crr": 5.88, "cpo": 0.06}, "delivery": 1.02}, {"category": "Drone", "name": "DJI Neo 2 (ohne Fernsteuerung) Drohne (4K Ultra HD, Set)", "article": "98950322", "maxCpc": 0.94, "spend": 228.92, "cpc": 0.45, "impressions": 84481, "clicks": 505, "ctr": 0.6, "cvr": 9.5, "brand": {"orders": 48.0, "units": 64.0, "sales": 16174.26, "roas": 7065.46, "crr": 1.42, "cpo": 4.77}, "assortment": {"orders": 42.0, "units": 47.0, "sales": 14720.09, "roas": 6430.23, "crr": 1.56, "cpo": 5.45}, "campaign": {"orders": 41.0, "units": 41.0, "sales": 15440.18, "roas": 6744.79, "crr": 1.48, "cpo": 5.58}, "product": {"orders": 19.0, "units": 19.0, "sales": 4526.99, "roas": 1977.54, "crr": 5.06, "cpo": 0.05}, "delivery": 0.76}, {"category": "Mic", "name": "DJI Mikrofon Mic 2 (1 Sender + 1 Empfänger)", "article": "70291021", "maxCpc": 0.3, "spend": 178.5, "cpc": 0.37, "impressions": 76257, "clicks": 488, "ctr": 0.64, "cvr": 10.86, "brand": {"orders": 53.0, "units": 60.0, "sales": 8799.31, "roas": 4929.59, "crr": 2.03, "cpo": 3.37}, "assortment": {"orders": 39.0, "units": 39.0, "sales": 4560.01, "roas": 2554.63, "crr": 3.91, "cpo": 4.58}, "campaign": {"orders": 44.0, "units": 49.0, "sales": 8111.77, "roas": 4544.41, "crr": 2.2, "cpo": 4.06}, "product": {"orders": 10.0, "units": 10.0, "sales": 1589.5, "roas": 890.48, "crr": 11.23, "cpo": 0.11}, "delivery": 0.6}, {"category": "Drone", "name": "DJI Flip Fly More Combo Drohne (4K Ultra HD, DJI RC 2 Fernsteuerung, 3 Akkus, Ladestation und Umhängetasche)", "article": "72881101", "maxCpc": 0.94, "spend": 128.05, "cpc": 0.6, "impressions": 69813, "clicks": 215, "ctr": 0.31, "cvr": 3.26, "brand": {"orders": 7.0, "units": 7.0, "sales": 2004.91, "roas": 1565.72, "crr": 6.39, "cpo": 18.29}, "assortment": {"orders": 4.0, "units": 4.0, "sales": 1477.99, "roas": 1154.23, "crr": 8.66, "cpo": 32.01}, "campaign": {"orders": 5.0, "units": 5.0, "sales": 1944.91, "roas": 1518.87, "crr": 6.58, "cpo": 25.61}, "product": {"orders": 1.0, "units": 1.0, "sales": 659.0, "roas": 514.64, "crr": 19.43, "cpo": 0.19}, "delivery": 0.43}, {"category": "Drone", "name": "DJI Neo (ohne Fernsteuerung) Drohne (4K Ultra HD)", "article": "52679113", "maxCpc": 0.94, "spend": 232.44, "cpc": 0.57, "impressions": 69615, "clicks": 407, "ctr": 0.58, "cvr": 1.97, "brand": {"orders": 8.0, "units": 9.0, "sales": 1921.44, "roas": 826.64, "crr": 12.1, "cpo": 29.06}, "assortment": {"orders": 6.0, "units": 7.0, "sales": 1843.44, "roas": 793.08, "crr": 12.61, "cpo": 38.74}, "campaign": {"orders": 5.0, "units": 5.0, "sales": 1613.44, "roas": 694.13, "crr": 14.41, "cpo": 46.49}, "product": {"orders": 1.0, "units": 1.0, "sales": 198.99, "roas": 85.61, "crr": 116.81, "cpo": 1.17}, "delivery": 0.77}, {"category": "Drone", "name": "DJI Avata 2 Drohne (4K Ultra HD)", "article": "46521259", "maxCpc": 0.66, "spend": 171.27, "cpc": 0.51, "impressions": 62794, "clicks": 333, "ctr": 0.53, "cvr": 3.9, "brand": {"orders": 13.0, "units": 14.0, "sales": 6506.75, "roas": 3799.12, "crr": 2.63, "cpo": 13.17}, "assortment": {"orders": 11.0, "units": 11.0, "sales": 6072.44, "roas": 3545.54, "crr": 2.82, "cpo": 15.57}, "campaign": {"orders": 12.0, "units": 12.0, "sales": 6165.22, "roas": 3599.71, "crr": 2.78, "cpo": 14.27}, "product": {"orders": 2.0, "units": 2.0, "sales": 815.94, "roas": 476.41, "crr": 20.99, "cpo": 0.21}, "delivery": 0.57}, {"category": "RS", "name": "DJI RS 4 Mini Gimbal", "article": "32200938", "maxCpc": 0.74, "spend": 43.87, "cpc": 0.52, "impressions": 60465, "clicks": 84, "ctr": 0.14, "cvr": 4.76, "brand": {"orders": 4.0, "units": 4.0, "sales": 1966.0, "roas": 4481.42, "crr": 2.23, "cpo": 10.97}, "assortment": {"orders": 4.0, "units": 4.0, "sales": 1966.0, "roas": 4481.42, "crr": 2.23, "cpo": 10.97}, "campaign": {"orders": 3.0, "units": 3.0, "sales": 1247.0, "roas": 2842.49, "crr": 3.52, "cpo": 14.62}, "product": {"orders": 2.0, "units": 2.0, "sales": 778.0, "roas": 1773.42, "crr": 5.64, "cpo": 0.06}, "delivery": 0.15}, {"category": "RS", "name": "DJI RS4 Combo Gimbal", "article": "72513729", "maxCpc": 0.74, "spend": 75.91, "cpc": 0.59, "impressions": 56243, "clicks": 129, "ctr": 0.23, "cvr": 4.65, "brand": {"orders": 6.0, "units": 6.0, "sales": 2475.4, "roas": 3260.97, "crr": 3.07, "cpo": 12.65}, "assortment": {"orders": 3.0, "units": 3.0, "sales": 1352.9, "roas": 1782.24, "crr": 5.61, "cpo": 25.3}, "campaign": {"orders": 5.0, "units": 5.0, "sales": 2450.4, "roas": 3228.03, "crr": 3.1, "cpo": 15.18}, "product": {"orders": 2.0, "units": 2.0, "sales": 1218.0, "roas": 1604.53, "crr": 6.23, "cpo": 0.06}, "delivery": 0.25}, {"category": "Osmo 360", "name": "DJI Osmo 360 Standard Combo Action Cam (8K, Bluetooth, WLAN (Wi-Fi), 360°-Kamera)", "article": "58592509", "maxCpc": 0.79, "spend": 204.26, "cpc": 0.63, "impressions": 51004, "clicks": 322, "ctr": 0.63, "cvr": 11.49, "brand": {"orders": 37.0, "units": 37.0, "sales": 11418.18, "roas": 5590.02, "crr": 1.79, "cpo": 5.52}, "assortment": {"orders": 26.0, "units": 26.0, "sales": 9638.49, "roas": 4718.74, "crr": 2.12, "cpo": 7.86}, "campaign": {"orders": 34.0, "units": 34.0, "sales": 11270.19, "roas": 5517.57, "crr": 1.81, "cpo": 6.01}, "product": {"orders": 12.0, "units": 12.0, "sales": 4619.88, "roas": 2261.76, "crr": 4.42, "cpo": 0.04}, "delivery": 0.68}, {"category": "Mic", "name": "DJI Mikrofon Mic 2 (2 Sender + 1 Empfänger + Ladeschale)", "article": "32032323", "maxCpc": 0.44, "spend": 63.59, "cpc": 0.41, "impressions": 50714, "clicks": 156, "ctr": 0.31, "cvr": 9.62, "brand": {"orders": 15.0, "units": 15.0, "sales": 2542.36, "roas": 3998.05, "crr": 2.5, "cpo": 4.24}, "assortment": {"orders": 15.0, "units": 15.0, "sales": 2542.36, "roas": 3998.05, "crr": 2.5, "cpo": 4.24}, "campaign": {"orders": 15.0, "units": 15.0, "sales": 2542.36, "roas": 3998.05, "crr": 2.5, "cpo": 4.24}, "product": {"orders": 8.0, "units": 8.0, "sales": 1955.31, "roas": 3074.87, "crr": 3.25, "cpo": 0.03}, "delivery": 0.21}, {"category": "Drone", "name": "DJI Neo Motion Fly More Combo Drohne (4K Ultra HD, DJI Goggles N3, DJI RC Motion 3, 3 Akkus und Ladestation)", "article": "98488047", "maxCpc": 0.94, "spend": 91.74, "cpc": 0.61, "impressions": 45415, "clicks": 151, "ctr": 0.33, "cvr": 4.64, "brand": {"orders": 7.0, "units": 7.0, "sales": 3653.0, "roas": 3981.91, "crr": 2.51, "cpo": 13.11}, "assortment": {"orders": 7.0, "units": 7.0, "sales": 3653.0, "roas": 3981.91, "crr": 2.51, "cpo": 13.11}, "campaign": {"orders": 7.0, "units": 7.0, "sales": 3653.0, "roas": 3981.91, "crr": 2.51, "cpo": 13.11}, "product": {"orders": 1.0, "units": 1.0, "sales": 399.0, "roas": 434.92, "crr": 22.99, "cpo": 0.23}, "delivery": 0.31}, {"category": "Mic", "name": "DJI Mikrofon Mic 3 (2 Sender + 1 Empfänger + Ladeschale) (Set)", "article": "86207052", "maxCpc": 0.3, "spend": 123.68, "cpc": 0.4, "impressions": 43516, "clicks": 306, "ctr": 0.7, "cvr": 5.23, "brand": {"orders": 16.0, "units": 21.0, "sales": 4529.27, "roas": 3662.09, "crr": 2.73, "cpo": 7.73}, "assortment": {"orders": 9.0, "units": 9.0, "sales": 1885.99, "roas": 1524.89, "crr": 6.56, "cpo": 13.74}, "campaign": {"orders": 14.0, "units": 16.0, "sales": 4380.28, "roas": 3541.62, "crr": 2.82, "cpo": 8.83}, "product": {"orders": 7.0, "units": 7.0, "sales": 1728.03, "roas": 1397.18, "crr": 7.16, "cpo": 0.07}, "delivery": 0.41}, {"category": "Osmo Action", "name": "DJI Osmo Action 4 Adventure Combo Camcorder (4K Ultra HD, Bluetooth, WLAN (Wi-Fi)", "article": "26918320", "maxCpc": 0.46, "spend": 28.94, "cpc": 0.41, "impressions": 38947, "clicks": 71, "ctr": 0.18, "cvr": 4.23, "brand": {"orders": 3.0, "units": 3.0, "sales": 918.57, "roas": 3174.05, "crr": 3.15, "cpo": 9.65}, "assortment": {"orders": 3.0, "units": 3.0, "sales": 918.57, "roas": 3174.05, "crr": 3.15, "cpo": 9.65}, "campaign": {"orders": 3.0, "units": 3.0, "sales": 918.57, "roas": 3174.05, "crr": 3.15, "cpo": 9.65}, "product": {"orders": 2.0, "units": 2.0, "sales": 626.67, "roas": 2165.41, "crr": 4.62, "cpo": 0.05}, "delivery": 0.1}, {"category": "Mic", "name": "DJI Mikrofon MIC Mini (1 TX + 1 RX)", "article": "97285015", "maxCpc": 0.3, "spend": 72.47, "cpc": 0.32, "impressions": 37874, "clicks": 223, "ctr": 0.59, "cvr": 13.45, "brand": {"orders": 30.0, "units": 34.0, "sales": 3480.32, "roas": 4802.43, "crr": 2.08, "cpo": 2.42}, "assortment": {"orders": 20.0, "units": 20.0, "sales": 1164.83, "roas": 1607.33, "crr": 6.22, "cpo": 3.62}, "campaign": {"orders": 26.0, "units": 26.0, "sales": 3226.33, "roas": 4451.95, "crr": 2.25, "cpo": 2.79}, "product": {"orders": 18.0, "units": 18.0, "sales": 837.87, "roas": 1156.16, "crr": 8.65, "cpo": 0.09}, "delivery": 0.24}, {"category": "Drone", "name": "DJI Avata 2 Fly More Combo (3x Batterien) Drohne (4K Ultra HD, DJI Goggles 3, DJI RC Motion 3, 3 Akkus, Ladestation und Umhängetasche)", "article": "39478850", "maxCpc": 0.94, "spend": 75.11, "cpc": 0.44, "impressions": 30508, "clicks": 170, "ctr": 0.56, "cvr": 5.88, "brand": {"orders": 10.0, "units": 10.0, "sales": 9472.23, "roas": 12611.14, "crr": 0.79, "cpo": 7.51}, "assortment": {"orders": 9.0, "units": 9.0, "sales": 9222.24, "roas": 12278.31, "crr": 0.81, "cpo": 8.35}, "campaign": {"orders": 9.0, "units": 9.0, "sales": 9222.24, "roas": 12278.31, "crr": 0.81, "cpo": 8.35}, "product": {"orders": 5.0, "units": 5.0, "sales": 5134.8, "roas": 6836.37, "crr": 1.46, "cpo": 0.01}, "delivery": 0.25}, {"category": "Drone", "name": "DJI Neo Fly More Combo Drohne (4K Ultra HD, RC Fernsteuerung, 3 Akkus und Ladestation)", "article": "78963548", "maxCpc": 0.75, "spend": 52.12, "cpc": 0.61, "impressions": 27037, "clicks": 85, "ctr": 0.31, "cvr": 4.71, "brand": {"orders": 4.0, "units": 5.0, "sales": 797.0, "roas": 1529.16, "crr": 6.54, "cpo": 13.03}, "assortment": {"orders": 3.0, "units": 4.0, "sales": 758.0, "roas": 1454.34, "crr": 6.88, "cpo": 17.37}, "campaign": {"orders": 3.0, "units": 3.0, "sales": 737.0, "roas": 1414.04, "crr": 7.07, "cpo": 17.37}, "product": {"orders": 1.0, "units": 1.0, "sales": 259.0, "roas": 496.93, "crr": 20.12, "cpo": 0.2}, "delivery": 0.17}, {"category": "RS", "name": "DJI RS 4 PRO Combo Gimbal", "article": "73373730", "maxCpc": 0.74, "spend": 16.21, "cpc": 0.48, "impressions": 26063, "clicks": 34, "ctr": 0.13, "cvr": 2.94, "brand": {"orders": 1.0, "units": 1.0, "sales": 134.91, "roas": 832.26, "crr": 12.02, "cpo": 16.21}, "assortment": {"orders": 1.0, "units": 1.0, "sales": 134.91, "roas": 832.26, "crr": 12.02, "cpo": 16.21}, "campaign": {"orders": 1.0, "units": 1.0, "sales": 134.91, "roas": 832.26, "crr": 12.02, "cpo": 16.21}, "product": {"orders": 0.0, "units": 0.0, "sales": 0.0, "roas": 0.0, "crr": 0.0, "cpo": 0.0}, "delivery": 0.05}, {"category": "Drone", "name": "DJI Flip Drohne (4K Ultra HD, DJI RC-N3 Fernsteuerung)", "article": "84456940", "maxCpc": 0.94, "spend": 19.44, "cpc": 0.46, "impressions": 13836, "clicks": 42, "ctr": 0.3, "cvr": 9.52, "brand": {"orders": 4.0, "units": 4.0, "sales": 2018.35, "roas": 10382.46, "crr": 0.96, "cpo": 4.86}, "assortment": {"orders": 3.0, "units": 3.0, "sales": 1943.35, "roas": 9996.66, "crr": 1.0, "cpo": 6.48}, "campaign": {"orders": 4.0, "units": 4.0, "sales": 2018.35, "roas": 10382.46, "crr": 0.96, "cpo": 4.86}, "product": {"orders": 2.0, "units": 2.0, "sales": 744.35, "roas": 3828.96, "crr": 2.61, "cpo": 0.03}, "delivery": 0.06}, {"category": "Drone", "name": "DJI Avata 360 Motion Fly More Combo (DJI Goggles N3) Drohne (8K, Set)", "article": "29490830", "maxCpc": 2.0, "spend": 46.72, "cpc": 0.72, "impressions": 9887, "clicks": 65, "ctr": 0.66, "cvr": 1.54, "brand": {"orders": 1.0, "units": 1.0, "sales": 939.0, "roas": 2009.85, "crr": 4.98, "cpo": 46.72}, "assortment": {"orders": 1.0, "units": 1.0, "sales": 939.0, "roas": 2009.85, "crr": 4.98, "cpo": 46.72}, "campaign": {"orders": 1.0, "units": 1.0, "sales": 939.0, "roas": 2009.85, "crr": 4.98, "cpo": 46.72}, "product": {"orders": 1.0, "units": 1.0, "sales": 939.0, "roas": 2009.85, "crr": 4.98, "cpo": 0.05}, "delivery": 0.16}, {"category": "Drone", "name": "DJI Avata 2 Fly Smart Combo (ein Akku) Drohne (4K Ultra HD)", "article": "16203033", "maxCpc": 0.71, "spend": 25.36, "cpc": 0.52, "impressions": 9677, "clicks": 49, "ctr": 0.51, "cvr": 6.12, "brand": {"orders": 3.0, "units": 3.0, "sales": 1616.96, "roas": 6376.03, "crr": 1.57, "cpo": 8.45}, "assortment": {"orders": 2.0, "units": 2.0, "sales": 1218.0, "roas": 4802.84, "crr": 2.08, "cpo": 12.68}, "campaign": {"orders": 3.0, "units": 3.0, "sales": 1616.96, "roas": 6376.03, "crr": 1.57, "cpo": 8.45}, "product": {"orders": 2.0, "units": 2.0, "sales": 1218.0, "roas": 4802.84, "crr": 2.08, "cpo": 0.02}, "delivery": 0.08}, {"category": "Drone", "name": "DJI Avata 360 Fly More Combo (DJI RC 2) Drohne (8K, Set)", "article": "75272007", "maxCpc": 2.0, "spend": 88.89, "cpc": 0.67, "impressions": 8867, "clicks": 132, "ctr": 1.49, "cvr": 3.79, "brand": {"orders": 5.0, "units": 5.0, "sales": 3147.14, "roas": 3540.49, "crr": 2.82, "cpo": 17.78}, "assortment": {"orders": 4.0, "units": 4.0, "sales": 2901.14, "roas": 3263.74, "crr": 3.06, "cpo": 22.22}, "campaign": {"orders": 5.0, "units": 5.0, "sales": 3147.14, "roas": 3540.49, "crr": 2.82, "cpo": 17.78}, "product": {"orders": 3.0, "units": 3.0, "sales": 2676.15, "roas": 3010.63, "crr": 3.32, "cpo": 0.03}, "delivery": 0.3}, {"category": "Drone", "name": "DJI Avata 360 (DJI RC 2) Drohne (8K, Set)", "article": "62441228", "maxCpc": 2.0, "spend": 53.15, "cpc": 0.98, "impressions": 7659, "clicks": 54, "ctr": 0.71, "cvr": 1.85, "brand": {"orders": 1.0, "units": 1.0, "sales": 546.35, "roas": 1027.94, "crr": 9.73, "cpo": 53.15}, "assortment": {"orders": 1.0, "units": 1.0, "sales": 546.35, "roas": 1027.94, "crr": 9.73, "cpo": 53.15}, "campaign": {"orders": 1.0, "units": 1.0, "sales": 546.35, "roas": 1027.94, "crr": 9.73, "cpo": 53.15}, "product": {"orders": 0.0, "units": 0.0, "sales": 0.0, "roas": 0.0, "crr": 0.0, "cpo": 0.0}, "delivery": 0.18}, {"category": "Drone", "name": "DJI Avata 2 Fly More Combo (1x Batterie) Drohne (4K Ultra HD, DJI Goggles 3, DJI RC Motion 3 und 1 Akku)", "article": "51224630", "maxCpc": 0.94, "spend": 37.91, "cpc": 0.5, "impressions": 7538, "clicks": 76, "ctr": 1.01, "cvr": 6.58, "brand": {"orders": 5.0, "units": 5.0, "sales": 2711.64, "roas": 7152.84, "crr": 1.4, "cpo": 7.58}, "assortment": {"orders": 4.0, "units": 4.0, "sales": 2461.65, "roas": 6493.41, "crr": 1.54, "cpo": 9.48}, "campaign": {"orders": 4.0, "units": 4.0, "sales": 2461.65, "roas": 6493.41, "crr": 1.54, "cpo": 9.48}, "product": {"orders": 1.0, "units": 1.0, "sales": 726.78, "roas": 1917.12, "crr": 5.22, "cpo": 0.05}, "delivery": 0.13}, {"category": "Drone", "name": "DJI Mini 4 Pro Drohne (4K Ultra HD, DJI RC 2 Fernsteuerung)", "article": "88555716", "maxCpc": 0.36, "spend": 19.21, "cpc": 0.62, "impressions": 3933, "clicks": 31, "ctr": 0.79, "cvr": 3.23, "brand": {"orders": 1.0, "units": 1.0, "sales": 400.62, "roas": 2085.48, "crr": 4.8, "cpo": 19.21}, "assortment": {"orders": 1.0, "units": 1.0, "sales": 400.62, "roas": 2085.48, "crr": 4.8, "cpo": 19.21}, "campaign": {"orders": 0.0, "units": 0.0, "sales": 0.0, "roas": 0.0, "crr": 0.0, "cpo": 0.0}, "product": {"orders": 0.0, "units": 0.0, "sales": 0.0, "roas": 0.0, "crr": 0.0, "cpo": 0.0}, "delivery": 0.06}, {"category": "Drone", "name": "DJI Mini 4 Pro Fly More Combo (DJI RC 2) (GL) Drohne (4K Ultra HD, DJI RC 2 Fernsteuerung, 3 Akkus, Ladestation und Umhängetasche)", "article": "51018464", "maxCpc": 0.36, "spend": 11.7, "cpc": 0.62, "impressions": 2584, "clicks": 19, "ctr": 0.74, "cvr": 10.53, "brand": {"orders": 2.0, "units": 2.0, "sales": 1098.06, "roas": 9385.13, "crr": 1.07, "cpo": 5.85}, "assortment": {"orders": 1.0, "units": 1.0, "sales": 849.0, "roas": 7256.41, "crr": 1.38, "cpo": 11.7}, "campaign": {"orders": 2.0, "units": 2.0, "sales": 1098.06, "roas": 9385.13, "crr": 1.07, "cpo": 5.85}, "product": {"orders": 1.0, "units": 1.0, "sales": 849.0, "roas": 7256.41, "crr": 1.38, "cpo": 0.01}, "delivery": 0.04}, {"category": "Drone", "name": "DJI Avata 360 Intelligente Flugbatterie Drohnen-Akku 2700 mAh", "article": "15426043", "maxCpc": 0.99, "spend": 0.2, "cpc": 0.2, "impressions": 331, "clicks": 1, "ctr": 0.3, "cvr": 0.0, "brand": {"orders": 0.0, "units": 0.0, "sales": 0.0, "roas": 0.0, "crr": 0.0, "cpo": 0.0}, "assortment": {"orders": 0.0, "units": 0.0, "sales": 0.0, "roas": 0.0, "crr": 0.0, "cpo": 0.0}, "campaign": {"orders": 0.0, "units": 0.0, "sales": 0.0, "roas": 0.0, "crr": 0.0, "cpo": 0.0}, "product": {"orders": 0.0, "units": 0.0, "sales": 0.0, "roas": 0.0, "crr": 0.0, "cpo": 0.0}, "delivery": 0.0}, {"category": "RS", "name": "DJI RS 5 Gimbal", "article": "79452611", "maxCpc": 2.0, "spend": 0.0, "cpc": 0.0, "impressions": 14, "clicks": 0, "ctr": 0.0, "cvr": 0.0, "brand": {"orders": 0.0, "units": 0.0, "sales": 0.0, "roas": 0.0, "crr": 0.0, "cpo": 0.0}, "assortment": {"orders": 0.0, "units": 0.0, "sales": 0.0, "roas": 0.0, "crr": 0.0, "cpo": 0.0}, "campaign": {"orders": 0.0, "units": 0.0, "sales": 0.0, "roas": 0.0, "crr": 0.0, "cpo": 0.0}, "product": {"orders": 0.0, "units": 0.0, "sales": 0.0, "roas": 0.0, "crr": 0.0, "cpo": 0.0}, "delivery": 0.0}, {"category": "RS", "name": "DJI RS 5 Combo Gimbal", "article": "42969318", "maxCpc": 2.0, "spend": 0.0, "cpc": 0.0, "impressions": 9, "clicks": 0, "ctr": 0.0, "cvr": 0.0, "brand": {"orders": 0.0, "units": 0.0, "sales": 0.0, "roas": 0.0, "crr": 0.0, "cpo": 0.0}, "assortment": {"orders": 0.0, "units": 0.0, "sales": 0.0, "roas": 0.0, "crr": 0.0, "cpo": 0.0}, "campaign": {"orders": 0.0, "units": 0.0, "sales": 0.0, "roas": 0.0, "crr": 0.0, "cpo": 0.0}, "product": {"orders": 0.0, "units": 0.0, "sales": 0.0, "roas": 0.0, "crr": 0.0, "cpo": 0.0}, "delivery": 0.0}];
+const CAT_DATA = [{"category": "Osmo pocket", "spend": 9423.81, "impressions": 2142180, "clicks": 16766, "brand_orders": 1150, "brand_sales": 509399.21, "brand_roas": 5405.4, "camp_orders": 1110, "camp_sales": 504109.38, "camp_roas": 5349.3, "camp_crr": 1.87, "prod_orders": 803, "prod_sales": 377464.32, "count": 2}, {"category": "Drone", "spend": 11608.34, "impressions": 5585460, "clicks": 18152, "brand_orders": 721, "brand_sales": 504037.43, "brand_roas": 4342.0, "camp_orders": 625, "camp_sales": 474735.97, "camp_roas": 4089.6, "camp_crr": 2.45, "prod_orders": 293, "prod_sales": 263731.23, "count": 29}, {"category": "Osmo Action", "spend": 2063.6, "impressions": 1146180, "clicks": 3424, "brand_orders": 276, "brand_sales": 105364.72, "brand_roas": 5105.9, "camp_orders": 260, "camp_sales": 102171.04, "camp_roas": 4951.1, "camp_crr": 2.02, "prod_orders": 142, "prod_sales": 56050.25, "count": 6}, {"category": "Mic", "spend": 999.97, "impressions": 429780, "clicks": 2588, "brand_orders": 267, "brand_sales": 46553.31, "brand_roas": 4655.5, "camp_orders": 235, "camp_sales": 44672.0, "camp_roas": 4467.3, "camp_crr": 2.24, "prod_orders": 147, "prod_sales": 18192.84, "count": 6}, {"category": "Osmo Mobile", "spend": 1378.18, "impressions": 362739, "clicks": 2632, "brand_orders": 269, "brand_sales": 43765.12, "brand_roas": 3175.6, "camp_orders": 248, "camp_sales": 41642.29, "camp_roas": 3021.5, "camp_crr": 3.31, "prod_orders": 155, "prod_sales": 16833.59, "count": 3}, {"category": "Osmo Nano", "spend": 1189.45, "impressions": 678865, "clicks": 2137, "brand_orders": 116, "brand_sales": 36255.53, "brand_roas": 3048.1, "camp_orders": 109, "camp_sales": 35810.41, "camp_roas": 3010.7, "camp_crr": 3.32, "prod_orders": 50, "prod_sales": 14198.87, "count": 2}, {"category": "Osmo 360", "spend": 1272.36, "impressions": 453874, "clicks": 1652, "brand_orders": 97, "brand_sales": 35327.3, "brand_roas": 2776.5, "camp_orders": 85, "camp_sales": 34530.17, "camp_roas": 2713.9, "camp_crr": 3.68, "prod_orders": 33, "prod_sales": 15465.86, "count": 2}, {"category": "RS", "spend": 397.48, "impressions": 361906, "clicks": 750, "brand_orders": 40, "brand_sales": 14547.56, "brand_roas": 3659.9, "camp_orders": 35, "camp_sales": 13275.57, "camp_roas": 3339.9, "camp_crr": 2.99, "prod_orders": 17, "prod_sales": 7814.41, "count": 7}];
+const TOP_SPEND = [{"category": "Osmo pocket", "name": "DJI Osmo Pocket 3 Kreativ Combo Camcorder (4K Ultra HD, Bluetooth)", "article": "65487017", "maxCpc": 0.46, "spend": 6677.2, "cpc": 0.63, "impressions": 1357846, "clicks": 10678, "ctr": 0.79, "cvr": 7.02, "brand": {"orders": 750.0, "units": 823.0, "sales": 353913.68, "roas": 5300.33, "crr": 1.89, "cpo": 8.9}, "assortment": {"orders": 686.0, "units": 696.0, "sales": 335041.05, "roas": 5017.69, "crr": 1.99, "cpo": 9.73}, "campaign": {"orders": 730.0, "units": 764.0, "sales": 350386.57, "roas": 5247.51, "crr": 1.91, "cpo": 9.15}, "product": {"orders": 556.0, "units": 558.0, "sales": 281019.21, "roas": 4208.64, "crr": 2.38, "cpo": 0.02}, "delivery": 22.26}, {"category": "Osmo pocket", "name": "DJI Osmo Pocket 3 Camcorder (4K Ultra HD, Bluetooth)", "article": "53373865", "maxCpc": 0.46, "spend": 2746.61, "cpc": 0.45, "impressions": 784334, "clicks": 6088, "ctr": 0.78, "cvr": 6.57, "brand": {"orders": 400.0, "units": 427.0, "sales": 155485.53, "roas": 5661.0, "crr": 1.77, "cpo": 6.87}, "assortment": {"orders": 347.0, "units": 351.0, "sales": 146015.86, "roas": 5316.22, "crr": 1.88, "cpo": 7.92}, "campaign": {"orders": 380.0, "units": 389.0, "sales": 153722.81, "roas": 5596.82, "crr": 1.79, "cpo": 7.23}, "product": {"orders": 247.0, "units": 248.0, "sales": 96445.11, "roas": 3511.42, "crr": 2.85, "cpo": 0.03}, "delivery": 9.16}, {"category": "Drone", "name": "DJI Mavic 4 Pro 512GB Creator Combo Drohne (6016 x 3384, 6K/60 fps HDR, DJI RC Pro 2 Fernsteuerung, 3 Akkus und Ladestation)", "article": "34907506", "maxCpc": 0.94, "spend": 2737.09, "cpc": 0.78, "impressions": 1273430, "clicks": 3493, "ctr": 0.27, "cvr": 2.29, "brand": {"orders": 80.0, "units": 82.0, "sales": 77568.59, "roas": 2833.98, "crr": 3.53, "cpo": 34.21}, "assortment": {"orders": 61.0, "units": 62.0, "sales": 72187.01, "roas": 2637.36, "crr": 3.79, "cpo": 44.87}, "campaign": {"orders": 61.0, "units": 62.0, "sales": 67912.17, "roas": 2481.18, "crr": 4.03, "cpo": 44.87}, "product": {"orders": 10.0, "units": 10.0, "sales": 35346.92, "roas": 1291.41, "crr": 7.74, "cpo": 0.08}, "delivery": 9.12}, {"category": "Drone", "name": "DJI Mini 5 Pro Fly More Combo (DJI RC2) Drohne (4K Ultra HD, DJI RC 2 Fernsteuerung, 3 Akkus, Ladestation, Filterset und Tasche)", "article": "94706658", "maxCpc": 0.94, "spend": 1418.15, "cpc": 0.67, "impressions": 405210, "clicks": 2116, "ctr": 0.52, "cvr": 6.62, "brand": {"orders": 140.0, "units": 152.0, "sales": 127898.23, "roas": 9018.67, "crr": 1.11, "cpo": 10.13}, "assortment": {"orders": 124.0, "units": 130.0, "sales": 122860.57, "roas": 8663.44, "crr": 1.15, "cpo": 11.44}, "campaign": {"orders": 128.0, "units": 136.0, "sales": 123109.18, "roas": 8680.97, "crr": 1.15, "cpo": 11.08}, "product": {"orders": 96.0, "units": 100.0, "sales": 104026.91, "roas": 7335.4, "crr": 1.36, "cpo": 0.01}, "delivery": 4.73}, {"category": "Drone", "name": "DJI Air 3S Fly More Combo (DJI RC 2) Drohne (4K Ultra HD, DJI RC 2 Fernsteuerung, 3 Akkus, Ladestation und Umhängetasche)", "article": "55960237", "maxCpc": 0.94, "spend": 1217.23, "cpc": 0.7, "impressions": 630284, "clicks": 1743, "ctr": 0.28, "cvr": 2.87, "brand": {"orders": 50.0, "units": 63.0, "sales": 49465.63, "roas": 4063.79, "crr": 2.46, "cpo": 24.34}, "assortment": {"orders": 37.0, "units": 37.0, "sales": 44429.89, "roas": 3650.08, "crr": 2.74, "cpo": 32.9}, "campaign": {"orders": 43.0, "units": 49.0, "sales": 47468.85, "roas": 3899.74, "crr": 2.56, "cpo": 28.31}, "product": {"orders": 18.0, "units": 18.0, "sales": 28395.58, "roas": 2332.8, "crr": 4.29, "cpo": 0.04}, "delivery": 4.06}, {"category": "Osmo 360", "name": "DJI Osmo 360 Adventure Combo Action Cam (8K, Bluetooth, WLAN (Wi-Fi), 360°-Kamera)", "article": "62635947", "maxCpc": 0.53, "spend": 1068.1, "cpc": 0.8, "impressions": 402870, "clicks": 1330, "ctr": 0.33, "cvr": 4.51, "brand": {"orders": 60.0, "units": 65.0, "sales": 23909.12, "roas": 2238.47, "crr": 4.47, "cpo": 17.8}, "assortment": {"orders": 48.0, "units": 49.0, "sales": 21999.74, "roas": 2059.71, "crr": 4.86, "cpo": 22.25}, "campaign": {"orders": 51.0, "units": 53.0, "sales": 23259.98, "roas": 2177.7, "crr": 4.59, "cpo": 20.94}, "product": {"orders": 21.0, "units": 21.0, "sales": 10845.98, "roas": 1015.45, "crr": 9.85, "cpo": 0.1}, "delivery": 3.56}, {"category": "Drone", "name": "DJI Mavic 4 Pro Drohne (6016 x 3384, 6K/60 fps HDR, DJI RC 2 Fernsteuerung)", "article": "64983837", "maxCpc": 0.94, "spend": 976.09, "cpc": 0.69, "impressions": 852612, "clicks": 1411, "ctr": 0.17, "cvr": 2.48, "brand": {"orders": 35.0, "units": 35.0, "sales": 35666.11, "roas": 3653.98, "crr": 2.74, "cpo": 27.89}, "assortment": {"orders": 30.0, "units": 30.0, "sales": 33993.06, "roas": 3482.57, "crr": 2.87, "cpo": 32.54}, "campaign": {"orders": 31.0, "units": 31.0, "sales": 34580.71, "roas": 3542.78, "crr": 2.82, "cpo": 31.49}, "product": {"orders": 5.0, "units": 5.0, "sales": 10002.35, "roas": 1024.74, "crr": 9.76, "cpo": 0.1}, "delivery": 3.25}, {"category": "Osmo Nano", "name": "DJI DJI Osmo Nano Standard Combo (128GB) Camcorder (4K Ultra HD, Bluetooth, WLAN (Wi-Fi)", "article": "61339708", "maxCpc": 0.46, "spend": 829.46, "cpc": 0.55, "impressions": 386041, "clicks": 1499, "ctr": 0.39, "cvr": 6.14, "brand": {"orders": 92.0, "units": 101.0, "sales": 28341.14, "roas": 3416.82, "crr": 2.93, "cpo": 9.02}, "assortment": {"orders": 76.0, "units": 76.0, "sales": 25089.89, "roas": 3024.85, "crr": 3.31, "cpo": 10.91}, "campaign": {"orders": 85.0, "units": 88.0, "sales": 27896.02, "roas": 3363.15, "crr": 2.97, "cpo": 9.76}, "product": {"orders": 44.0, "units": 44.0, "sales": 12524.87, "roas": 1510.0, "crr": 6.62, "cpo": 0.07}, "delivery": 2.76}, {"category": "Drone", "name": "DJI Mini 5 Pro Drohne (4K Ultra HD, DJI RC-N3 Fernsteuerung)", "article": "37208469", "maxCpc": 0.94, "spend": 771.67, "cpc": 0.55, "impressions": 325680, "clicks": 1398, "ctr": 0.43, "cvr": 3.65, "brand": {"orders": 51.0, "units": 52.0, "sales": 34572.49, "roas": 4480.22, "crr": 2.23, "cpo": 15.13}, "assortment": {"orders": 43.0, "units": 43.0, "sales": 31766.83, "roas": 4116.63, "crr": 2.43, "cpo": 17.95}, "campaign": {"orders": 44.0, "units": 44.0, "sales": 32283.93, "roas": 4183.64, "crr": 2.39, "cpo": 17.54}, "product": {"orders": 14.0, "units": 14.0, "sales": 11010.81, "roas": 1426.88, "crr": 7.01, "cpo": 0.07}, "delivery": 2.57}, {"category": "Osmo Action", "name": "DJI Osmo Action 6 Adventure Combo Action Cam (4K Ultra HD, Bluetooth, WLAN (Wi-Fi)", "article": "20706922", "maxCpc": 0.53, "spend": 684.91, "cpc": 0.67, "impressions": 340595, "clicks": 1020, "ctr": 0.3, "cvr": 9.31, "brand": {"orders": 95.0, "units": 114.0, "sales": 37729.37, "roas": 5508.66, "crr": 1.82, "cpo": 7.21}, "assortment": {"orders": 70.0, "units": 73.0, "sales": 32607.44, "roas": 4760.84, "crr": 2.1, "cpo": 9.78}, "campaign": {"orders": 84.0, "units": 94.0, "sales": 36172.56, "roas": 5281.36, "crr": 1.89, "cpo": 8.15}, "product": {"orders": 48.0, "units": 48.0, "sales": 22848.3, "roas": 3335.96, "crr": 3.0, "cpo": 0.03}, "delivery": 2.28}, {"category": "Osmo Mobile", "name": "DJI Osmo Mobile 7 Gimbal", "article": "21832102", "maxCpc": 0.74, "spend": 674.31, "cpc": 0.64, "impressions": 141349, "clicks": 1052, "ctr": 0.74, "cvr": 9.51, "brand": {"orders": 100.0, "units": 116.0, "sales": 11658.1, "roas": 1728.89, "crr": 5.78, "cpo": 6.74}, "assortment": {"orders": 88.0, "units": 90.0, "sales": 7630.32, "roas": 1131.57, "crr": 8.84, "cpo": 7.66}, "campaign": {"orders": 88.0, "units": 99.0, "sales": 10738.63, "roas": 1592.54, "crr": 6.28, "cpo": 7.66}, "product": {"orders": 57.0, "units": 59.0, "sales": 4139.57, "roas": 613.9, "crr": 16.29, "cpo": 0.16}, "delivery": 2.25}, {"category": "Drone", "name": "DJI Avata 2 Fly Smart Combo (drei Akkus) Drohne (4K Ultra HD)", "article": "31310246", "maxCpc": 0.94, "spend": 610.08, "cpc": 0.65, "impressions": 168453, "clicks": 936, "ctr": 0.56, "cvr": 3.1, "brand": {"orders": 29.0, "units": 33.0, "sales": 17654.01, "roas": 2893.72, "crr": 3.46, "cpo": 21.04}, "assortment": {"orders": 24.0, "units": 25.0, "sales": 16112.78, "roas": 2641.09, "crr": 3.79, "cpo": 25.42}, "campaign": {"orders": 26.0, "units": 26.0, "sales": 17182.94, "roas": 2816.51, "crr": 3.55, "cpo": 23.46}, "product": {"orders": 5.0, "units": 5.0, "sales": 3943.47, "roas": 646.39, "crr": 15.47, "cpo": 0.15}, "delivery": 2.03}];
+const TOP_ROAS = [{"category": "Drone", "name": "DJI Avata 2 Fly More Combo (3x Batterien) Drohne (4K Ultra HD, DJI Goggles 3, DJI RC Motion 3, 3 Akkus, Ladestation und Umhängetasche)", "article": "39478850", "maxCpc": 0.94, "spend": 75.11, "cpc": 0.44, "impressions": 30508, "clicks": 170, "ctr": 0.56, "cvr": 5.88, "brand": {"orders": 10.0, "units": 10.0, "sales": 9472.23, "roas": 12611.14, "crr": 0.79, "cpo": 7.51}, "assortment": {"orders": 9.0, "units": 9.0, "sales": 9222.24, "roas": 12278.31, "crr": 0.81, "cpo": 8.35}, "campaign": {"orders": 9.0, "units": 9.0, "sales": 9222.24, "roas": 12278.31, "crr": 0.81, "cpo": 8.35}, "product": {"orders": 5.0, "units": 5.0, "sales": 5134.8, "roas": 6836.37, "crr": 1.46, "cpo": 0.01}, "delivery": 0.25}, {"category": "Drone", "name": "DJI Mini 5 Pro Fly More Combo (DJI RC2) Drohne (4K Ultra HD, DJI RC 2 Fernsteuerung, 3 Akkus, Ladestation, Filterset und Tasche)", "article": "94706658", "maxCpc": 0.94, "spend": 1418.15, "cpc": 0.67, "impressions": 405210, "clicks": 2116, "ctr": 0.52, "cvr": 6.62, "brand": {"orders": 140.0, "units": 152.0, "sales": 127898.23, "roas": 9018.67, "crr": 1.11, "cpo": 10.13}, "assortment": {"orders": 124.0, "units": 130.0, "sales": 122860.57, "roas": 8663.44, "crr": 1.15, "cpo": 11.44}, "campaign": {"orders": 128.0, "units": 136.0, "sales": 123109.18, "roas": 8680.97, "crr": 1.15, "cpo": 11.08}, "product": {"orders": 96.0, "units": 100.0, "sales": 104026.91, "roas": 7335.4, "crr": 1.36, "cpo": 0.01}, "delivery": 4.73}, {"category": "Mic", "name": "DJI Mikrofon MIC Mini (2 TX + 1 RX + Ladeschale)", "article": "61471625", "maxCpc": 0.3, "spend": 304.08, "cpc": 0.34, "impressions": 110928, "clicks": 900, "ctr": 0.81, "cvr": 15.67, "brand": {"orders": 141.0, "units": 170.0, "sales": 21356.65, "roas": 7023.37, "crr": 1.42, "cpo": 2.16}, "assortment": {"orders": 106.0, "units": 110.0, "sales": 9107.99, "roas": 2995.26, "crr": 3.34, "cpo": 2.87}, "campaign": {"orders": 124.0, "units": 139.0, "sales": 20565.86, "roas": 6763.31, "crr": 1.48, "cpo": 2.45}, "product": {"orders": 95.0, "units": 99.0, "sales": 7959.36, "roas": 2617.52, "crr": 3.82, "cpo": 0.04}, "delivery": 1.01}, {"category": "Drone", "name": "DJI Neo 2 (ohne Fernsteuerung) Drohne (4K Ultra HD, Set)", "article": "98950322", "maxCpc": 0.94, "spend": 228.92, "cpc": 0.45, "impressions": 84481, "clicks": 505, "ctr": 0.6, "cvr": 9.5, "brand": {"orders": 48.0, "units": 64.0, "sales": 16174.26, "roas": 7065.46, "crr": 1.42, "cpo": 4.77}, "assortment": {"orders": 42.0, "units": 47.0, "sales": 14720.09, "roas": 6430.23, "crr": 1.56, "cpo": 5.45}, "campaign": {"orders": 41.0, "units": 41.0, "sales": 15440.18, "roas": 6744.79, "crr": 1.48, "cpo": 5.58}, "product": {"orders": 19.0, "units": 19.0, "sales": 4526.99, "roas": 1977.54, "crr": 5.06, "cpo": 0.05}, "delivery": 0.76}, {"category": "Drone", "name": "DJI Neo 2 Fly More Combo Drohne (4K Ultra HD, RC-N3 Fernsteuerung, 3 Akkus, Digitaler Sendeempfänger und Ladestation)", "article": "26969851", "maxCpc": 0.94, "spend": 573.62, "cpc": 0.42, "impressions": 189917, "clicks": 1351, "ctr": 0.71, "cvr": 7.77, "brand": {"orders": 105.0, "units": 113.0, "sales": 38969.52, "roas": 6793.61, "crr": 1.47, "cpo": 5.46}, "assortment": {"orders": 93.0, "units": 93.0, "sales": 36675.83, "roas": 6393.75, "crr": 1.56, "cpo": 6.17}, "campaign": {"orders": 92.0, "units": 92.0, "sales": 36887.02, "roas": 6430.57, "crr": 1.56, "cpo": 6.24}, "product": {"orders": 66.0, "units": 66.0, "sales": 26118.4, "roas": 4553.26, "crr": 2.2, "cpo": 0.02}, "delivery": 1.91}, {"category": "Osmo Action", "name": "DJI Osmo Action 6 Standard Combo Action Cam (4K Ultra HD, Bluetooth, WLAN (Wi-Fi)", "article": "15017339", "maxCpc": 0.53, "spend": 401.73, "cpc": 0.64, "impressions": 248567, "clicks": 628, "ctr": 0.25, "cvr": 9.39, "brand": {"orders": 59.0, "units": 75.0, "sales": 24608.6, "roas": 6125.66, "crr": 1.63, "cpo": 6.81}, "assortment": {"orders": 54.0, "units": 57.0, "sales": 22629.58, "roas": 5633.03, "crr": 1.78, "cpo": 7.44}, "campaign": {"orders": 57.0, "units": 62.0, "sales": 24064.58, "roas": 5990.24, "crr": 1.67, "cpo": 7.05}, "product": {"orders": 35.0, "units": 36.0, "sales": 13643.98, "roas": 3396.31, "crr": 2.94, "cpo": 0.03}, "delivery": 1.34}, {"category": "Drone", "name": "DJI Mini 3 Fly More Combo & DJI RC Drohne (4K Ultra HD)", "article": "37255441", "maxCpc": 0.94, "spend": 358.83, "cpc": 0.55, "impressions": 121984, "clicks": 656, "ctr": 0.54, "cvr": 6.55, "brand": {"orders": 43.0, "units": 44.0, "sales": 22884.7, "roas": 6377.59, "crr": 1.57, "cpo": 8.34}, "assortment": {"orders": 36.0, "units": 36.0, "sales": 20510.37, "roas": 5715.9, "crr": 1.75, "cpo": 9.97}, "campaign": {"orders": 37.0, "units": 38.0, "sales": 20765.27, "roas": 5786.94, "crr": 1.73, "cpo": 9.7}, "product": {"orders": 21.0, "units": 21.0, "sales": 11147.79, "roas": 3106.71, "crr": 3.22, "cpo": 0.03}, "delivery": 1.2}, {"category": "Osmo pocket", "name": "DJI Osmo Pocket 3 Camcorder (4K Ultra HD, Bluetooth)", "article": "53373865", "maxCpc": 0.46, "spend": 2746.61, "cpc": 0.45, "impressions": 784334, "clicks": 6088, "ctr": 0.78, "cvr": 6.57, "brand": {"orders": 400.0, "units": 427.0, "sales": 155485.53, "roas": 5661.0, "crr": 1.77, "cpo": 6.87}, "assortment": {"orders": 347.0, "units": 351.0, "sales": 146015.86, "roas": 5316.22, "crr": 1.88, "cpo": 7.92}, "campaign": {"orders": 380.0, "units": 389.0, "sales": 153722.81, "roas": 5596.82, "crr": 1.79, "cpo": 7.23}, "product": {"orders": 247.0, "units": 248.0, "sales": 96445.11, "roas": 3511.42, "crr": 2.85, "cpo": 0.03}, "delivery": 9.16}, {"category": "Osmo 360", "name": "DJI Osmo 360 Standard Combo Action Cam (8K, Bluetooth, WLAN (Wi-Fi), 360°-Kamera)", "article": "58592509", "maxCpc": 0.79, "spend": 204.26, "cpc": 0.63, "impressions": 51004, "clicks": 322, "ctr": 0.63, "cvr": 11.49, "brand": {"orders": 37.0, "units": 37.0, "sales": 11418.18, "roas": 5590.02, "crr": 1.79, "cpo": 5.52}, "assortment": {"orders": 26.0, "units": 26.0, "sales": 9638.49, "roas": 4718.74, "crr": 2.12, "cpo": 7.86}, "campaign": {"orders": 34.0, "units": 34.0, "sales": 11270.19, "roas": 5517.57, "crr": 1.81, "cpo": 6.01}, "product": {"orders": 12.0, "units": 12.0, "sales": 4619.88, "roas": 2261.76, "crr": 4.42, "cpo": 0.04}, "delivery": 0.68}, {"category": "Osmo Action", "name": "DJI Osmo Action 6 Adventure Combo Action Cam (4K Ultra HD, Bluetooth, WLAN (Wi-Fi)", "article": "20706922", "maxCpc": 0.53, "spend": 684.91, "cpc": 0.67, "impressions": 340595, "clicks": 1020, "ctr": 0.3, "cvr": 9.31, "brand": {"orders": 95.0, "units": 114.0, "sales": 37729.37, "roas": 5508.66, "crr": 1.82, "cpo": 7.21}, "assortment": {"orders": 70.0, "units": 73.0, "sales": 32607.44, "roas": 4760.84, "crr": 2.1, "cpo": 9.78}, "campaign": {"orders": 84.0, "units": 94.0, "sales": 36172.56, "roas": 5281.36, "crr": 1.89, "cpo": 8.15}, "product": {"orders": 48.0, "units": 48.0, "sales": 22848.3, "roas": 3335.96, "crr": 3.0, "cpo": 0.03}, "delivery": 2.28}];
+const WORST_CRR = [{"category": "Drone", "name": "DJI Neo (ohne Fernsteuerung) Drohne (4K Ultra HD)", "article": "52679113", "maxCpc": 0.94, "spend": 232.44, "cpc": 0.57, "impressions": 69615, "clicks": 407, "ctr": 0.58, "cvr": 1.97, "brand": {"orders": 8.0, "units": 9.0, "sales": 1921.44, "roas": 826.64, "crr": 12.1, "cpo": 29.06}, "assortment": {"orders": 6.0, "units": 7.0, "sales": 1843.44, "roas": 793.08, "crr": 12.61, "cpo": 38.74}, "campaign": {"orders": 5.0, "units": 5.0, "sales": 1613.44, "roas": 694.13, "crr": 14.41, "cpo": 46.49}, "product": {"orders": 1.0, "units": 1.0, "sales": 198.99, "roas": 85.61, "crr": 116.81, "cpo": 1.17}, "delivery": 0.77}, {"category": "Drone", "name": "DJI Flip (RC 2) Drohne (4K Ultra HD, DJI RC 2 Fernsteuerung)", "article": "56499621", "maxCpc": 0.94, "spend": 459.1, "cpc": 0.56, "impressions": 240439, "clicks": 823, "ctr": 0.34, "cvr": 1.34, "brand": {"orders": 11.0, "units": 11.0, "sales": 4108.58, "roas": 894.92, "crr": 11.17, "cpo": 41.74}, "assortment": {"orders": 10.0, "units": 10.0, "sales": 4069.58, "roas": 886.43, "crr": 11.28, "cpo": 45.91}, "campaign": {"orders": 8.0, "units": 8.0, "sales": 3545.47, "roas": 772.27, "crr": 12.95, "cpo": 57.39}, "product": {"orders": 2.0, "units": 2.0, "sales": 1107.01, "roas": 241.13, "crr": 41.47, "cpo": 0.41}, "delivery": 1.53}, {"category": "Drone", "name": "DJI Flip Fly More Combo Drohne (4K Ultra HD, DJI RC 2 Fernsteuerung, 3 Akkus, Ladestation und Umhängetasche)", "article": "72881101", "maxCpc": 0.94, "spend": 128.05, "cpc": 0.6, "impressions": 69813, "clicks": 215, "ctr": 0.31, "cvr": 3.26, "brand": {"orders": 7.0, "units": 7.0, "sales": 2004.91, "roas": 1565.72, "crr": 6.39, "cpo": 18.29}, "assortment": {"orders": 4.0, "units": 4.0, "sales": 1477.99, "roas": 1154.23, "crr": 8.66, "cpo": 32.01}, "campaign": {"orders": 5.0, "units": 5.0, "sales": 1944.91, "roas": 1518.87, "crr": 6.58, "cpo": 25.61}, "product": {"orders": 1.0, "units": 1.0, "sales": 659.0, "roas": 514.64, "crr": 19.43, "cpo": 0.19}, "delivery": 0.43}, {"category": "Osmo Mobile", "name": "DJI Osmo Mobile 7 Gimbal", "article": "21832102", "maxCpc": 0.74, "spend": 674.31, "cpc": 0.64, "impressions": 141349, "clicks": 1052, "ctr": 0.74, "cvr": 9.51, "brand": {"orders": 100.0, "units": 116.0, "sales": 11658.1, "roas": 1728.89, "crr": 5.78, "cpo": 6.74}, "assortment": {"orders": 88.0, "units": 90.0, "sales": 7630.32, "roas": 1131.57, "crr": 8.84, "cpo": 7.66}, "campaign": {"orders": 88.0, "units": 99.0, "sales": 10738.63, "roas": 1592.54, "crr": 6.28, "cpo": 7.66}, "product": {"orders": 57.0, "units": 59.0, "sales": 4139.57, "roas": 613.9, "crr": 16.29, "cpo": 0.16}, "delivery": 2.25}, {"category": "Osmo 360", "name": "DJI Osmo 360 Adventure Combo Action Cam (8K, Bluetooth, WLAN (Wi-Fi), 360°-Kamera)", "article": "62635947", "maxCpc": 0.53, "spend": 1068.1, "cpc": 0.8, "impressions": 402870, "clicks": 1330, "ctr": 0.33, "cvr": 4.51, "brand": {"orders": 60.0, "units": 65.0, "sales": 23909.12, "roas": 2238.47, "crr": 4.47, "cpo": 17.8}, "assortment": {"orders": 48.0, "units": 49.0, "sales": 21999.74, "roas": 2059.71, "crr": 4.86, "cpo": 22.25}, "campaign": {"orders": 51.0, "units": 53.0, "sales": 23259.98, "roas": 2177.7, "crr": 4.59, "cpo": 20.94}, "product": {"orders": 21.0, "units": 21.0, "sales": 10845.98, "roas": 1015.45, "crr": 9.85, "cpo": 0.1}, "delivery": 3.56}, {"category": "Osmo Nano", "name": "DJI DJI Osmo Nano Standard Combo (64GB) Camcorder (4K Ultra HD, Bluetooth, WLAN (Wi-Fi)", "article": "65055835", "maxCpc": 0.46, "spend": 359.99, "cpc": 0.56, "impressions": 292824, "clicks": 638, "ctr": 0.22, "cvr": 3.76, "brand": {"orders": 24.0, "units": 24.0, "sales": 7914.39, "roas": 2198.5, "crr": 4.55, "cpo": 15.0}, "assortment": {"orders": 22.0, "units": 22.0, "sales": 7726.39, "roas": 2146.28, "crr": 4.66, "cpo": 16.36}, "campaign": {"orders": 24.0, "units": 24.0, "sales": 7914.39, "roas": 2198.5, "crr": 4.55, "cpo": 15.0}, "product": {"orders": 6.0, "units": 6.0, "sales": 1674.0, "roas": 465.01, "crr": 21.5, "cpo": 0.22}, "delivery": 1.2}, {"category": "Mic", "name": "DJI Mini 3 & DJI RC Drohne (4K Ultra HD)", "article": "43430342", "maxCpc": 0.94, "spend": 257.65, "cpc": 0.5, "impressions": 110491, "clicks": 515, "ctr": 0.47, "cvr": 2.33, "brand": {"orders": 12.0, "units": 12.0, "sales": 5845.4, "roas": 2268.74, "crr": 4.41, "cpo": 21.47}, "assortment": {"orders": 12.0, "units": 12.0, "sales": 5845.4, "roas": 2268.74, "crr": 4.41, "cpo": 21.47}, "campaign": {"orders": 12.0, "units": 12.0, "sales": 5845.4, "roas": 2268.74, "crr": 4.41, "cpo": 21.47}, "product": {"orders": 9.0, "units": 9.0, "sales": 4122.77, "roas": 1600.14, "crr": 6.25, "cpo": 0.06}, "delivery": 0.86}, {"category": "Osmo Action", "name": "DJI Osmo Action 4 Standard Combo Camcorder (4K Ultra HD, Bluetooth, WLAN (Wi-Fi)", "article": "52058747", "maxCpc": 0.46, "spend": 246.08, "cpc": 0.61, "impressions": 183131, "clicks": 405, "ctr": 0.22, "cvr": 4.2, "brand": {"orders": 17.0, "units": 18.0, "sales": 5649.05, "roas": 2295.62, "crr": 4.36, "cpo": 14.48}, "assortment": {"orders": 15.0, "units": 15.0, "sales": 4221.22, "roas": 1715.39, "crr": 5.83, "cpo": 16.41}, "campaign": {"orders": 17.0, "units": 17.0, "sales": 5610.21, "roas": 2279.83, "crr": 4.39, "cpo": 14.48}, "product": {"orders": 7.0, "units": 7.0, "sales": 1507.3, "roas": 612.52, "crr": 16.33, "cpo": 0.16}, "delivery": 0.82}];
+
+const CAT_COLORS = {
+  'Drone':'#4184E4','Osmo pocket':'#E5534B','Osmo Action':'#F78166',
+  'Osmo 360':'#C69026','Osmo Nano':'#57AB5A','Osmo Mobile':'#A371F7',
+  'Mic':'#39D353','RS':'#6E7681'
+};
+
+function fmtEur(n){ return '€' + n.toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0}); }
+function fmtK(n){
+  if(n>=1000000) return '€'+(n/1000000).toFixed(2)+'M';
+  if(n>=1000) return '€'+(n/1000).toFixed(1)+'K';
+  return '€'+n.toFixed(0);
+}
+function shortName(s,max){
+  max=max||36;
+  s=s.replace('DJI DJI ','DJI ').replace('DJI Streaming-Mikrofon','DJI Mic');
+  return s.length>max ? s.slice(0,max)+'…' : s;
+}
+function crrClass(v){ return v<=2?'num-green':v<=4?'num-yellow':'num-red'; }
+function roasClass(v){ return v>=5000?'num-green':v>=3000?'num-blue':v>=1500?'num-yellow':'num-red'; }
+function catBadge(cat){
+  var c=CAT_COLORS[cat]||'#6E7681';
+  return '<span class="badge cat" style="background:'+c+'22;color:'+c+'">'+cat+'</span>';
+}
+
+// ===== NAV =====
+function switchTab(el,id){
+  document.querySelectorAll('.nav-tab').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.section').forEach(function(s){s.classList.remove('active');});
+  el.classList.add('active');
+  var sec=document.getElementById(id);
+  if(sec) sec.classList.add('active');
+}
+
+// ===== CHART HELPERS =====
+var chartInstances = {};
+function mkChart(id, config){
+  var el=document.getElementById(id);
+  if(!el) return;
+  if(chartInstances[id]){ chartInstances[id].destroy(); }
+  chartInstances[id]=new Chart(el,config);
+}
+
+var GRID_COLOR='rgba(255,255,255,0.06)';
+var TICK_COLOR='#6E7681';
+function baseScales(xLabel,yLabel,yFmt){
+  return {
+    x:{
+      ticks:{color:TICK_COLOR,font:{size:11}},
+      grid:{color:GRID_COLOR},
+      title:xLabel?{display:true,text:xLabel,color:TICK_COLOR,font:{size:11}}:undefined
+    },
+    y:{
+      ticks:{color:TICK_COLOR,font:{size:11},callback:yFmt||function(v){return v;}},
+      grid:{color:GRID_COLOR},
+      title:yLabel?{display:true,text:yLabel,color:TICK_COLOR,font:{size:11}}:undefined
+    }
+  };
+}
+
+// ===== §1 CHARTS =====
+function initOverview(){
+  // Category Sales donut
+  mkChart('chartCatSales',{
+    type:'doughnut',
+    data:{
+      labels:CAT_DATA.map(function(c){return c.category;}),
+      datasets:[{
+        data:CAT_DATA.map(function(c){return c.camp_sales;}),
+        backgroundColor:CAT_DATA.map(function(c){return CAT_COLORS[c.category]||'#6E7681';}),
+        borderColor:'#161B22',borderWidth:2,hoverOffset:8
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{position:'right',labels:{color:'#C9D1D9',font:{size:12},boxWidth:12,padding:10}},
+        tooltip:{callbacks:{label:function(ctx){return ' '+fmtK(ctx.raw)+' ('+((ctx.raw/TOTAL.campaign.sales)*100).toFixed(1)+'%)';}}}
+      }
+    }
+  });
+
+  // Spend vs ROAS scatter
+  var scatterData=CAT_DATA.map(function(c){
+    return {x:c.spend,y:c.camp_roas,r:Math.sqrt(c.camp_sales/1000)*2+4,cat:c.category,sales:c.camp_sales};
+  });
+  mkChart('chartSpendRoas',{
+    type:'bubble',
+    data:{
+      datasets:[{
+        label:'品类',
+        data:scatterData,
+        backgroundColor:CAT_DATA.map(function(c){return (CAT_COLORS[c.category]||'#6E7681')+'AA';}),
+        borderColor:CAT_DATA.map(function(c){return CAT_COLORS[c.category]||'#6E7681';}),
+        borderWidth:1.5
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{
+          label:function(ctx){
+            var d=ctx.raw;
+            return [d.cat,'Spend: '+fmtK(d.x),'ROAS: '+d.y.toFixed(0)+'%','Sales: '+fmtK(d.sales)];
+          }
+        }}
+      },
+      scales:{
+        x:{ticks:{color:TICK_COLOR,font:{size:11},callback:function(v){return fmtK(v);}},grid:{color:GRID_COLOR},title:{display:true,text:'Spend',color:TICK_COLOR}},
+        y:{ticks:{color:TICK_COLOR,font:{size:11},callback:function(v){return v+'%';}},grid:{color:GRID_COLOR},title:{display:true,text:'Campaign ROAS',color:TICK_COLOR}}
+      }
+    }
+  });
+
+  // Four-view bar
+  var views=['Brand','Assortment','Campaign','Product'];
+  var salesVals=[TOTAL.brand.sales,TOTAL.assortment.sales,TOTAL.campaign.sales,TOTAL.product.sales];
+  var roasVals=[TOTAL.brand.roas,TOTAL.assortment.roas,TOTAL.campaign.roas,TOTAL.product.roas];
+  mkChart('chartFourView',{
+    type:'bar',
+    data:{
+      labels:views,
+      datasets:[
+        {label:'Sales (€)',data:salesVals,backgroundColor:['#4184E4BB','#57AB5ABB','#E5534BBB','#C69026BB'],yAxisID:'y',borderRadius:4},
+        {label:'ROAS (%)',data:roasVals,type:'line',borderColor:'#F78166',backgroundColor:'transparent',pointBackgroundColor:'#F78166',yAxisID:'y2',tension:0.3,pointRadius:5}
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#C9D1D9',font:{size:12},boxWidth:12}}},
+      scales:{
+        y:{ticks:{color:TICK_COLOR,callback:function(v){return fmtK(v);}},grid:{color:GRID_COLOR},position:'left'},
+        y2:{ticks:{color:TICK_COLOR,callback:function(v){return v+'%';}},grid:{display:false},position:'right'}
+      }
+    }
+  });
+}
+
+// ===== §2 CATEGORY CHARTS =====
+function initCategory(){
+  var cats=CAT_DATA.map(function(c){return c.category;});
+  var bgs=CAT_DATA.map(function(c){return (CAT_COLORS[c.category]||'#6E7681')+'BB';});
+  var borders=CAT_DATA.map(function(c){return CAT_COLORS[c.category]||'#6E7681';});
+
+  mkChart('chartCatSpend',{
+    type:'bar',
+    data:{labels:cats,datasets:[{label:'Spend (€)',data:CAT_DATA.map(function(c){return c.spend;}),backgroundColor:bgs,borderColor:borders,borderWidth:1,borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},
+      scales:{x:{ticks:{color:TICK_COLOR,callback:function(v){return fmtK(v);}},grid:{color:GRID_COLOR}},y:{ticks:{color:TICK_COLOR,font:{size:11}},grid:{display:false}}}}
+  });
+
+  mkChart('chartCatRoas',{
+    type:'bar',
+    data:{labels:cats,datasets:[{label:'Campaign ROAS (%)',data:CAT_DATA.map(function(c){return c.camp_roas;}),backgroundColor:bgs,borderColor:borders,borderWidth:1,borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},
+      scales:{x:{ticks:{color:TICK_COLOR,callback:function(v){return v+'%';}},grid:{color:GRID_COLOR}},y:{ticks:{color:TICK_COLOR,font:{size:11}},grid:{display:false}}}}
+  });
+
+  mkChart('chartCatCrr',{
+    type:'bar',
+    data:{labels:cats,datasets:[{label:'CRR (%)',data:CAT_DATA.map(function(c){return c.camp_crr;}),backgroundColor:CAT_DATA.map(function(c){return c.camp_crr>4?'#E5534BBB':c.camp_crr>2?'#C69026BB':'#347D39BB';}),borderRadius:4}]},
+    options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},
+      scales:{x:{ticks:{color:TICK_COLOR,callback:function(v){return v+'%';}},grid:{color:GRID_COLOR}},y:{ticks:{color:TICK_COLOR,font:{size:11}},grid:{display:false}}}}
+  });
+
+  // Category table
+  var tb=document.getElementById('tbCat');
+  if(!tb) return;
+  var totalSpend=TOTAL.spend;
+  tb.innerHTML=CAT_DATA.map(function(c){
+    var spendPct=(c.spend/totalSpend*100).toFixed(1);
+    return '<tr>' +
+      '<td>'+catBadge(c.category)+'</td>' +
+      '<td class="r">'+fmtK(c.spend)+'</td>' +
+      '<td class="r">'+(c.impressions/1000).toFixed(0)+'K</td>' +
+      '<td class="r">'+(c.clicks/c.impressions*100).toFixed(2)+'%</td>' +
+      '<td class="r">'+c.camp_orders+'</td>' +
+      '<td class="r">'+fmtK(c.camp_sales)+'</td>' +
+      '<td class="r"><span class="'+roasClass(c.camp_roas)+'">'+c.camp_roas.toFixed(0)+'%</span></td>' +
+      '<td class="r"><span class="'+crrClass(c.camp_crr)+'">'+c.camp_crr.toFixed(2)+'%</span></td>' +
+      '<td class="r">'+fmtK(c.brand_sales)+'</td>' +
+      '<td class="r"><span class="'+roasClass(c.brand_roas)+'">'+c.brand_roas.toFixed(0)+'%</span></td>' +
+      '<td class="r"><div class="pbar-wrap"><div class="pbar"><div class="pbar-fill" style="width:'+Math.min(spendPct*3,100)+'%;background:'+(CAT_COLORS[c.category]||'#4184E4')+';"></div></div><span class="pbar-val">'+spendPct+'%</span></div></td>' +
+      '</tr>';
+  }).join('');
+}
+
+// ===== §3 COMPARE =====
+var currentView='brand';
+function setViewCard(v){
+  currentView=v;
+  ['brand','assortment','campaign','product'].forEach(function(k){
+    var el=document.getElementById('vc-'+k);
+    if(el) el.classList.toggle('active',k===v);
+  });
+  var el=document.getElementById('compareViewLabel');
+  if(el) el.textContent={brand:'Brand Performance',assortment:'Assortment Performance',campaign:'Campaign Performance',product:'Product Performance'}[v];
+  updateCompareBar();
+  updateCompareTable();
+}
+
+function updateCompareBar(){
+  var sorted=[].concat(PRODUCTS).sort(function(a,b){return b[currentView].sales-a[currentView].sales;}).slice(0,12);
+  var labels=sorted.map(function(p){return shortName(p.name,24);});
+  var vals=sorted.map(function(p){return p[currentView].sales;});
+  var colors=sorted.map(function(p){return (CAT_COLORS[p.category]||'#6E7681')+'BB';});
+  mkChart('chartCompareBar',{
+    type:'bar',
+    data:{labels:labels,datasets:[{label:'Sales (€)',data:vals,backgroundColor:colors,borderRadius:4}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return ' '+fmtEur(ctx.raw);}}}},
+      scales:{x:{ticks:{color:TICK_COLOR,callback:function(v){return fmtK(v);}},grid:{color:GRID_COLOR}},y:{ticks:{color:TICK_COLOR,font:{size:10}},grid:{display:false}}}}
+  });
+}
+
+function updateCompareTable(){
+  var tb=document.getElementById('tbCompare');
+  if(!tb) return;
+  var sorted=[].concat(PRODUCTS).sort(function(a,b){return b.campaign.sales-a.campaign.sales;});
+  tb.innerHTML=sorted.map(function(p){
+    var diff=p.brand.sales-p.product.sales;
+    return '<tr>' +
+      '<td>'+catBadge(p.category)+' <span style="font-size:12px">'+shortName(p.name,34)+'</span></td>' +
+      '<td class="r">'+fmtK(p.spend)+'</td>' +
+      '<td class="r '+(currentView==='brand'?'num-blue':'')+'">'+fmtK(p.brand.sales)+'</td>' +
+      '<td class="r '+(currentView==='assortment'?'num-blue':'')+'">'+fmtK(p.assortment.sales)+'</td>' +
+      '<td class="r '+(currentView==='campaign'?'num-blue':'')+'">'+fmtK(p.campaign.sales)+'</td>' +
+      '<td class="r '+(currentView==='product'?'num-blue':'')+'">'+fmtK(p.product.sales)+'</td>' +
+      '<td class="r"><span class="'+roasClass(p.campaign.roas)+'">'+p.campaign.roas.toFixed(0)+'%</span></td>' +
+      '<td class="r"><span class="'+crrClass(p.campaign.crr)+'">'+p.campaign.crr.toFixed(2)+'%</span></td>' +
+      '<td class="r '+(diff>10000?'num-red':'num-green')+'">'+fmtK(diff)+'</td>' +
+      '</tr>';
+  }).join('');
+}
+
+function initCompare(){
+  // Funnel chart (Brand > Camp > Assort > Product)
+  var labels=['Brand','Campaign','Assortment','Product'];
+  var vals=[TOTAL.brand.sales,TOTAL.campaign.sales,TOTAL.assortment.sales,TOTAL.product.sales];
+  mkChart('chartFunnel',{
+    type:'bar',
+    data:{labels:labels,datasets:[{
+      label:'Sales (€)',data:vals,
+      backgroundColor:['#4184E4BB','#E5534BBB','#57AB5ABB','#C69026BB'],
+      borderRadius:6
+    }]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return ' '+fmtEur(ctx.raw)+' (ROAS '+(ctx.dataIndex===0?TOTAL.brand.roas:ctx.dataIndex===1?TOTAL.campaign.roas:ctx.dataIndex===2?TOTAL.assortment.roas:TOTAL.product.roas).toFixed(0)+'%)';}}}},
+      scales:{y:{ticks:{color:TICK_COLOR,callback:function(v){return fmtK(v);}},grid:{color:GRID_COLOR}},x:{ticks:{color:TICK_COLOR},grid:{display:false}}}}
+  });
+  updateCompareBar();
+  updateCompareTable();
+}
+
+// ===== §4 TOP CHARTS =====
+function initTop(){
+  // Top by spend
+  mkChart('chartTopSpend',{
+    type:'bar',
+    data:{
+      labels:TOP_SPEND.map(function(p){return shortName(p.name,28);}),
+      datasets:[
+        {label:'Spend (€)',data:TOP_SPEND.map(function(p){return p.spend;}),backgroundColor:'#E5534BBB',borderRadius:4,yAxisID:'y'},
+        {label:'Camp Sales (€)',data:TOP_SPEND.map(function(p){return p.campaign.sales;}),type:'line',borderColor:'#4184E4',backgroundColor:'transparent',pointBackgroundColor:'#4184E4',yAxisID:'y2',tension:0.3,pointRadius:4}
+      ]
+    },
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#C9D1D9',font:{size:11},boxWidth:10}}},
+      scales:{
+        x:{ticks:{color:TICK_COLOR,callback:function(v){return fmtK(v);}},grid:{color:GRID_COLOR}},
+        y:{ticks:{color:TICK_COLOR,font:{size:10}},grid:{display:false}},
+        y2:{position:'right',ticks:{color:'#4184E4',callback:function(v){return fmtK(v);}},grid:{display:false}}
+      }}
+  });
+
+  // Top ROAS
+  mkChart('chartTopRoas',{
+    type:'bar',
+    data:{
+      labels:TOP_ROAS.map(function(p){return shortName(p.name,28);}),
+      datasets:[{
+        label:'Campaign ROAS (%)',
+        data:TOP_ROAS.map(function(p){return p.campaign.roas;}),
+        backgroundColor:TOP_ROAS.map(function(p){return (CAT_COLORS[p.category]||'#6E7681')+'BB';}),
+        borderRadius:4
+      }]
+    },
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return ' ROAS '+ctx.raw.toFixed(0)+'%';}}}},
+      scales:{x:{ticks:{color:TICK_COLOR,callback:function(v){return v+'%';}},grid:{color:GRID_COLOR}},y:{ticks:{color:TICK_COLOR,font:{size:10}},grid:{display:false}}}}
+  });
+
+  // Worst CRR
+  mkChart('chartWorstCrr',{
+    type:'bar',
+    data:{
+      labels:WORST_CRR.map(function(p){return shortName(p.name,28);}),
+      datasets:[{
+        label:'CRR (%)',
+        data:WORST_CRR.map(function(p){return p.campaign.crr;}),
+        backgroundColor:WORST_CRR.map(function(p){return p.campaign.crr>10?'#E5534B':p.campaign.crr>5?'#C69026':'#347D39';}),
+        borderRadius:4
+      }]
+    },
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return ' CRR '+ctx.raw.toFixed(2)+'%';}}},
+        annotation:{annotations:{line1:{type:'line',yMin:2.26,yMax:2.26,borderColor:'#57AB5A',borderWidth:1.5,borderDash:[4,3],label:{content:'均值 2.26%',enabled:true,color:'#57AB5A',font:{size:10}}}}}},
+      scales:{y:{ticks:{color:TICK_COLOR,callback:function(v){return v+'%';}},grid:{color:GRID_COLOR}},x:{ticks:{color:TICK_COLOR,font:{size:10}},grid:{display:false}}}}
+  });
+
+  // Full product table
+  var tb=document.getElementById('tbAll');
+  if(!tb) return;
+  var sorted=[].concat(PRODUCTS).sort(function(a,b){return b.campaign.sales-a.campaign.sales;});
+  tb.innerHTML=sorted.map(function(p){
+    return '<tr>' +
+      '<td>'+catBadge(p.category)+'</td>' +
+      '<td style="max-width:300px;font-size:12px">'+shortName(p.name,42)+'</td>' +
+      '<td class="r">'+fmtK(p.spend)+'</td>' +
+      '<td class="r">€'+p.cpc.toFixed(2)+'</td>' +
+      '<td class="r">'+p.clicks.toLocaleString()+'</td>' +
+      '<td class="r">'+p.cvr.toFixed(2)+'%</td>' +
+      '<td class="r">'+p.campaign.orders+'</td>' +
+      '<td class="r">'+fmtK(p.campaign.sales)+'</td>' +
+      '<td class="r"><span class="'+roasClass(p.campaign.roas)+'">'+p.campaign.roas.toFixed(0)+'%</span></td>' +
+      '<td class="r"><span class="'+crrClass(p.campaign.crr)+'">'+p.campaign.crr.toFixed(2)+'%</span></td>' +
+      '<td class="r">€'+p.campaign.cpo.toFixed(2)+'</td>' +
+      '<td class="r">'+p.delivery.toFixed(1)+'%</td>' +
+      '</tr>';
+  }).join('');
+}
+
+// ===== INIT =====
+window.addEventListener('DOMContentLoaded', function(){
+  initOverview();
+  initCategory();
+  initCompare();
+  initTop();
+});
+</script>
+</body>
+</html>

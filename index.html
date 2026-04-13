@@ -255,7 +255,7 @@
       <div class="panel-body"><div class="chart-wrap short"><canvas id="chartCatRoas"></canvas></div></div>
     </div>
     <div class="panel">
-      <div class="panel-header"><div class="panel-title">Campaign CRR by Category</div></div>
+      <div class="panel-header"><div class="panel-title">Campaign CRR by Category (Higher = Better)</div></div>
       <div class="panel-body"><div class="chart-wrap short"><canvas id="chartCatCrr"></canvas></div></div>
     </div>
   </div>
@@ -381,8 +381,8 @@
 
   <div class="panel">
     <div class="panel-header">
-      <div class="panel-title">⚠️ Highest CRR (Least Efficient) — TOP 8</div>
-      <div class="panel-sub">Campaign attribution · Min. 5 orders · Higher CRR = more costly per sale</div>
+      <div class="panel-title">🏆 Highest CRR (Top Performers) — TOP 8</div>
+      <div class="panel-sub">Campaign attribution · Min. 5 orders · Higher CRR = stronger sales return</div>
     </div>
     <div class="panel-body"><div class="chart-wrap short"><canvas id="chartWorstCrr"></canvas></div></div>
   </div>
@@ -421,29 +421,29 @@
   <div class="sec-title">Alerts & Optimization Insights</div>
 
   <div class="alert-group">
-    <div class="alert-group-title red">🔴 High Priority — Efficiency Anomalies, Review Immediately</div>
-    <div class="alert-card">
-      <div class="alert-icon">💸</div>
-      <div class="alert-body">
-        <div class="alert-title">DJI Flip (RC 2) — Campaign CRR 12.95%, far above average</div>
-        <div class="alert-data">Spend €459 · 8 Camp orders · Camp Sales €3,545 · ROAS 772% · CRR 12.95% (5.7x the 2.26% average)</div>
-        <div class="alert-action">→ Action: Pause or significantly reduce MaxCPC (currently €0.94). Reallocate budget to Mini 5 Pro / Neo 2 series.</div>
-      </div>
-    </div>
+    <div class="alert-group-title red">🔴 High Priority — Low CRR Underperformers, Review Immediately</div>
     <div class="alert-card">
       <div class="alert-icon">📉</div>
       <div class="alert-body">
-        <div class="alert-title">DJI Neo (ohne Fernsteuerung) — CRR 14.41%, ROAS only 694%</div>
-        <div class="alert-data">Spend €232 · 5 Camp orders · Camp Sales €1,613 · CVR 1.97% (one of the lowest)</div>
-        <div class="alert-action">→ Action: Review landing page relevance. Consider pausing ad spend; accessory-type products show persistently negative ad ROI.</div>
+        <div class="alert-title">Mini 5 Pro Fly More — CRR only 1.15%, well below average</div>
+        <div class="alert-data">Spend €1,418 · 128 Camp orders · Camp Sales €123,109 · ROAS 8,681% · CRR 1.15% (far below the 2.26% average)</div>
+        <div class="alert-action">→ Action: CRR is critically low — sales return per spend unit is weak relative to potential. Review pricing strategy and consider increasing MaxCPC to capture more volume.</div>
+      </div>
+    </div>
+    <div class="alert-card">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-body">
+        <div class="alert-title">Osmo Pocket 3 Kreativ Combo — CRR 1.91%, lowest among high-spend SKUs</div>
+        <div class="alert-data">Spend €6,677 (23.6% of total) · Camp Sales €350,387 · 730 orders · Delivery rate 22.26%</div>
+        <div class="alert-action">→ Action: Despite high volume, CRR is low. Evaluate whether higher bid/spend can unlock greater sales return from this category.</div>
       </div>
     </div>
     <div class="alert-card">
       <div class="alert-icon">🎯</div>
       <div class="alert-body">
-        <div class="alert-title">Osmo Mobile 7 — Assortment ROAS only 1,132%, largest attribution gap</div>
-        <div class="alert-data">Brand Sales €11,658 vs Assortment Sales €7,630 (gap €4,028, 35% attribution difference) · Indicates most sales come from brand search, not direct product click-through</div>
-        <div class="alert-action">→ Action: Review Osmo Mobile ad strategy. High Brand attribution may indicate competitor keyword interception.</div>
+        <div class="alert-title">Osmo Mobile 7 — CRR 6.28% on Campaign, strong performer</div>
+        <div class="alert-data">Brand Sales €11,658 vs Assortment Sales €7,630 (attribution gap 35%) · Campaign CRR 6.28% indicates strong sales return</div>
+        <div class="alert-action">→ Action: High CRR signals strong performance. Maintain or increase budget. Monitor Brand vs Assortment attribution gap for keyword strategy.</div>
       </div>
     </div>
   </div>
@@ -451,27 +451,27 @@
   <div class="alert-group">
     <div class="alert-group-title yellow">🟡 Medium Priority — Optimize Within This Week</div>
     <div class="alert-card">
+      <div class="alert-icon">🏆</div>
+      <div class="alert-body">
+        <div class="alert-title">DJI Flip (RC 2) — CRR 12.95%, top-performing efficiency</div>
+        <div class="alert-data">Spend €459 · 8 Camp orders · Camp Sales €3,545 · ROAS 772% · CRR 12.95% (5.7x the 2.26% average)</div>
+        <div class="alert-action">→ Action: CRR is high — this product generates strong sales return per spend. Consider increasing budget allocation to capture more volume.</div>
+      </div>
+    </div>
+    <div class="alert-card">
       <div class="alert-icon">🚀</div>
       <div class="alert-body">
-        <div class="alert-title">Mini 5 Pro Fly More — ROAS 8,681%, budget likely under-allocated</div>
-        <div class="alert-data">Spend only €1,418 (5% of total budget) · Camp Sales €123,109 · 128 orders · CRR only 1.15%</div>
-        <div class="alert-action">→ Action: This is the highest-efficiency SKU in the account. Redirect budget savings from Flip/Neo legacy products here.</div>
+        <div class="alert-title">DJI Neo (ohne Fernsteuerung) — CRR 14.41%, highest in account</div>
+        <div class="alert-data">Spend €232 · 5 Camp orders · Camp Sales €1,613 · CVR 1.97%</div>
+        <div class="alert-action">→ Action: Highest CRR in the account signals top sales return. Scale budget carefully — monitor CVR (currently low at 1.97%) to ensure volume holds up.</div>
       </div>
     </div>
     <div class="alert-card">
       <div class="alert-icon">📊</div>
       <div class="alert-body">
-        <div class="alert-title">Osmo Pocket 3 Kreativ Combo — Largest spend but CRR 1.91%, still efficient</div>
-        <div class="alert-data">Spend €6,677 (23.6% of total) · Camp Sales €350,387 · 730 orders · Delivery rate 22.26% (highest)</div>
-        <div class="alert-action">→ Action: Maintain budget. Focus on improving CTR (currently 0.79%) — better creatives can further reduce CPC.</div>
-      </div>
-    </div>
-    <div class="alert-card">
-      <div class="alert-icon">🔍</div>
-      <div class="alert-body">
-        <div class="alert-title">RS category overall ROAS below average, CRR elevated</div>
-        <div class="alert-data">RS Gimbal series combined Spend ~€397 · Camp Sales low · RS 4 PRO Combo CRR 12.02%</div>
-        <div class="alert-action">→ Action: RS category has a niche audience. Consider reducing MaxCPC to €0.40–0.50 and targeting high purchase-intent keywords only.</div>
+        <div class="alert-title">RS category — CRR elevated, strong sales return signal</div>
+        <div class="alert-data">RS Gimbal series combined Spend ~€397 · RS 4 PRO Combo CRR 12.02%</div>
+        <div class="alert-action">→ Action: High CRR across RS products indicates strong ad-to-sales return. Increase MaxCPC and budget to scale this high-performing niche category.</div>
       </div>
     </div>
   </div>
@@ -515,7 +515,7 @@ function shortName(s,max){
   s=s.replace('DJI DJI ','DJI ').replace('DJI Streaming-Mikrofon','DJI Mic');
   return s.length>max ? s.slice(0,max)+'…' : s;
 }
-function crrClass(v){ return v<=2?'num-green':v<=4?'num-yellow':'num-red'; }
+function crrClass(v){ return v>=8?'num-green':v>=4?'num-yellow':'num-red'; }
 function roasClass(v){ return v>=5000?'num-green':v>=3000?'num-blue':v>=1500?'num-yellow':'num-red'; }
 function catBadge(cat){
   var c=CAT_COLORS[cat]||'#6E7681';
@@ -658,7 +658,7 @@ function initCategory(){
 
   mkChart('chartCatCrr',{
     type:'bar',
-    data:{labels:cats,datasets:[{label:'CRR (%)',data:CAT_DATA.map(function(c){return c.camp_crr;}),backgroundColor:CAT_DATA.map(function(c){return c.camp_crr>4?'#E5534BBB':c.camp_crr>2?'#C69026BB':'#347D39BB';}),borderRadius:4}]},
+    data:{labels:cats,datasets:[{label:'CRR (%)',data:CAT_DATA.map(function(c){return c.camp_crr;}),backgroundColor:CAT_DATA.map(function(c){return c.camp_crr>=8?'#347D39BB':c.camp_crr>=4?'#C69026BB':'#E5534BBB';}),borderRadius:4}]},
     options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false}},
       scales:{x:{ticks:{color:TICK_COLOR,callback:function(v){return v+'%';}},grid:{color:GRID_COLOR}},y:{ticks:{color:TICK_COLOR,font:{size:11}},grid:{display:false}}}}
   });
@@ -798,13 +798,13 @@ function initTop(){
       datasets:[{
         label:'CRR (%)',
         data:WORST_CRR.map(function(p){return p.campaign.crr;}),
-        backgroundColor:WORST_CRR.map(function(p){return p.campaign.crr>10?'#E5534B':p.campaign.crr>5?'#C69026':'#347D39';}),
+        backgroundColor:WORST_CRR.map(function(p){return p.campaign.crr>=10?'#347D39':p.campaign.crr>=5?'#C69026':'#E5534B';}),
         borderRadius:4
       }]
     },
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return ' CRR '+ctx.raw.toFixed(2)+'%';}}},
-        annotation:{annotations:{line1:{type:'line',yMin:2.26,yMax:2.26,borderColor:'#57AB5A',borderWidth:1.5,borderDash:[4,3],label:{content:'Avg 2.26%',enabled:true,color:'#57AB5A',font:{size:10}}}}}},
+        annotation:{annotations:{line1:{type:'line',yMin:2.26,yMax:2.26,borderColor:'#E5534B',borderWidth:1.5,borderDash:[4,3],label:{content:'Avg 2.26% (low = underperform)',enabled:true,color:'#E5534B',font:{size:10}}}}}},
       scales:{y:{ticks:{color:TICK_COLOR,callback:function(v){return v+'%';}},grid:{color:GRID_COLOR}},x:{ticks:{color:TICK_COLOR,font:{size:10}},grid:{display:false}}}}
   });
 

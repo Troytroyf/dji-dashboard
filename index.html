@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -151,45 +151,45 @@
   </div>
   <div class="header-right">
     <span class="dot-green"></span>
-    Spend €28.3K · 11.2M曝光 · 2,707 Campaign订单
+    Spend €28.3K · 11.2M Impressions · 2,707 Campaign Orders
   </div>
 </div>
 
 <!-- NAV -->
 <div class="nav">
-  <div class="nav-tab active" onclick="switchTab(this,'tab-overview')">§1 总览</div>
-  <div class="nav-tab" onclick="switchTab(this,'tab-category')">§2 品类效率</div>
-  <div class="nav-tab" onclick="switchTab(this,'tab-compare')">§3 四口径对比</div>
-  <div class="nav-tab" onclick="switchTab(this,'tab-top')">§4 产品TOP榜</div>
-  <div class="nav-tab" onclick="switchTab(this,'tab-alert')">§5 异常预警</div>
+  <div class="nav-tab active" onclick="switchTab(this,'tab-overview')">§1 Overview</div>
+  <div class="nav-tab" onclick="switchTab(this,'tab-category')">§2 Category Efficiency</div>
+  <div class="nav-tab" onclick="switchTab(this,'tab-compare')">§3 Attribution Comparison</div>
+  <div class="nav-tab" onclick="switchTab(this,'tab-top')">§4 Product Rankings</div>
+  <div class="nav-tab" onclick="switchTab(this,'tab-alert')">§5 Alerts & Insights</div>
 </div>
 
-<!-- §1 总览 -->
+<!-- §1 Overview -->
 <div id="tab-overview" class="section active">
 
   <div class="banner green">
     <div class="banner-icon">✅</div>
     <div class="banner-text">
-      <div class="banner-title">整体健康 · Campaign ROAS 4,415% · CRR 2.26%</div>
-      <div>Q1 2026 Otto广告投放效率优秀：整体花费€28.3K撬动€125万Campaign销售额，ROAS远超400%健康线；Mini 5 Pro Fly More是最高效率单品（ROAS 8,681%），Drone品类贡献最大销售体量（€50.4万）。</div>
+      <div class="banner-title">Overall Healthy · Campaign ROAS 4,415% · CRR 2.26%</div>
+      <div>Q1 2026 Otto ad performance is strong: €28.3K spend drove €1.25M in Campaign Sales. ROAS far exceeds the 400% benchmark. Mini 5 Pro Fly More is the top-efficiency SKU (ROAS 8,681%). Drone category contributes the largest sales volume (€504K).</div>
     </div>
   </div>
 
   <div class="kpi-grid">
     <div class="kpi-card red">
-      <div class="kpi-label">总花费 Spend</div>
+      <div class="kpi-label">Total Spend</div>
       <div class="kpi-value">€28,333</div>
-      <div class="kpi-sub">CPC €0.59 · 48,101次点击</div>
+      <div class="kpi-sub">CPC €0.59 · 48,101 Clicks</div>
     </div>
     <div class="kpi-card blue">
-      <div class="kpi-label">总曝光 Impressions</div>
+      <div class="kpi-label">Total Impressions</div>
       <div class="kpi-value">11.16M</div>
-      <div class="kpi-sub">CTR 0.43% · 94.4%投放率</div>
+      <div class="kpi-sub">CTR 0.43% · 94.4% Delivery Rate</div>
     </div>
     <div class="kpi-card green">
-      <div class="kpi-label">Campaign 销售额</div>
+      <div class="kpi-label">Campaign Sales</div>
       <div class="kpi-value">€1.251M</div>
-      <div class="kpi-sub">2,707单 · 2,839件</div>
+      <div class="kpi-sub">2,707 Orders · 2,839 Units</div>
     </div>
     <div class="kpi-card yellow">
       <div class="kpi-label">Campaign ROAS</div>
@@ -197,22 +197,22 @@
       <div class="kpi-sub">CRR 2.26% · CPO €10.47</div>
     </div>
     <div class="kpi-card purple">
-      <div class="kpi-label">Brand 销售额</div>
+      <div class="kpi-label">Brand Sales</div>
       <div class="kpi-value">€1.295M</div>
       <div class="kpi-sub">ROAS 4,571% · CRR 2.19%</div>
     </div>
     <div class="kpi-card teal">
-      <div class="kpi-label">CVR 转化率</div>
+      <div class="kpi-label">Conversion Rate (CVR)</div>
       <div class="kpi-value">6.10%</div>
-      <div class="kpi-sub">点击→购买 · Product口径 3.41%</div>
+      <div class="kpi-sub">Click→Purchase · Product view 3.41%</div>
     </div>
   </div>
 
   <div class="chart-grid">
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title">各品类 Campaign 销售额分布</div>
-        <div class="panel-sub">按销售额降序</div>
+        <div class="panel-title">Campaign Sales by Category</div>
+        <div class="panel-sub">Sorted by sales descending</div>
       </div>
       <div class="panel-body">
         <div class="chart-wrap"><canvas id="chartCatSales"></canvas></div>
@@ -220,8 +220,8 @@
     </div>
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title">各品类 Spend vs Campaign ROAS</div>
-        <div class="panel-sub">气泡大小=销售额</div>
+        <div class="panel-title">Spend vs Campaign ROAS by Category</div>
+        <div class="panel-sub">Bubble size = Sales volume</div>
       </div>
       <div class="panel-body">
         <div class="chart-wrap"><canvas id="chartSpendRoas"></canvas></div>
@@ -231,7 +231,7 @@
 
   <div class="panel">
     <div class="panel-header">
-      <div class="panel-title">四口径 销售额 & ROAS 对比</div>
+      <div class="panel-title">4-Attribution Sales & ROAS Comparison</div>
       <div class="panel-sub">Brand ≥ Campaign ≥ Assortment ≥ Product</div>
     </div>
     <div class="panel-body">
@@ -241,45 +241,45 @@
 
 </div>
 
-<!-- §2 品类效率 -->
+<!-- §2 Category Efficiency -->
 <div id="tab-category" class="section">
-  <div class="sec-title">品类广告效率分析</div>
+  <div class="sec-title">Category Ad Efficiency Analysis</div>
 
   <div class="chart-grid three">
     <div class="panel">
-      <div class="panel-header"><div class="panel-title">各品类 Spend 分配</div></div>
+      <div class="panel-header"><div class="panel-title">Spend Allocation by Category</div></div>
       <div class="panel-body"><div class="chart-wrap short"><canvas id="chartCatSpend"></canvas></div></div>
     </div>
     <div class="panel">
-      <div class="panel-header"><div class="panel-title">Campaign ROAS by 品类</div></div>
+      <div class="panel-header"><div class="panel-title">Campaign ROAS by Category</div></div>
       <div class="panel-body"><div class="chart-wrap short"><canvas id="chartCatRoas"></canvas></div></div>
     </div>
     <div class="panel">
-      <div class="panel-header"><div class="panel-title">Campaign CRR by 品类</div></div>
+      <div class="panel-header"><div class="panel-title">Campaign CRR by Category</div></div>
       <div class="panel-body"><div class="chart-wrap short"><canvas id="chartCatCrr"></canvas></div></div>
     </div>
   </div>
 
   <div class="panel">
     <div class="panel-header">
-      <div class="panel-title">品类综合效率明细</div>
-      <div class="panel-sub">Campaign口径 · 按销售额降序</div>
+      <div class="panel-title">Category Efficiency Detail</div>
+      <div class="panel-sub">Campaign attribution · sorted by sales descending</div>
     </div>
     <div class="panel-body table-scroll">
       <table>
         <thead>
           <tr>
-            <th>品类</th>
+            <th>Category</th>
             <th class="r">Spend</th>
-            <th class="r">曝光</th>
+            <th class="r">Impressions</th>
             <th class="r">CTR</th>
-            <th class="r">Camp订单</th>
-            <th class="r">Camp销售额</th>
+            <th class="r">Camp Orders</th>
+            <th class="r">Camp Sales</th>
             <th class="r">Campaign ROAS</th>
             <th class="r">CRR</th>
-            <th class="r">Brand销售额</th>
+            <th class="r">Brand Sales</th>
             <th class="r">Brand ROAS</th>
-            <th class="r">Spend占比</th>
+            <th class="r">Spend Share</th>
           </tr>
         </thead>
         <tbody id="tbCat"></tbody>
@@ -288,45 +288,45 @@
   </div>
 </div>
 
-<!-- §3 四口径对比 -->
+<!-- §3 Attribution Comparison -->
 <div id="tab-compare" class="section">
-  <div class="sec-title">四口径 Post-Click 归因对比</div>
+  <div class="sec-title">4-Attribution Post-Click Comparison</div>
 
   <div class="view-grid">
     <div class="view-card active" id="vc-brand" onclick="setViewCard('brand')">
       <div class="view-card-label">Brand Performance</div>
       <div class="view-card-val">€1,295,250</div>
-      <div class="view-card-sub">2,936单 · ROAS 4,571% · CRR 2.19%</div>
+      <div class="view-card-sub">2,936 orders · ROAS 4,571% · CRR 2.19%</div>
     </div>
     <div class="view-card" id="vc-assortment" onclick="setViewCard('assortment')">
       <div class="view-card-label">Assortment Performance</div>
       <div class="view-card-val">€1,176,047</div>
-      <div class="view-card-sub">2,512单 · ROAS 4,151% · CRR 2.41%</div>
+      <div class="view-card-sub">2,512 orders · ROAS 4,151% · CRR 2.41%</div>
     </div>
     <div class="view-card" id="vc-campaign" onclick="setViewCard('campaign')">
       <div class="view-card-label">Campaign Performance</div>
       <div class="view-card-val">€1,250,947</div>
-      <div class="view-card-sub">2,707单 · ROAS 4,415% · CRR 2.26%</div>
+      <div class="view-card-sub">2,707 orders · ROAS 4,415% · CRR 2.26%</div>
     </div>
     <div class="view-card" id="vc-product" onclick="setViewCard('product')">
       <div class="view-card-label">Product Performance</div>
       <div class="view-card-val">€769,751</div>
-      <div class="view-card-sub">1,640单 · ROAS 2,717% · CRR 3.68%</div>
+      <div class="view-card-sub">1,640 orders · ROAS 2,717% · CRR 3.68%</div>
     </div>
   </div>
 
   <div class="chart-grid">
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title">TOP12产品 — 当前口径销售额</div>
+        <div class="panel-title">TOP 12 Products — Sales by Selected Attribution</div>
         <div class="panel-sub" id="compareViewLabel">Campaign Performance</div>
       </div>
       <div class="panel-body"><div class="chart-wrap tall"><canvas id="chartCompareBar"></canvas></div></div>
     </div>
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title">四口径 Sales 漏斗对比</div>
-        <div class="panel-sub">显示各口径归因差异</div>
+        <div class="panel-title">4-Attribution Sales Funnel</div>
+        <div class="panel-sub">Attribution gap across all views</div>
       </div>
       <div class="panel-body"><div class="chart-wrap tall"><canvas id="chartFunnel"></canvas></div></div>
     </div>
@@ -334,22 +334,22 @@
 
   <div class="panel">
     <div class="panel-header">
-      <div class="panel-title">产品四口径详细数据</div>
-      <div class="panel-sub">点击上方卡片切换口径高亮</div>
+      <div class="panel-title">Product Attribution Detail</div>
+      <div class="panel-sub">Click a card above to highlight the selected attribution column</div>
     </div>
     <div class="panel-body table-scroll">
       <table>
         <thead>
           <tr>
-            <th>产品</th>
+            <th>Product</th>
             <th class="r">Spend</th>
-            <th class="r">Brand销额</th>
-            <th class="r">Assort销额</th>
-            <th class="r">Camp销额</th>
-            <th class="r">Prod销额</th>
+            <th class="r">Brand Sales</th>
+            <th class="r">Assort Sales</th>
+            <th class="r">Camp Sales</th>
+            <th class="r">Prod Sales</th>
             <th class="r">Camp ROAS</th>
             <th class="r">Camp CRR</th>
-            <th class="r">归因差 B-P</th>
+            <th class="r">Gap B-P</th>
           </tr>
         </thead>
         <tbody id="tbCompare"></tbody>
@@ -358,22 +358,22 @@
   </div>
 </div>
 
-<!-- §4 产品TOP榜 -->
+<!-- §4 Product Rankings -->
 <div id="tab-top" class="section">
-  <div class="sec-title">产品 TOP 榜单</div>
+  <div class="sec-title">Product Rankings</div>
 
   <div class="chart-grid">
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title">🔝 TOP 12 — 按 Spend 排序</div>
-        <div class="panel-sub">广告投入最大的产品</div>
+        <div class="panel-title">🔝 TOP 12 — By Spend</div>
+        <div class="panel-sub">Highest ad investment products</div>
       </div>
       <div class="panel-body"><div class="chart-wrap tall"><canvas id="chartTopSpend"></canvas></div></div>
     </div>
     <div class="panel">
       <div class="panel-header">
-        <div class="panel-title">🏆 TOP 10 — Campaign ROAS 最高</div>
-        <div class="panel-sub">最小5单 · 效率最优</div>
+        <div class="panel-title">🏆 TOP 10 — Highest Campaign ROAS</div>
+        <div class="panel-sub">Min. 5 orders · Best efficiency</div>
       </div>
       <div class="panel-body"><div class="chart-wrap tall"><canvas id="chartTopRoas"></canvas></div></div>
     </div>
@@ -381,33 +381,33 @@
 
   <div class="panel">
     <div class="panel-header">
-      <div class="panel-title">⚠️ CRR 最高（效率最差）产品 TOP 8</div>
-      <div class="panel-sub">Campaign口径 · 最小5单 · CRR越高=越费钱</div>
+      <div class="panel-title">⚠️ Highest CRR (Least Efficient) — TOP 8</div>
+      <div class="panel-sub">Campaign attribution · Min. 5 orders · Higher CRR = more costly per sale</div>
     </div>
     <div class="panel-body"><div class="chart-wrap short"><canvas id="chartWorstCrr"></canvas></div></div>
   </div>
 
   <div class="panel">
     <div class="panel-header">
-      <div class="panel-title">完整产品列表</div>
-      <div class="panel-sub">按Campaign销售额降序 · 共57个SKU</div>
+      <div class="panel-title">Full Product List</div>
+      <div class="panel-sub">Sorted by Campaign Sales descending · 57 SKUs total</div>
     </div>
     <div class="panel-body table-scroll">
       <table>
         <thead>
           <tr>
-            <th>品类</th>
-            <th>产品名称</th>
+            <th>Category</th>
+            <th>Product Name</th>
             <th class="r">Spend</th>
             <th class="r">CPC</th>
-            <th class="r">点击</th>
+            <th class="r">Clicks</th>
             <th class="r">CVR</th>
-            <th class="r">Camp订单</th>
-            <th class="r">Camp销售额</th>
+            <th class="r">Camp Orders</th>
+            <th class="r">Camp Sales</th>
             <th class="r">Camp ROAS</th>
             <th class="r">CRR</th>
             <th class="r">CPO</th>
-            <th class="r">投放率</th>
+            <th class="r">Delivery</th>
           </tr>
         </thead>
         <tbody id="tbAll"></tbody>
@@ -416,74 +416,74 @@
   </div>
 </div>
 
-<!-- §5 异常预警 -->
+<!-- §5 Alerts & Insights -->
 <div id="tab-alert" class="section">
-  <div class="sec-title">异常预警 & 优化建议</div>
+  <div class="sec-title">Alerts & Optimization Insights</div>
 
   <div class="alert-group">
-    <div class="alert-group-title red">🔴 高优先级 — 效率异常，建议立即评估</div>
+    <div class="alert-group-title red">🔴 High Priority — Efficiency Anomalies, Review Immediately</div>
     <div class="alert-card">
       <div class="alert-icon">💸</div>
       <div class="alert-body">
-        <div class="alert-title">DJI Flip (RC 2) — Campaign CRR 12.95%，远超均值</div>
-        <div class="alert-data">Spend €459 · Camp 8单 · Camp Sales €3,545 · ROAS 772% · CRR 12.95%（均值2.26%的5.7倍）</div>
-        <div class="alert-action">→ 建议：暂停或大幅降低MaxCPC（当前€0.94），转移预算至Mini 5 Pro / Neo 2系列</div>
+        <div class="alert-title">DJI Flip (RC 2) — Campaign CRR 12.95%, far above average</div>
+        <div class="alert-data">Spend €459 · 8 Camp orders · Camp Sales €3,545 · ROAS 772% · CRR 12.95% (5.7x the 2.26% average)</div>
+        <div class="alert-action">→ Action: Pause or significantly reduce MaxCPC (currently €0.94). Reallocate budget to Mini 5 Pro / Neo 2 series.</div>
       </div>
     </div>
     <div class="alert-card">
       <div class="alert-icon">📉</div>
       <div class="alert-body">
-        <div class="alert-title">DJI Neo (ohne Fernsteuerung) — CRR 14.41%，ROAS仅694%</div>
-        <div class="alert-data">Spend €232 · Camp 5单 · Camp Sales €1,613 · CVR 1.97%（最低之一）</div>
-        <div class="alert-action">→ 建议：检查落地页相关性，考虑暂停投放；配件类产品广告ROI持续为负</div>
+        <div class="alert-title">DJI Neo (ohne Fernsteuerung) — CRR 14.41%, ROAS only 694%</div>
+        <div class="alert-data">Spend €232 · 5 Camp orders · Camp Sales €1,613 · CVR 1.97% (one of the lowest)</div>
+        <div class="alert-action">→ Action: Review landing page relevance. Consider pausing ad spend; accessory-type products show persistently negative ad ROI.</div>
       </div>
     </div>
     <div class="alert-card">
       <div class="alert-icon">🎯</div>
       <div class="alert-body">
-        <div class="alert-title">Osmo Mobile 7 — Assortment ROAS仅1,132%，归因差异最大</div>
-        <div class="alert-data">Brand Sales €11,658 vs Assortment Sales €7,630（差额€4,028，归因差35%）· 说明大量销售来自品牌搜索而非本产品直接跳转</div>
-        <div class="alert-action">→ 建议：复查Osmo Mobile品线广告策略，Brand归因过高可能是搜索词拦截竞品</div>
+        <div class="alert-title">Osmo Mobile 7 — Assortment ROAS only 1,132%, largest attribution gap</div>
+        <div class="alert-data">Brand Sales €11,658 vs Assortment Sales €7,630 (gap €4,028, 35% attribution difference) · Indicates most sales come from brand search, not direct product click-through</div>
+        <div class="alert-action">→ Action: Review Osmo Mobile ad strategy. High Brand attribution may indicate competitor keyword interception.</div>
       </div>
     </div>
   </div>
 
   <div class="alert-group">
-    <div class="alert-group-title yellow">🟡 中优先级 — 本周内评估优化</div>
+    <div class="alert-group-title yellow">🟡 Medium Priority — Optimize Within This Week</div>
     <div class="alert-card">
       <div class="alert-icon">🚀</div>
       <div class="alert-body">
-        <div class="alert-title">Mini 5 Pro Fly More — ROAS 8,681%，预算可能不足</div>
-        <div class="alert-data">Spend仅€1,418（占总预算5%）· Camp Sales €123,109 · 128单 · CRR仅1.15%</div>
-        <div class="alert-action">→ 建议：这是整个账户效率最高的SKU，建议将Flip/Neo老款节省的预算转移至此产品</div>
+        <div class="alert-title">Mini 5 Pro Fly More — ROAS 8,681%, budget likely under-allocated</div>
+        <div class="alert-data">Spend only €1,418 (5% of total budget) · Camp Sales €123,109 · 128 orders · CRR only 1.15%</div>
+        <div class="alert-action">→ Action: This is the highest-efficiency SKU in the account. Redirect budget savings from Flip/Neo legacy products here.</div>
       </div>
     </div>
     <div class="alert-card">
       <div class="alert-icon">📊</div>
       <div class="alert-body">
-        <div class="alert-title">Osmo Pocket 3 Kreativ Combo — 消耗最大但CRR 1.91%，效率仍优</div>
-        <div class="alert-data">Spend €6,677（占总23.6%）· Camp Sales €350,387 · 730单 · 交付率22.26%（最高）</div>
-        <div class="alert-action">→ 建议：持续保持预算，重点提升CTR（当前0.79%）→ 优化素材可进一步降低CPC</div>
+        <div class="alert-title">Osmo Pocket 3 Kreativ Combo — Largest spend but CRR 1.91%, still efficient</div>
+        <div class="alert-data">Spend €6,677 (23.6% of total) · Camp Sales €350,387 · 730 orders · Delivery rate 22.26% (highest)</div>
+        <div class="alert-action">→ Action: Maintain budget. Focus on improving CTR (currently 0.79%) — better creatives can further reduce CPC.</div>
       </div>
     </div>
     <div class="alert-card">
       <div class="alert-icon">🔍</div>
       <div class="alert-body">
-        <div class="alert-title">RS品类整体ROAS偏低，CRR偏高</div>
-        <div class="alert-data">RS Gimbal系列合计Spend约€397 · Camp Sales偏低 · RS 4 PRO Combo CRR 12.02%</div>
-        <div class="alert-action">→ 建议：RS品类受众窄，考虑降低MaxCPC至€0.40-0.50，专注高购买意向关键词</div>
+        <div class="alert-title">RS category overall ROAS below average, CRR elevated</div>
+        <div class="alert-data">RS Gimbal series combined Spend ~€397 · Camp Sales low · RS 4 PRO Combo CRR 12.02%</div>
+        <div class="alert-action">→ Action: RS category has a niche audience. Consider reducing MaxCPC to €0.40–0.50 and targeting high purchase-intent keywords only.</div>
       </div>
     </div>
   </div>
 
   <div class="alert-group">
-    <div class="alert-group-title blue">🔵 数据盲区警示</div>
+    <div class="alert-group-title blue">🔵 Data Blind Spots</div>
     <div class="alert-card">
       <div class="alert-icon">⚠️</div>
       <div class="alert-body">
-        <div class="alert-title">以下结论基于不完整信息，仅供参考</div>
-        <div class="alert-data">缺失数据：① 竞品广告数据（无法判断份额抢夺） ② 库存数据（高ROAS产品可能断货） ③ 有机销售数据（无法区分广告增量 vs 自然增量） ④ 历史同期数据（无法判断QoQ/YoY趋势）</div>
-        <div class="alert-action">→ 所有"暂停/增加预算"建议需结合库存状态确认后再执行</div>
+        <div class="alert-title">The following conclusions are based on incomplete data — treat as preliminary</div>
+        <div class="alert-data">Missing data: ① Competitor ad data (cannot assess share capture) ② Inventory data (high-ROAS products may be out of stock) ③ Organic sales data (cannot separate ad-driven vs natural uplift) ④ Historical comparison data (no QoQ/YoY context)</div>
+        <div class="alert-action">→ All "pause / increase budget" recommendations should be confirmed against current inventory status before execution.</div>
       </div>
     </div>
   </div>
@@ -587,7 +587,7 @@ function initOverview(){
     type:'bubble',
     data:{
       datasets:[{
-        label:'品类',
+        label:'Category',
         data:scatterData,
         backgroundColor:CAT_DATA.map(function(c){return (CAT_COLORS[c.category]||'#6E7681')+'AA';}),
         borderColor:CAT_DATA.map(function(c){return CAT_COLORS[c.category]||'#6E7681';}),
@@ -804,7 +804,7 @@ function initTop(){
     },
     options:{responsive:true,maintainAspectRatio:false,
       plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return ' CRR '+ctx.raw.toFixed(2)+'%';}}},
-        annotation:{annotations:{line1:{type:'line',yMin:2.26,yMax:2.26,borderColor:'#57AB5A',borderWidth:1.5,borderDash:[4,3],label:{content:'均值 2.26%',enabled:true,color:'#57AB5A',font:{size:10}}}}}},
+        annotation:{annotations:{line1:{type:'line',yMin:2.26,yMax:2.26,borderColor:'#57AB5A',borderWidth:1.5,borderDash:[4,3],label:{content:'Avg 2.26%',enabled:true,color:'#57AB5A',font:{size:10}}}}}},
       scales:{y:{ticks:{color:TICK_COLOR,callback:function(v){return v+'%';}},grid:{color:GRID_COLOR}},x:{ticks:{color:TICK_COLOR,font:{size:10}},grid:{display:false}}}}
   });
 

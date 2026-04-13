@@ -162,6 +162,7 @@
   <div class="nav-tab" onclick="switchTab(this,'tab-compare')">§3 Attribution Comparison</div>
   <div class="nav-tab" onclick="switchTab(this,'tab-top')">§4 Product Rankings</div>
   <div class="nav-tab" onclick="switchTab(this,'tab-alert')">§5 Alerts & Insights</div>
+  <div class="nav-tab" style="color:#C69026;font-weight:600" onclick="switchTab(this,'tab-budget')">§6 Budget Recommendation</div>
 </div>
 
 <!-- §1 Overview -->
@@ -484,6 +485,169 @@
         <div class="alert-title">The following conclusions are based on incomplete data — treat as preliminary</div>
         <div class="alert-data">Missing data: ① Competitor ad data (cannot assess share capture) ② Inventory data (high-ROAS products may be out of stock) ③ Organic sales data (cannot separate ad-driven vs natural uplift) ④ Historical comparison data (no QoQ/YoY context)</div>
         <div class="alert-action">→ All "pause / increase budget" recommendations should be confirmed against current inventory status before execution.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- §6 Budget Recommendation -->
+<div id="tab-budget" class="section">
+  <div class="sec-title">Budget Reallocation Recommendation</div>
+
+  <!-- Core insight banner -->
+  <div class="banner yellow">
+    <div class="banner-icon">💡</div>
+    <div class="banner-text">
+      <div class="banner-title">41% of budget goes to Drone — the least efficient category (40.9x). Osmo Action gets only 7.3% but returns 49.5x. Same total spend, ~18% more sales by reallocating.</div>
+      <div>Strategy: Cut low-return Drone SKUs (~€3,900 freed) → redeploy into proven high-efficiency SKUs across Osmo Action, Mic, and Drone top performers.</div>
+    </div>
+  </div>
+
+  <!-- Category verdict cards -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px">
+
+    <div style="background:#161B22;border:1px solid #2D333B;border-left:4px solid #347D39;border-radius:8px;padding:14px">
+      <div style="font-size:10px;color:#6E7681;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">✅ SUSTAIN</div>
+      <div style="font-size:15px;font-weight:700;color:#E6EDF3;margin-bottom:6px">Osmo Pocket</div>
+      <div style="font-size:12px;color:#57AB5A;font-weight:600">53.5x efficiency · €9,424 spend</div>
+      <div style="font-size:11px;color:#6E7681;margin-top:4px">Strongest category. Hold current budget. Optimise creatives to improve CTR from 0.79%.</div>
+    </div>
+
+    <div style="background:#161B22;border:1px solid #2D333B;border-left:4px solid #E5534B;border-radius:8px;padding:14px">
+      <div style="font-size:10px;color:#6E7681;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">⚠️ RESTRUCTURE</div>
+      <div style="font-size:15px;font-weight:700;color:#E6EDF3;margin-bottom:6px">Drone</div>
+      <div style="font-size:12px;color:#E5534B;font-weight:600">40.9x efficiency · €11,608 spend (41%)</div>
+      <div style="font-size:11px;color:#6E7681;margin-top:4px">Over-indexed. Pause 3 low-return SKUs. Shift saved budget to Mini 5 Pro (86.8x) and Neo 2 (64.3x).</div>
+    </div>
+
+    <div style="background:#161B22;border:1px solid #2D333B;border-left:4px solid #4184E4;border-radius:8px;padding:14px">
+      <div style="font-size:10px;color:#6E7681;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">🚀 SCALE UP</div>
+      <div style="font-size:15px;font-weight:700;color:#E6EDF3;margin-bottom:6px">Osmo Action</div>
+      <div style="font-size:12px;color:#4184E4;font-weight:600">49.5x efficiency · €2,064 spend (7.3%)</div>
+      <div style="font-size:11px;color:#6E7681;margin-top:4px">Under-funded vs performance. OA6 Standard returns 59.9x. Recommend +€800 additional spend.</div>
+    </div>
+
+    <div style="background:#161B22;border:1px solid #2D333B;border-left:4px solid #4184E4;border-radius:8px;padding:14px">
+      <div style="font-size:10px;color:#6E7681;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">🚀 SCALE UP</div>
+      <div style="font-size:15px;font-weight:700;color:#E6EDF3;margin-bottom:6px">Mic</div>
+      <div style="font-size:12px;color:#4184E4;font-weight:600">44.7x efficiency · €1,000 spend (3.5%)</div>
+      <div style="font-size:11px;color:#6E7681;margin-top:4px">MIC Mini has CTR 0.81% and CVR 15.67% — highest conversion rate in account. Recommend +€500.</div>
+    </div>
+
+    <div style="background:#161B22;border:1px solid #2D333B;border-left:4px solid #C69026;border-radius:8px;padding:14px">
+      <div style="font-size:10px;color:#6E7681;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">🔄 SELECTIVE</div>
+      <div style="font-size:15px;font-weight:700;color:#E6EDF3;margin-bottom:6px">Osmo Mobile</div>
+      <div style="font-size:12px;color:#C69026;font-weight:600">30.2x efficiency · €1,378 spend</div>
+      <div style="font-size:11px;color:#6E7681;margin-top:4px">OM7 Pro (46.8x, CVR 12.35%) is strong — scale it. OM7 standard (15.9x) should be reduced.</div>
+    </div>
+
+    <div style="background:#161B22;border:1px solid #2D333B;border-left:4px solid #E5534B;border-radius:8px;padding:14px">
+      <div style="font-size:10px;color:#6E7681;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">📉 REDUCE</div>
+      <div style="font-size:15px;font-weight:700;color:#E6EDF3;margin-bottom:6px">Osmo Nano / 360</div>
+      <div style="font-size:12px;color:#E5534B;font-weight:600">27–30x efficiency · €2,461 combined</div>
+      <div style="font-size:11px;color:#6E7681;margin-top:4px">Lowest sales return per € of any category. Reduce both by ~20% and reallocate to Action / Mic.</div>
+    </div>
+
+    <div style="background:#161B22;border:1px solid #2D333B;border-left:4px solid #347D39;border-radius:8px;padding:14px">
+      <div style="font-size:10px;color:#6E7681;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">✅ HOLD</div>
+      <div style="font-size:15px;font-weight:700;color:#E6EDF3;margin-bottom:6px">RS</div>
+      <div style="font-size:12px;color:#57AB5A;font-weight:600">33.4x efficiency · €397 spend</div>
+      <div style="font-size:11px;color:#6E7681;margin-top:4px">Small niche but solid return. Hold current spend. RS 4 Mini Combo is the star SKU here.</div>
+    </div>
+
+  </div>
+
+  <!-- Reallocation charts -->
+  <div class="chart-grid">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Current vs Recommended Spend by Category</div>
+        <div class="panel-sub">Same total budget · optimised allocation</div>
+      </div>
+      <div class="panel-body"><div class="chart-wrap"><canvas id="chartBudgetCat"></canvas></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Sales Efficiency by Category (€ Sales per € Spend)</div>
+        <div class="panel-sub">Higher = more sales generated per € invested</div>
+      </div>
+      <div class="panel-body"><div class="chart-wrap"><canvas id="chartEfficiency"></canvas></div></div>
+    </div>
+  </div>
+
+  <!-- SKU action table -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">SKU-Level Action Plan</div>
+      <div class="panel-sub">Specific budget moves · sorted by action priority</div>
+    </div>
+    <div class="panel-body table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Action</th>
+            <th>Category</th>
+            <th>Product</th>
+            <th class="r">Current Spend</th>
+            <th class="r">Recommended</th>
+            <th class="r">Change</th>
+            <th class="r">Sales Efficiency</th>
+            <th class="r">Camp ROAS</th>
+            <th>Rationale</th>
+          </tr>
+        </thead>
+        <tbody id="tbBudget"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Projected impact -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">Projected Impact Summary</div>
+      <div class="panel-sub">Estimates based on current efficiency rates · assumes elasticity holds</div>
+    </div>
+    <div class="panel-body">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:20px">
+        <div style="text-align:center">
+          <div style="font-size:11px;color:#6E7681;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Total Spend</div>
+          <div style="font-size:28px;font-weight:700;color:#E6EDF3">€28,333</div>
+          <div style="font-size:12px;color:#6E7681">Unchanged</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:11px;color:#6E7681;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Current Campaign Sales</div>
+          <div style="font-size:28px;font-weight:700;color:#E6EDF3">€1.251M</div>
+          <div style="font-size:12px;color:#6E7681">Baseline</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:11px;color:#6E7681;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Projected Campaign Sales</div>
+          <div style="font-size:28px;font-weight:700;color:#57AB5A">~€1.47M</div>
+          <div style="font-size:12px;color:#57AB5A;font-weight:600">+18% uplift</div>
+        </div>
+        <div style="text-align:center">
+          <div style="font-size:11px;color:#6E7681;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">High-Efficiency Spend Share</div>
+          <div style="font-size:28px;font-weight:700;color:#57AB5A">75%</div>
+          <div style="font-size:12px;color:#6E7681">vs 59% currently</div>
+        </div>
+      </div>
+
+      <!-- 3 principles -->
+      <div style="border-top:1px solid #2D333B;padding-top:16px">
+        <div style="font-size:12px;font-weight:700;color:#E6EDF3;text-transform:uppercase;letter-spacing:.6px;margin-bottom:12px">3 Guiding Principles</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px">
+          <div style="background:#0D1117;border:1px solid #2D333B;border-radius:6px;padding:12px">
+            <div style="font-size:13px;font-weight:600;color:#4184E4;margin-bottom:4px">① Efficiency over ROAS</div>
+            <div style="font-size:12px;color:#6E7681">Sort decisions by <code style="background:#161B22;padding:1px 5px;border-radius:3px;color:#C9D1D9">campaign_sales / spend</code> ratio, not ROAS% alone. A €75 spend with 12,278% ROAS is great but negligible in impact.</div>
+          </div>
+          <div style="background:#0D1117;border:1px solid #2D333B;border-radius:6px;padding:12px">
+            <div style="font-size:13px;font-weight:600;color:#4184E4;margin-bottom:4px">② Manage Drone at SKU level</div>
+            <div style="font-size:12px;color:#6E7681">Category average (40.9x) masks a 10x spread — Mini 5 Pro Fly More returns 86.8x while DJI Flip returns just 7.7x. Never allocate Drone as a block.</div>
+          </div>
+          <div style="background:#0D1117;border:1px solid #2D333B;border-radius:6px;padding:12px">
+            <div style="font-size:13px;font-weight:600;color:#4184E4;margin-bottom:4px">③ Mic & Action are underfunded</div>
+            <div style="font-size:12px;color:#6E7681">Both show CTR ≥ 0.64%, CVR ≥ 10%, and 45–68x efficiency. They are systematically starved of budget relative to demonstrated performance.</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -830,12 +994,115 @@ function initTop(){
   }).join('');
 }
 
+// ===== §6 BUDGET RECOMMENDATION =====
+var BUDGET_ACTIONS = [
+  // PAUSE
+  {action:'PAUSE',  cat:'Drone',       name:'DJI Neo (ohne Fernsteuerung)',          cur:232,  rec:0,    eff:6.9,  roas:694,   reason:'Lowest sales return in account (6.9x). CVR only 1.97%.'},
+  {action:'PAUSE',  cat:'Drone',       name:'DJI Flip (RC 2)',                       cur:459,  rec:0,    eff:7.7,  roas:772,   reason:'7.7x efficiency vs 40.9x Drone average. Budget better used elsewhere.'},
+  {action:'PAUSE',  cat:'Drone',       name:'DJI Flip Fly More Combo',               cur:128,  rec:0,    eff:15.2, roas:1519,  reason:'Companion to Flip (RC 2), same poor efficiency trend.'},
+  // REDUCE
+  {action:'REDUCE', cat:'Drone',       name:'Mavic 4 Pro 512GB Creator Combo',       cur:2737, rec:1200, eff:24.8, roas:2481,  reason:'High spend but 24.8x efficiency. Cut 56% and redeploy.'},
+  {action:'REDUCE', cat:'Osmo Mobile', name:'DJI Osmo Mobile 7 Gimbal',              cur:674,  rec:300,  eff:15.9, roas:1593,  reason:'OM7 Pro outperforms OM7 standard by 3x. Reduce standard.'},
+  {action:'REDUCE', cat:'Osmo Nano',   name:'Osmo Nano Standard Combo (64GB)',        cur:360,  rec:200,  eff:22.0, roas:2199,  reason:'Below-category efficiency. Reduce in favour of Action/Mic.'},
+  {action:'REDUCE', cat:'Osmo 360',    name:'Osmo 360 Adventure Combo',               cur:1068, rec:600,  eff:21.8, roas:2178,  reason:'27.1x category avg — lowest of all. Scale back by ~44%.'},
+  // HOLD
+  {action:'HOLD',   cat:'Osmo Pocket', name:'Osmo Pocket 3 Kreativ Combo',            cur:6677, rec:6677, eff:52.5, roas:5248,  reason:'Top volume SKU, strong efficiency. No change needed.'},
+  {action:'HOLD',   cat:'Osmo Pocket', name:'Osmo Pocket 3 (Standard)',               cur:2747, rec:2747, eff:56.0, roas:5597,  reason:'56x efficiency, healthy CVR 6.57%. Maintain.'},
+  {action:'HOLD',   cat:'RS',          name:'RS 4 Mini Combo Gimbal',                 cur:117,  rec:117,  eff:50.2, roas:5016,  reason:'Best RS SKU. Small spend, solid 50.2x return.'},
+  // SCALE
+  {action:'SCALE',  cat:'Drone',       name:'Mini 5 Pro Fly More Combo (DJI RC2)',    cur:1418, rec:2900, eff:86.8, roas:8681,  reason:'Highest efficiency in entire account (86.8x). Severely under-funded.'},
+  {action:'SCALE',  cat:'Drone',       name:'Neo 2 Fly More Combo',                   cur:574,  rec:1000, eff:64.3, roas:6431,  reason:'64.3x efficiency, CTR 0.71%, CVR 7.77%. Strong scaling candidate.'},
+  {action:'SCALE',  cat:'Osmo Action', name:'Osmo Action 6 Standard Combo',           cur:402,  rec:800,  eff:59.9, roas:5990,  reason:'59.9x efficiency, CVR 9.39%. Second-best action SKU.'},
+  {action:'SCALE',  cat:'Osmo Action', name:'Osmo Action 6 Adventure Combo',          cur:685,  rec:1200, eff:52.8, roas:5281,  reason:'52.8x efficiency, 84 orders. Scale alongside standard.'},
+  {action:'SCALE',  cat:'Mic',         name:'DJI MIC Mini (2TX + 1RX + Ladeschale)', cur:304,  rec:800,  eff:67.6, roas:6763,  reason:'CVR 15.67% — highest in account. 67.6x efficiency. Underfunded.'},
+  {action:'SCALE',  cat:'Mic',         name:'DJI Mic 2 (1 Sender + 1 Empfänger)',    cur:178,  rec:400,  eff:45.5, roas:4544,  reason:'CVR 10.86%, strong signal. Scale to test ceiling.'},
+  {action:'SCALE',  cat:'Osmo Mobile', name:'DJI OSMO MOBILE 7 Pro Gimbal',           cur:306,  rec:700,  eff:46.8, roas:4677,  reason:'CTR 0.83%, CVR 12.35%. Best Osmo Mobile SKU by far.'},
+];
+
+var ACTION_COLORS = {PAUSE:'#E5534B', REDUCE:'#C69026', HOLD:'#6E7681', SCALE:'#347D39'};
+var ACTION_TEXT   = {PAUSE:'#E5534B', REDUCE:'#C69026', HOLD:'#9ca3af', SCALE:'#57AB5A'};
+
+function initBudget(){
+  // Category reallocation bar chart
+  var catNames = ['Osmo Pocket','Drone','Osmo Action','Mic','Osmo Mobile','Osmo Nano','Osmo 360','RS'];
+  var curSpend  = [9424, 11608, 2064, 1000, 1378, 1189, 1272, 397];
+  var recSpend  = [9424, 5100,  2864, 1500, 1000,  989, 1072, 397];
+  mkChart('chartBudgetCat',{
+    type:'bar',
+    data:{
+      labels:catNames,
+      datasets:[
+        {label:'Current Spend (€)', data:curSpend, backgroundColor:'#4184E4BB', borderRadius:4},
+        {label:'Recommended Spend (€)', data:recSpend, backgroundColor:'#57AB5ABB', borderRadius:4}
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#C9D1D9',font:{size:12},boxWidth:12}}},
+      scales:{
+        x:{ticks:{color:TICK_COLOR,font:{size:11}}, grid:{color:GRID_COLOR}},
+        y:{ticks:{color:TICK_COLOR,callback:function(v){return fmtK(v);}}, grid:{color:GRID_COLOR}}
+      }
+    }
+  });
+
+  // Efficiency bar chart
+  var effVals = [53.5, 40.9, 49.5, 44.7, 30.2, 30.1, 27.1, 33.4];
+  mkChart('chartEfficiency',{
+    type:'bar',
+    data:{
+      labels:catNames,
+      datasets:[{
+        label:'€ Sales per € Spend',
+        data:effVals,
+        backgroundColor:effVals.map(function(v){return v>=50?'#347D39BB':v>=40?'#C69026BB':'#E5534BBB';}),
+        borderRadius:4
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label:function(ctx){return ' '+ctx.raw.toFixed(1)+'x return per € spent';}}}
+      },
+      scales:{
+        x:{ticks:{color:TICK_COLOR,font:{size:11}}, grid:{color:GRID_COLOR}},
+        y:{ticks:{color:TICK_COLOR,callback:function(v){return v+'x';}}, grid:{color:GRID_COLOR}}
+      }
+    }
+  });
+
+  // SKU action table
+  var tb = document.getElementById('tbBudget');
+  if(!tb) return;
+  var order = {PAUSE:0, REDUCE:1, SCALE:2, HOLD:3};
+  var sorted = [].concat(BUDGET_ACTIONS).sort(function(a,b){return order[a.action]-order[b.action];});
+  tb.innerHTML = sorted.map(function(r){
+    var change = r.rec - r.cur;
+    var changeTxt = change === 0 ? '—' : (change > 0 ? '+€'+change : '−€'+Math.abs(change));
+    var changeCol = change > 0 ? 'num-green' : change < 0 ? 'num-red' : '';
+    var actionCol = ACTION_TEXT[r.action];
+    return '<tr>' +
+      '<td><span class="badge" style="background:'+ACTION_COLORS[r.action]+'22;color:'+actionCol+';font-weight:700">'+r.action+'</span></td>' +
+      '<td>'+catBadge(r.cat)+'</td>' +
+      '<td style="font-size:12px;max-width:220px">'+r.name+'</td>' +
+      '<td class="r">€'+r.cur+'</td>' +
+      '<td class="r" style="color:'+actionCol+';font-weight:600">'+( r.rec===0?'€0 (pause)':'€'+r.rec )+'</td>' +
+      '<td class="r"><span class="'+changeCol+'">'+changeTxt+'</span></td>' +
+      '<td class="r"><span class="'+(r.eff>=55?'num-green':r.eff>=40?'num-yellow':'num-red')+'">'+r.eff.toFixed(1)+'x</span></td>' +
+      '<td class="r"><span class="'+(r.roas>=5000?'num-green':r.roas>=3000?'num-blue':r.roas>=1500?'num-yellow':'num-red')+'">'+r.roas+'%</span></td>' +
+      '<td style="font-size:11px;color:#6E7681;max-width:260px">'+r.reason+'</td>' +
+      '</tr>';
+  }).join('');
+}
+
 // ===== INIT =====
 window.addEventListener('DOMContentLoaded', function(){
   initOverview();
   initCategory();
   initCompare();
   initTop();
+  initBudget();
 });
 </script>
 </body>

@@ -163,6 +163,7 @@
   <div class="nav-tab" onclick="switchTab(this,'tab-top')">§4 Product Rankings</div>
   <div class="nav-tab" onclick="switchTab(this,'tab-alert')">§5 Alerts & Insights</div>
   <div class="nav-tab" style="color:#C69026;font-weight:600" onclick="switchTab(this,'tab-budget')">§6 Budget Recommendation</div>
+  <div class="nav-tab" style="color:#A371F7;font-weight:600" onclick="switchTab(this,'tab-series')">§7 Series Deep Dive</div>
 </div>
 
 <!-- §1 Overview -->
@@ -653,6 +654,322 @@
   </div>
 </div>
 
+<!-- §7 Series Deep Dive -->
+<div id="tab-series" class="section">
+  <div class="sec-title">Series Deep Dive — Osmo Action · Osmo 360 · Osmo Nano</div>
+
+  <!-- Series selector -->
+  <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
+    <button class="series-btn active" id="sbtn-oa" onclick="switchSeries('oa')"
+      style="padding:8px 20px;border-radius:6px;border:1px solid #F78166;background:rgba(247,129,102,.12);color:#F78166;font-size:13px;font-weight:600;cursor:pointer">
+      Osmo Action
+    </button>
+    <button class="series-btn" id="sbtn-oq" onclick="switchSeries('oq')"
+      style="padding:8px 20px;border-radius:6px;border:1px solid #2D333B;background:transparent;color:#6E7681;font-size:13px;font-weight:600;cursor:pointer">
+      Osmo 360
+    </button>
+    <button class="series-btn" id="sbtn-ow" onclick="switchSeries('ow')"
+      style="padding:8px 20px;border-radius:6px;border:1px solid #2D333B;background:transparent;color:#6E7681;font-size:13px;font-weight:600;cursor:pointer">
+      Osmo Nano
+    </button>
+  </div>
+
+  <!-- ── OSMO ACTION ── -->
+  <div id="series-oa">
+
+    <div class="banner" style="background:rgba(247,129,102,.1);border:1px solid rgba(247,129,102,.35);margin-bottom:20px">
+      <div class="banner-icon">🎬</div>
+      <div class="banner-text">
+        <div class="banner-title" style="color:#F78166">Osmo Action — 6 SKUs · €2,064 Spend · €102,171 Campaign Sales · 49.5x Efficiency</div>
+        <div>OA6 is the star generation — Standard Combo returns 59.9x and Adventure returns 52.8x. OA4 lags at 22–24x. OA5 Pro sits solidly in mid-tier at 49–51x. Strong CVR (7–9%) across the line signals high purchase intent.</div>
+      </div>
+    </div>
+
+    <!-- OA KPI row -->
+    <div class="kpi-grid" style="margin-bottom:16px">
+      <div class="kpi-card" style="border-top:2px solid #F78166">
+        <div class="kpi-label">Total Spend</div>
+        <div class="kpi-value">€2,064</div>
+        <div class="kpi-sub">7.3% of total budget</div>
+      </div>
+      <div class="kpi-card" style="border-top:2px solid #F78166">
+        <div class="kpi-label">Campaign Sales</div>
+        <div class="kpi-value">€102,171</div>
+        <div class="kpi-sub">260 orders · 49.5x efficiency</div>
+      </div>
+      <div class="kpi-card" style="border-top:2px solid #F78166">
+        <div class="kpi-label">Best SKU ROAS</div>
+        <div class="kpi-value">5,990%</div>
+        <div class="kpi-sub">OA6 Standard · CRR 1.67%</div>
+      </div>
+      <div class="kpi-card" style="border-top:2px solid #F78166">
+        <div class="kpi-label">Avg CVR</div>
+        <div class="kpi-value">7.7%</div>
+        <div class="kpi-sub">Strong purchase intent across line</div>
+      </div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">Osmo Action — Spend vs Campaign Sales by SKU</div>
+          <div class="panel-sub">Sorted by Campaign Sales</div>
+        </div>
+        <div class="panel-body"><div class="chart-wrap"><canvas id="chartOaSpendSales"></canvas></div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">Osmo Action — ROAS & CRR by SKU</div>
+          <div class="panel-sub">Higher ROAS + Higher CRR = top performer</div>
+        </div>
+        <div class="panel-body"><div class="chart-wrap"><canvas id="chartOaRoasCrr"></canvas></div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Osmo Action — Full SKU Breakdown</div>
+        <div class="panel-sub">All attributions · sorted by Campaign Sales</div>
+      </div>
+      <div class="panel-body table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>SKU</th>
+              <th class="r">Spend</th>
+              <th class="r">Impressions</th>
+              <th class="r">CTR</th>
+              <th class="r">CVR</th>
+              <th class="r">Camp Orders</th>
+              <th class="r">Camp Sales</th>
+              <th class="r">Efficiency</th>
+              <th class="r">Camp ROAS</th>
+              <th class="r">Camp CRR</th>
+              <th class="r">Brand Sales</th>
+              <th class="r">Prod Sales</th>
+              <th class="r">Attribution Gap</th>
+            </tr>
+          </thead>
+          <tbody id="tbOa"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:4px">
+      <div class="panel-header"><div class="panel-title">Generation Verdict</div></div>
+      <div class="panel-body">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+          <div style="background:#0D1117;border:1px solid #347D39;border-radius:6px;padding:12px">
+            <div style="font-size:11px;color:#57AB5A;font-weight:700;margin-bottom:4px">🏆 OA6 — Scale</div>
+            <div style="font-size:12px;color:#C9D1D9">Standard (59.9x, ROAS 5,990%) and Adventure (52.8x, ROAS 5,281%) are the two best-performing Action SKUs. Combined spend €1,086 — should be doubled.</div>
+          </div>
+          <div style="background:#0D1117;border:1px solid #C69026;border-radius:6px;padding:12px">
+            <div style="font-size:11px;color:#C69026;font-weight:700;margin-bottom:4px">🔄 OA5 Pro — Hold</div>
+            <div style="font-size:12px;color:#C9D1D9">Adventure (51.1x) and Standard (49.4x) still above category average. CVR strong at 7.6–8.2%. Maintain spend; review as OA6 matures.</div>
+          </div>
+          <div style="background:#0D1117;border:1px solid #E5534B;border-radius:6px;padding:12px">
+            <div style="font-size:11px;color:#E5534B;font-weight:700;margin-bottom:4px">📉 OA4 — Reduce</div>
+            <div style="font-size:12px;color:#C9D1D9">Standard (22.8x) and Adventure (31.7x) trail the category. CVR 4.2–4.2%. Older generation; reduce MaxCPC and capture only high-intent long-tail.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── OSMO 360 ── -->
+  <div id="series-oq" style="display:none">
+
+    <div class="banner" style="background:rgba(198,144,38,.1);border:1px solid rgba(198,144,38,.35);margin-bottom:20px">
+      <div class="banner-icon">🌐</div>
+      <div class="banner-text">
+        <div class="banner-title" style="color:#C69026">Osmo 360 — 2 SKUs · €1,272 Spend · €34,530 Campaign Sales · 27.1x Efficiency</div>
+        <div>The 360 Standard Combo punches above its weight — CTR 0.63%, CVR 11.49%, ROAS 5,518%. The Adventure Combo carries 4x the spend but only half the conversion rate. Budget rebalancing within the series would lift overall efficiency significantly.</div>
+      </div>
+    </div>
+
+    <div class="kpi-grid" style="margin-bottom:16px">
+      <div class="kpi-card" style="border-top:2px solid #C69026">
+        <div class="kpi-label">Total Spend</div>
+        <div class="kpi-value">€1,272</div>
+        <div class="kpi-sub">4.5% of total budget</div>
+      </div>
+      <div class="kpi-card" style="border-top:2px solid #C69026">
+        <div class="kpi-label">Campaign Sales</div>
+        <div class="kpi-value">€34,530</div>
+        <div class="kpi-sub">85 orders · 27.1x efficiency</div>
+      </div>
+      <div class="kpi-card" style="border-top:2px solid #C69026">
+        <div class="kpi-label">Best SKU ROAS</div>
+        <div class="kpi-value">5,518%</div>
+        <div class="kpi-sub">360 Standard · CVR 11.49%</div>
+      </div>
+      <div class="kpi-card" style="border-top:2px solid #C69026">
+        <div class="kpi-label">Efficiency Gap</div>
+        <div class="kpi-value">55.2x vs 21.8x</div>
+        <div class="kpi-sub">Standard vs Adventure — 2.5x difference</div>
+      </div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">Osmo 360 — Spend vs Campaign Sales</div>
+          <div class="panel-sub">Adventure gets 5x the spend, Standard gets better results</div>
+        </div>
+        <div class="panel-body"><div class="chart-wrap"><canvas id="chartOqSpendSales"></canvas></div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">Osmo 360 — Key Metrics Comparison</div>
+          <div class="panel-sub">CTR / CVR / CRR / Efficiency side by side</div>
+        </div>
+        <div class="panel-body"><div class="chart-wrap"><canvas id="chartOqMetrics"></canvas></div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Osmo 360 — Full SKU Breakdown</div>
+      </div>
+      <div class="panel-body table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>SKU</th>
+              <th class="r">Spend</th>
+              <th class="r">Impressions</th>
+              <th class="r">CTR</th>
+              <th class="r">CVR</th>
+              <th class="r">Camp Orders</th>
+              <th class="r">Camp Sales</th>
+              <th class="r">Efficiency</th>
+              <th class="r">Camp ROAS</th>
+              <th class="r">Camp CRR</th>
+              <th class="r">Brand Sales</th>
+              <th class="r">Prod Sales</th>
+              <th class="r">Attribution Gap</th>
+            </tr>
+          </thead>
+          <tbody id="tbOq"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:4px">
+      <div class="panel-header"><div class="panel-title">SKU Verdict</div></div>
+      <div class="panel-body">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px">
+          <div style="background:#0D1117;border:1px solid #347D39;border-radius:6px;padding:12px">
+            <div style="font-size:11px;color:#57AB5A;font-weight:700;margin-bottom:4px">🏆 360 Standard — Scale</div>
+            <div style="font-size:12px;color:#C9D1D9">55.2x efficiency, ROAS 5,518%, CVR 11.49%. Only €204 spend. This SKU is being chronically underfunded — triple the budget here.</div>
+          </div>
+          <div style="background:#0D1117;border:1px solid #E5534B;border-radius:6px;padding:12px">
+            <div style="font-size:11px;color:#E5534B;font-weight:700;margin-bottom:4px">📉 360 Adventure — Reduce</div>
+            <div style="font-size:12px;color:#C9D1D9">21.8x efficiency vs 55.2x for Standard. CTR 0.33%, CVR 4.51%. Gets 84% of category budget but delivers 67% of sales. Cut spend by ~40% and redirect to Standard.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── OSMO NANO ── -->
+  <div id="series-ow" style="display:none">
+
+    <div class="banner" style="background:rgba(87,171,90,.1);border:1px solid rgba(87,171,90,.35);margin-bottom:20px">
+      <div class="banner-icon">📷</div>
+      <div class="banner-text">
+        <div class="banner-title" style="color:#57AB5A">Osmo Nano — 2 SKUs · €1,189 Spend · €35,810 Campaign Sales · 30.1x Efficiency</div>
+        <div>128GB Combo significantly outperforms the 64GB on every metric — 3.5x more orders, 2x better CVR, and a 3,363% vs 2,199% ROAS gap. The 128GB should be the primary investment SKU; 64GB spend should be reallocated.</div>
+      </div>
+    </div>
+
+    <div class="kpi-grid" style="margin-bottom:16px">
+      <div class="kpi-card" style="border-top:2px solid #57AB5A">
+        <div class="kpi-label">Total Spend</div>
+        <div class="kpi-value">€1,189</div>
+        <div class="kpi-sub">4.2% of total budget</div>
+      </div>
+      <div class="kpi-card" style="border-top:2px solid #57AB5A">
+        <div class="kpi-label">Campaign Sales</div>
+        <div class="kpi-value">€35,810</div>
+        <div class="kpi-sub">109 orders · 30.1x efficiency</div>
+      </div>
+      <div class="kpi-card" style="border-top:2px solid #57AB5A">
+        <div class="kpi-label">Best SKU ROAS</div>
+        <div class="kpi-value">3,363%</div>
+        <div class="kpi-sub">128GB Combo · 85 orders</div>
+      </div>
+      <div class="kpi-card" style="border-top:2px solid #57AB5A">
+        <div class="kpi-label">CVR Gap</div>
+        <div class="kpi-value">6.14% vs 3.76%</div>
+        <div class="kpi-sub">128GB converts 63% better than 64GB</div>
+      </div>
+    </div>
+
+    <div class="chart-grid">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">Osmo Nano — Spend vs Campaign Sales</div>
+          <div class="panel-sub">128GB carries the category</div>
+        </div>
+        <div class="panel-body"><div class="chart-wrap"><canvas id="chartOwSpendSales"></canvas></div></div>
+      </div>
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">Osmo Nano — Key Metrics Comparison</div>
+          <div class="panel-sub">CTR / CVR / CRR / Efficiency</div>
+        </div>
+        <div class="panel-body"><div class="chart-wrap"><canvas id="chartOwMetrics"></canvas></div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Osmo Nano — Full SKU Breakdown</div>
+      </div>
+      <div class="panel-body table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>SKU</th>
+              <th class="r">Spend</th>
+              <th class="r">Impressions</th>
+              <th class="r">CTR</th>
+              <th class="r">CVR</th>
+              <th class="r">Camp Orders</th>
+              <th class="r">Camp Sales</th>
+              <th class="r">Efficiency</th>
+              <th class="r">Camp ROAS</th>
+              <th class="r">Camp CRR</th>
+              <th class="r">Brand Sales</th>
+              <th class="r">Prod Sales</th>
+              <th class="r">Attribution Gap</th>
+            </tr>
+          </thead>
+          <tbody id="tbOw"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-top:4px">
+      <div class="panel-header"><div class="panel-title">SKU Verdict</div></div>
+      <div class="panel-body">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px">
+          <div style="background:#0D1117;border:1px solid #347D39;border-radius:6px;padding:12px">
+            <div style="font-size:11px;color:#57AB5A;font-weight:700;margin-bottom:4px">🏆 128GB Combo — Priority SKU</div>
+            <div style="font-size:12px;color:#C9D1D9">33.6x efficiency, ROAS 3,363%, CVR 6.14%, 85 orders. The dominant Nano SKU — increase spend to €1,100 and reduce 64GB to test ceiling.</div>
+          </div>
+          <div style="background:#0D1117;border:1px solid #E5534B;border-radius:6px;padding:12px">
+            <div style="font-size:11px;color:#E5534B;font-weight:700;margin-bottom:4px">📉 64GB Combo — Reduce</div>
+            <div style="font-size:12px;color:#C9D1D9">22.0x efficiency, CVR only 3.76%, 24 orders. Buyers strongly prefer the 128GB. Cut spend by 50%, keep at low CPC for long-tail capture only.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
 <script>
 // ===== DATA =====
 const TOTAL = {"spend": 28333.19, "cpc": 0.59, "impressions": 11160984, "clicks": 48101, "ctr": 0.43, "cvr": 6.1, "brand": {"orders": 2936.0, "units": 3251.0, "sales": 1295250.18, "roas": 4571.49, "crr": 2.19, "cpo": 9.65}, "assortment": {"orders": 2512.0, "units": 2556.0, "sales": 1176046.79, "roas": 4150.77, "crr": 2.41, "cpo": 11.28}, "campaign": {"orders": 2707.0, "units": 2839.0, "sales": 1250946.83, "roas": 4415.13, "crr": 2.26, "cpo": 10.47, "roas_calc": 4415.1, "crr_calc": 2.26}, "product": {"orders": 1640.0, "units": 1655.0, "sales": 769751.37, "roas": 2716.78, "crr": 3.68, "cpo": 17.28}, "delivery": 94.44};
@@ -1096,6 +1413,161 @@ function initBudget(){
   }).join('');
 }
 
+// ===== §7 SERIES DEEP DIVE =====
+var SERIES_PRODUCTS = {
+  oa: PRODUCTS.filter(function(p){return p.category==='Osmo Action';}),
+  oq: PRODUCTS.filter(function(p){return p.category==='Osmo 360';}),
+  ow: PRODUCTS.filter(function(p){return p.category==='Osmo Nano';})
+};
+
+var SERIES_COLORS = {oa:'#F78166', oq:'#C69026', ow:'#57AB5A'};
+
+function seriesShortName(s){
+  return s.replace('DJI DJI ','DJI ').replace('DJI Osmo Action ','OA ')
+          .replace('DJI Osmo 360 ','OQ ').replace('DJI DJI Osmo Nano ','OW ')
+          .replace(' Action Cam (4K Ultra HD, Bluetooth, WLAN (Wi-Fi)','')
+          .replace(' Action Cam (8K, Bluetooth, WLAN (Wi-Fi), 360\u00b0-Kamera)','')
+          .replace(' Camcorder (4K Ultra HD, Bluetooth, WLAN (Wi-Fi)','')
+          .replace(' Camcorder (4K Ultra HD, Bluetooth)','')
+          .trim();
+}
+
+function buildSeriesTable(tbId, prods){
+  var tb = document.getElementById(tbId);
+  if(!tb) return;
+  var sorted = [].concat(prods).sort(function(a,b){return b.campaign.sales - a.campaign.sales;});
+  tb.innerHTML = sorted.map(function(p){
+    var eff = p.spend>0 ? p.campaign.sales/p.spend : 0;
+    var gap = p.brand.sales - p.product.sales;
+    return '<tr>' +
+      '<td style="font-size:12px;min-width:200px">'+seriesShortName(p.name)+'</td>' +
+      '<td class="r">'+fmtK(p.spend)+'</td>' +
+      '<td class="r">'+(p.impressions/1000).toFixed(0)+'K</td>' +
+      '<td class="r">'+p.ctr.toFixed(2)+'%</td>' +
+      '<td class="r">'+p.cvr.toFixed(2)+'%</td>' +
+      '<td class="r">'+p.campaign.orders+'</td>' +
+      '<td class="r">'+fmtK(p.campaign.sales)+'</td>' +
+      '<td class="r"><span class="'+(eff>=50?'num-green':eff>=35?'num-yellow':'num-red')+'">'+eff.toFixed(1)+'x</span></td>' +
+      '<td class="r"><span class="'+roasClass(p.campaign.roas)+'">'+p.campaign.roas.toFixed(0)+'%</span></td>' +
+      '<td class="r"><span class="'+crrClass(p.campaign.crr)+'">'+p.campaign.crr.toFixed(2)+'%</span></td>' +
+      '<td class="r">'+fmtK(p.brand.sales)+'</td>' +
+      '<td class="r">'+fmtK(p.product.sales)+'</td>' +
+      '<td class="r '+(gap>5000?'num-red':'num-green')+'">'+fmtK(gap)+'</td>' +
+      '</tr>';
+  }).join('');
+}
+
+function buildSpendSalesChart(canvasId, prods, color){
+  var sorted = [].concat(prods).sort(function(a,b){return b.campaign.sales-a.campaign.sales;});
+  var labels = sorted.map(function(p){return seriesShortName(p.name);});
+  mkChart(canvasId,{
+    type:'bar',
+    data:{
+      labels:labels,
+      datasets:[
+        {label:'Spend (€)', data:sorted.map(function(p){return p.spend;}), backgroundColor:'#6E768188', borderRadius:4, yAxisID:'y'},
+        {label:'Camp Sales (€)', data:sorted.map(function(p){return p.campaign.sales;}), backgroundColor:color+'BB', borderRadius:4, yAxisID:'y'},
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#C9D1D9',font:{size:11},boxWidth:10}}},
+      scales:{
+        x:{ticks:{color:TICK_COLOR,font:{size:10}}, grid:{color:GRID_COLOR}},
+        y:{ticks:{color:TICK_COLOR,callback:function(v){return fmtK(v);}}, grid:{color:GRID_COLOR}}
+      }
+    }
+  });
+}
+
+function buildRoasCrrChart(canvasId, prods, color){
+  var sorted = [].concat(prods).sort(function(a,b){return b.campaign.sales-a.campaign.sales;});
+  var labels = sorted.map(function(p){return seriesShortName(p.name);});
+  mkChart(canvasId,{
+    type:'bar',
+    data:{
+      labels:labels,
+      datasets:[
+        {label:'Campaign ROAS (%)', data:sorted.map(function(p){return p.campaign.roas;}), backgroundColor:color+'BB', borderRadius:4, yAxisID:'y'},
+        {label:'CRR (%)', data:sorted.map(function(p){return p.campaign.crr;}), type:'line', borderColor:'#C69026', backgroundColor:'transparent', pointBackgroundColor:'#C69026', yAxisID:'y2', tension:0.3, pointRadius:5}
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#C9D1D9',font:{size:11},boxWidth:10}}},
+      scales:{
+        x:{ticks:{color:TICK_COLOR,font:{size:10}}, grid:{color:GRID_COLOR}},
+        y:{ticks:{color:TICK_COLOR,callback:function(v){return v+'%';}}, grid:{color:GRID_COLOR}, position:'left'},
+        y2:{ticks:{color:'#C69026',callback:function(v){return v+'%';}}, grid:{display:false}, position:'right'}
+      }
+    }
+  });
+}
+
+function buildMetricsCompareChart(canvasId, prods, color){
+  var sorted = [].concat(prods).sort(function(a,b){return b.campaign.sales-a.campaign.sales;});
+  var labels = sorted.map(function(p){return seriesShortName(p.name);});
+  var effVals = sorted.map(function(p){return p.spend>0 ? +(p.campaign.sales/p.spend).toFixed(1) : 0;});
+  mkChart(canvasId,{
+    type:'bar',
+    data:{
+      labels:labels,
+      datasets:[
+        {label:'CTR (%)', data:sorted.map(function(p){return p.ctr;}), backgroundColor:'#4184E4BB', borderRadius:4},
+        {label:'CVR (%)', data:sorted.map(function(p){return p.cvr;}), backgroundColor:color+'BB', borderRadius:4},
+        {label:'Efficiency (x)', data:effVals, backgroundColor:'#57AB5ABB', borderRadius:4},
+        {label:'CRR (%)', data:sorted.map(function(p){return p.campaign.crr;}), backgroundColor:'#C69026BB', borderRadius:4}
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{labels:{color:'#C9D1D9',font:{size:11},boxWidth:10}}},
+      scales:{
+        x:{ticks:{color:TICK_COLOR,font:{size:10}}, grid:{color:GRID_COLOR}},
+        y:{ticks:{color:TICK_COLOR}, grid:{color:GRID_COLOR}}
+      }
+    }
+  });
+}
+
+function initSeries(){
+  // Osmo Action
+  buildSpendSalesChart('chartOaSpendSales', SERIES_PRODUCTS.oa, SERIES_COLORS.oa);
+  buildRoasCrrChart('chartOaRoasCrr', SERIES_PRODUCTS.oa, SERIES_COLORS.oa);
+  buildSeriesTable('tbOa', SERIES_PRODUCTS.oa);
+  // Osmo 360
+  buildSpendSalesChart('chartOqSpendSales', SERIES_PRODUCTS.oq, SERIES_COLORS.oq);
+  buildMetricsCompareChart('chartOqMetrics', SERIES_PRODUCTS.oq, SERIES_COLORS.oq);
+  buildSeriesTable('tbOq', SERIES_PRODUCTS.oq);
+  // Osmo Nano
+  buildSpendSalesChart('chartOwSpendSales', SERIES_PRODUCTS.ow, SERIES_COLORS.ow);
+  buildMetricsCompareChart('chartOwMetrics', SERIES_PRODUCTS.ow, SERIES_COLORS.ow);
+  buildSeriesTable('tbOw', SERIES_PRODUCTS.ow);
+}
+
+var SERIES_ACTIVE = 'oa';
+function switchSeries(s){
+  SERIES_ACTIVE = s;
+  ['oa','oq','ow'].forEach(function(k){
+    var panel = document.getElementById('series-'+k);
+    var btn   = document.getElementById('sbtn-'+k);
+    if(panel) panel.style.display = k===s ? 'block' : 'none';
+    if(btn){
+      if(k===s){
+        btn.style.borderColor = SERIES_COLORS[k];
+        btn.style.background  = 'rgba('+
+          (k==='oa'?'247,129,102':k==='oq'?'198,144,38':'87,171,90')+
+          ',.12)';
+        btn.style.color = SERIES_COLORS[k];
+      } else {
+        btn.style.borderColor = '#2D333B';
+        btn.style.background  = 'transparent';
+        btn.style.color       = '#6E7681';
+      }
+    }
+  });
+}
+
 // ===== INIT =====
 window.addEventListener('DOMContentLoaded', function(){
   initOverview();
@@ -1103,6 +1575,7 @@ window.addEventListener('DOMContentLoaded', function(){
   initCompare();
   initTop();
   initBudget();
+  initSeries();
 });
 </script>
 </body>

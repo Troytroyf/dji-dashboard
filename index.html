@@ -131,6 +131,28 @@
   .num-red{color:#E5534B;font-weight:600}
   .num-blue{color:#4184E4;font-weight:600}
 
+  /* Filter bar */
+  .filter-bar{padding:14px 18px;border-bottom:1px solid #2D333B;display:flex;flex-direction:column;gap:10px}
+  .filter-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .filter-search{background:#0D1117;border:1px solid #2D333B;border-radius:6px;color:#E6EDF3;font-size:12px;padding:6px 10px;outline:none;width:220px;transition:border-color .15s}
+  .filter-search:focus{border-color:#E5534B}
+  .filter-search::placeholder{color:#6E7681}
+  .filter-num{background:#0D1117;border:1px solid #2D333B;border-radius:6px;color:#E6EDF3;font-size:12px;padding:6px 8px;outline:none;width:80px;text-align:center;transition:border-color .15s}
+  .filter-num:focus{border-color:#E5534B}
+  .filter-label{font-size:11px;color:#6E7681;white-space:nowrap}
+  .cat-pill{padding:3px 10px;border-radius:10px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid #2D333B;background:transparent;color:#6E7681;transition:all .15s;white-space:nowrap}
+  .cat-pill.active{color:#fff}
+  .filter-summary{font-size:12px;color:#6E7681;margin-left:auto;white-space:nowrap}
+  .filter-summary span{color:#E6EDF3;font-weight:600}
+  /* Sortable th */
+  th.sortable{cursor:pointer;user-select:none;white-space:nowrap}
+  th.sortable:hover{color:#E6EDF3}
+  th.sort-active{color:#E5534B}
+  .sort-icon{margin-left:3px;font-size:10px;opacity:.7}
+  /* Reset button */
+  .filter-reset{padding:4px 10px;border-radius:5px;font-size:11px;cursor:pointer;border:1px solid #2D333B;background:transparent;color:#6E7681;transition:all .15s}
+  .filter-reset:hover{border-color:#E5534B;color:#E5534B}
+
   @media(max-width:900px){
     .chart-grid,.view-grid{grid-template-columns:1fr}
     .chart-grid.three{grid-template-columns:1fr}
@@ -392,24 +414,40 @@
   <div class="panel">
     <div class="panel-header">
       <div class="panel-title">Full Product List</div>
-      <div class="panel-sub">Sorted by Campaign Sales descending · 57 SKUs total</div>
+      <div class="panel-sub" id="prodSubtitle">Sorted by Campaign Sales descending · 57 SKUs total</div>
     </div>
-    <div class="panel-body table-scroll">
+
+    <!-- Filter bar -->
+    <div class="filter-bar">
+      <!-- Row 1: search + min orders + summary -->
+      <div class="filter-row">
+        <input id="prodSearch" class="filter-search" type="text" placeholder="Search product name…" oninput="renderProductTable()">
+        <span class="filter-label">Min orders:</span>
+        <input id="prodMinOrders" class="filter-num" type="number" value="0" min="0" oninput="renderProductTable()">
+        <button class="filter-reset" onclick="resetProdFilters()">Reset</button>
+        <div class="filter-summary" id="prodSummary">Showing <span>57</span> of 57 · Spend <span>€28.3K</span> · Camp Sales <span>€1.25M</span></div>
+      </div>
+      <!-- Row 2: category pills -->
+      <div class="filter-row" id="catPills"></div>
+    </div>
+
+    <div class="table-scroll">
       <table>
         <thead>
-          <tr>
+          <tr id="prodThead">
             <th>Category</th>
             <th>Product Name</th>
-            <th class="r">Spend</th>
-            <th class="r">CPC</th>
-            <th class="r">Clicks</th>
-            <th class="r">CVR</th>
-            <th class="r">Camp Orders</th>
-            <th class="r">Camp Sales</th>
-            <th class="r">Camp ROAS</th>
-            <th class="r">CRR</th>
-            <th class="r">CPO</th>
-            <th class="r">Delivery</th>
+            <th class="r sortable" data-key="spend"       onclick="setProdSort('spend')">Spend <span class="sort-icon" id="si-spend"></span></th>
+            <th class="r sortable" data-key="cpc"         onclick="setProdSort('cpc')">CPC <span class="sort-icon" id="si-cpc"></span></th>
+            <th class="r sortable" data-key="clicks"      onclick="setProdSort('clicks')">Clicks <span class="sort-icon" id="si-clicks"></span></th>
+            <th class="r sortable" data-key="cvr"         onclick="setProdSort('cvr')">CVR <span class="sort-icon" id="si-cvr"></span></th>
+            <th class="r sortable" data-key="camp_orders" onclick="setProdSort('camp_orders')">Camp Orders <span class="sort-icon" id="si-camp_orders"></span></th>
+            <th class="r sortable" data-key="camp_sales"  onclick="setProdSort('camp_sales')">Camp Sales <span class="sort-icon" id="si-camp_sales"></span></th>
+            <th class="r sortable" data-key="efficiency"  onclick="setProdSort('efficiency')">Efficiency <span class="sort-icon" id="si-efficiency"></span></th>
+            <th class="r sortable" data-key="camp_roas"   onclick="setProdSort('camp_roas')">Camp ROAS <span class="sort-icon" id="si-camp_roas"></span></th>
+            <th class="r sortable" data-key="camp_crr"    onclick="setProdSort('camp_crr')">CRR <span class="sort-icon" id="si-camp_crr"></span></th>
+            <th class="r sortable" data-key="camp_cpo"    onclick="setProdSort('camp_cpo')">CPO <span class="sort-icon" id="si-camp_cpo"></span></th>
+            <th class="r sortable" data-key="delivery"    onclick="setProdSort('delivery')">Delivery <span class="sort-icon" id="si-delivery"></span></th>
           </tr>
         </thead>
         <tbody id="tbAll"></tbody>
@@ -1233,7 +1271,13 @@ function initCompare(){
   updateCompareTable();
 }
 
-// ===== §4 TOP CHARTS =====
+// ===== §4 TOP CHARTS + FILTERABLE TABLE =====
+var prodSortKey = 'camp_sales';
+var prodSortDir = 'desc';
+var prodActiveCats = {};  // empty = all
+
+var ALL_CATS = ['Drone','Osmo pocket','Osmo Action','Mic','Osmo Mobile','Osmo Nano','Osmo 360','RS'];
+
 function initTop(){
   // Top by spend
   mkChart('chartTopSpend',{
@@ -1271,7 +1315,7 @@ function initTop(){
       scales:{x:{ticks:{color:TICK_COLOR,callback:function(v){return v+'%';}},grid:{color:GRID_COLOR}},y:{ticks:{color:TICK_COLOR,font:{size:10}},grid:{display:false}}}}
   });
 
-  // Worst CRR
+  // CRR chart
   mkChart('chartWorstCrr',{
     type:'bar',
     data:{
@@ -1284,25 +1328,165 @@ function initTop(){
       }]
     },
     options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return ' CRR '+ctx.raw.toFixed(2)+'%';}}},
-        annotation:{annotations:{line1:{type:'line',yMin:2.26,yMax:2.26,borderColor:'#E5534B',borderWidth:1.5,borderDash:[4,3],label:{content:'Avg 2.26% (low = underperform)',enabled:true,color:'#E5534B',font:{size:10}}}}}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:function(ctx){return ' CRR '+ctx.raw.toFixed(2)+'%';}}}},
       scales:{y:{ticks:{color:TICK_COLOR,callback:function(v){return v+'%';}},grid:{color:GRID_COLOR}},x:{ticks:{color:TICK_COLOR,font:{size:10}},grid:{display:false}}}}
   });
 
-  // Full product table
-  var tb=document.getElementById('tbAll');
+  // Build category pills
+  var pillContainer = document.getElementById('catPills');
+  if(pillContainer){
+    var allPill = '<button class="cat-pill active" id="cpill-all" style="border-color:#E5534B;background:#E5534B22;color:#E5534B" onclick="toggleCatPill(\'all\')">All</button>';
+    var catPills = ALL_CATS.map(function(cat){
+      var c = CAT_COLORS[cat]||'#6E7681';
+      return '<button class="cat-pill" id="cpill-'+cat.replace(/\s/g,'_')+'" style="border-color:'+c+';color:#6E7681" onclick="toggleCatPill(\''+cat+'\')">'+cat+'</button>';
+    }).join('');
+    pillContainer.innerHTML = allPill + catPills;
+  }
+
+  // Initial render
+  renderProductTable();
+}
+
+function toggleCatPill(cat){
+  var allBtn = document.getElementById('cpill-all');
+  if(cat === 'all'){
+    prodActiveCats = {};
+    ALL_CATS.forEach(function(c){
+      var btn = document.getElementById('cpill-'+c.replace(/\s/g,'_'));
+      if(btn){ btn.style.background='transparent'; btn.style.color='#6E7681'; btn.classList.remove('active'); }
+    });
+    if(allBtn){ allBtn.style.background='#E5534B22'; allBtn.style.color='#E5534B'; allBtn.classList.add('active'); }
+  } else {
+    if(prodActiveCats[cat]){
+      delete prodActiveCats[cat];
+    } else {
+      prodActiveCats[cat] = true;
+    }
+    var anyActive = Object.keys(prodActiveCats).length > 0;
+    if(allBtn){
+      allBtn.style.background = anyActive ? 'transparent' : '#E5534B22';
+      allBtn.style.color      = anyActive ? '#6E7681'     : '#E5534B';
+      anyActive ? allBtn.classList.remove('active') : allBtn.classList.add('active');
+    }
+    ALL_CATS.forEach(function(c){
+      var btn = document.getElementById('cpill-'+c.replace(/\s/g,'_'));
+      if(!btn) return;
+      var col = CAT_COLORS[c]||'#6E7681';
+      if(prodActiveCats[c]){
+        btn.style.background = col+'22'; btn.style.color = col; btn.classList.add('active');
+      } else {
+        btn.style.background = 'transparent'; btn.style.color = '#6E7681'; btn.classList.remove('active');
+      }
+    });
+  }
+  prodSortKey = 'camp_sales'; prodSortDir = 'desc';
+  updateSortIcons();
+  renderProductTable();
+}
+
+function setProdSort(key){
+  if(prodSortKey === key){
+    prodSortDir = prodSortDir === 'desc' ? 'asc' : 'desc';
+  } else {
+    prodSortKey = key;
+    prodSortDir = 'desc';
+  }
+  updateSortIcons();
+  renderProductTable();
+}
+
+function updateSortIcons(){
+  var keys = ['spend','cpc','clicks','cvr','camp_orders','camp_sales','efficiency','camp_roas','camp_crr','camp_cpo','delivery'];
+  keys.forEach(function(k){
+    var el = document.getElementById('si-'+k);
+    var th = el ? el.parentElement : null;
+    if(!el) return;
+    if(k === prodSortKey){
+      el.textContent = prodSortDir === 'desc' ? '↓' : '↑';
+      if(th) th.classList.add('sort-active');
+    } else {
+      el.textContent = '↕';
+      if(th) th.classList.remove('sort-active');
+    }
+  });
+}
+
+function getProductVal(p, key){
+  if(key==='spend')       return p.spend;
+  if(key==='cpc')         return p.cpc;
+  if(key==='clicks')      return p.clicks;
+  if(key==='cvr')         return p.cvr;
+  if(key==='camp_orders') return p.campaign.orders;
+  if(key==='camp_sales')  return p.campaign.sales;
+  if(key==='efficiency')  return p.spend>0 ? p.campaign.sales/p.spend : 0;
+  if(key==='camp_roas')   return p.campaign.roas;
+  if(key==='camp_crr')    return p.campaign.crr;
+  if(key==='camp_cpo')    return p.campaign.cpo;
+  if(key==='delivery')    return p.delivery;
+  return 0;
+}
+
+function resetProdFilters(){
+  var si = document.getElementById('prodSearch');
+  var mi = document.getElementById('prodMinOrders');
+  if(si) si.value = '';
+  if(mi) mi.value = '0';
+  toggleCatPill('all');
+}
+
+function renderProductTable(){
+  var searchVal    = (document.getElementById('prodSearch')     ? document.getElementById('prodSearch').value.toLowerCase()    : '');
+  var minOrders    = (document.getElementById('prodMinOrders')  ? parseInt(document.getElementById('prodMinOrders').value)||0   : 0);
+  var activeCatSet = Object.keys(prodActiveCats);
+
+  var filtered = PRODUCTS.filter(function(p){
+    if(activeCatSet.length > 0 && !prodActiveCats[p.category]) return false;
+    if(p.campaign.orders < minOrders) return false;
+    if(searchVal && p.name.toLowerCase().indexOf(searchVal) === -1) return false;
+    return true;
+  });
+
+  filtered.sort(function(a,b){
+    var av = getProductVal(a, prodSortKey);
+    var bv = getProductVal(b, prodSortKey);
+    return prodSortDir === 'desc' ? bv - av : av - bv;
+  });
+
+  // Summary line
+  var totalSpend = filtered.reduce(function(s,p){return s+p.spend;},0);
+  var totalSales = filtered.reduce(function(s,p){return s+p.campaign.sales;},0);
+  var sumEl = document.getElementById('prodSummary');
+  if(sumEl){
+    sumEl.innerHTML = 'Showing <span>'+filtered.length+'</span> of '+PRODUCTS.length+
+      ' &nbsp;·&nbsp; Spend <span>'+fmtK(totalSpend)+'</span>'+
+      ' &nbsp;·&nbsp; Camp Sales <span>'+fmtK(totalSales)+'</span>';
+  }
+
+  var subEl = document.getElementById('prodSubtitle');
+  if(subEl){
+    var sortLabel = {spend:'Spend',cpc:'CPC',clicks:'Clicks',cvr:'CVR',camp_orders:'Camp Orders',camp_sales:'Camp Sales',efficiency:'Efficiency',camp_roas:'Camp ROAS',camp_crr:'CRR',camp_cpo:'CPO',delivery:'Delivery'}[prodSortKey]||prodSortKey;
+    subEl.textContent = 'Sorted by '+sortLabel+' '+(prodSortDir==='desc'?'descending':'ascending')+' · '+filtered.length+' SKUs';
+  }
+
+  var tb = document.getElementById('tbAll');
   if(!tb) return;
-  var sorted=[].concat(PRODUCTS).sort(function(a,b){return b.campaign.sales-a.campaign.sales;});
-  tb.innerHTML=sorted.map(function(p){
+  if(filtered.length === 0){
+    tb.innerHTML = '<tr><td colspan="13" style="text-align:center;padding:32px;color:#6E7681">No products match the current filters.</td></tr>';
+    return;
+  }
+
+  tb.innerHTML = filtered.map(function(p){
+    var eff = p.spend>0 ? p.campaign.sales/p.spend : 0;
     return '<tr>' +
       '<td>'+catBadge(p.category)+'</td>' +
-      '<td style="max-width:300px;font-size:12px">'+shortName(p.name,42)+'</td>' +
+      '<td style="max-width:280px;font-size:12px">'+shortName(p.name,42)+'</td>' +
       '<td class="r">'+fmtK(p.spend)+'</td>' +
       '<td class="r">€'+p.cpc.toFixed(2)+'</td>' +
       '<td class="r">'+p.clicks.toLocaleString()+'</td>' +
       '<td class="r">'+p.cvr.toFixed(2)+'%</td>' +
       '<td class="r">'+p.campaign.orders+'</td>' +
       '<td class="r">'+fmtK(p.campaign.sales)+'</td>' +
+      '<td class="r"><span class="'+(eff>=55?'num-green':eff>=35?'num-yellow':'num-red')+'">'+eff.toFixed(1)+'x</span></td>' +
       '<td class="r"><span class="'+roasClass(p.campaign.roas)+'">'+p.campaign.roas.toFixed(0)+'%</span></td>' +
       '<td class="r"><span class="'+crrClass(p.campaign.crr)+'">'+p.campaign.crr.toFixed(2)+'%</span></td>' +
       '<td class="r">€'+p.campaign.cpo.toFixed(2)+'</td>' +

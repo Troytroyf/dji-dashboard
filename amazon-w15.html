@@ -1897,8 +1897,24 @@ function initDashboard(){
     }
   });
 })();
-);
 
+
+(function(){
+  var el=document.getElementById("chartBankaiPieOA"); if(!el) return;
+  if(!window._charts) window._charts={};
+  if(window._charts["chartBankaiPieOA"]) window._charts["chartBankaiPieOA"].destroy();
+  window._charts["chartBankaiPieOA"]=new Chart(el,{
+    type:"doughnut",
+    data:{labels:["产品词 Product", "Attack", "行业词 Industry", "本品防守 Protect", "自动投放 Auto", "品牌词 Brand", "Competitor"],datasets:[{data:[2520.0, 2213.0, 1831.0, 1701.0, 583.0, 53.0, 13.0],backgroundColor:["#4184E4", "#E5534B", "#C69026", "#347D39", "#6E7681", "#2EA8A0", "#A371F7"],borderColor:"#161B22",borderWidth:2,hoverOffset:8}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:"58%",
+      plugins:{legend:{display:false},
+        tooltip:{callbacks:{label:function(ctx){
+          return " "+ctx.label+": €"+ctx.raw.toFixed(0)+" ("+((ctx.raw/8914.0)*100).toFixed(1)+"%)";
+        }}}
+      }
+    }
+  });
+})();
 window.addEventListener('DOMContentLoaded', function(){ initDashboard(); });
 </script>
 </body>

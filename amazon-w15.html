@@ -360,7 +360,17 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
 
 
     <!-- Chart 2: Orders -->
+    
     <div class="panel" style="margin-bottom:14px">
+      <div class="panel-header">
+        <div class="panel-title">Daily SP Spend by ASIN &mdash; All Series</div>
+        <div class="panel-sub">Stacked bar &nbsp;&middot;&nbsp; &euro; &nbsp;&middot;&nbsp; background = promo active</div>
+      </div>
+      <div class="panel-body">
+        <div class="chart-wrap tall"><canvas id="chartP3Spend"></canvas></div>
+      </div>
+    </div>
+<div class="panel" style="margin-bottom:14px">
       <div class="panel-header">
         <div class="panel-title">Daily SP Orders by ASIN &mdash; All Series</div>
         <div class="panel-sub">Stacked bar &nbsp;&middot;&nbsp; units</div>
@@ -693,7 +703,7 @@ function switchTab(el,id){
   var s=document.getElementById(id);
   if(s){s.classList.add("active");}
 }
-window.addEventListener("DOMContentLoaded",function(){
+function initDashboard(){
 
 (function(){
   var GRID="rgba(255,255,255,0.06)"; var TICK="#6E7681";
@@ -1529,7 +1539,8 @@ window.addEventListener("DOMContentLoaded",function(){
       }
     });
   })();
-}})();
+}}
+);
 
 (function(){
   var el=document.getElementById("chartAsinPieOA_oa"); if(!el) return;
@@ -1836,21 +1847,18 @@ async function sha256(msg){
   var buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(msg));
   return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,"0");}).join("");
 }
-async function unlock(){
+async async function unlock(){
   var pwd=document.getElementById("pwd").value;
   if(!pwd){document.getElementById("err").textContent="Please enter password.";return;}
   var h=await sha256(pwd);
   if(h===CORRECT_HASH){
     document.getElementById("gate").style.display="none";
     document.getElementById("dashboard").style.display="block";
-    // Re-init charts since they were hidden during DOMContentLoaded
-    if(window._chartsInited) return;
-    window._chartsInited=true;
-    window.dispatchEvent(new Event("resize"));
-    // Trigger chart re-render
-    setTimeout(function(){
-      Object.values(window._charts||{}).forEach(function(c){if(c&&c.resize)c.resize();});
-    },100);
+    // Initialize all charts now that dashboard is visible
+    if(!window._dashboardInited){
+      window._dashboardInited=true;
+      initDashboard();
+    }
   } else {
     var inp=document.getElementById("pwd");
     inp.value="";

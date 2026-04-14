@@ -3,36 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DJI Amazon W15 — Access Required</title>
+<title>Amazon Ads W15 2026 — OA / OQ / OW</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#0D1117;display:flex;align-items:center;justify-content:center;min-height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.gate{background:#161B22;border:1px solid #2D333B;border-radius:12px;padding:40px 48px;text-align:center;width:360px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
-.logo{width:40px;height:40px;background:#E5534B;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;margin:0 auto 20px}
-h2{color:#E6EDF3;font-size:18px;font-weight:700;margin-bottom:6px}
-p{color:#6E7681;font-size:13px;margin-bottom:28px}
-input[type=password]{width:100%;background:#0D1117;border:1px solid #2D333B;border-radius:7px;color:#E6EDF3;font-size:15px;padding:12px 16px;outline:none;transition:border-color .15s;letter-spacing:2px}
-input[type=password]:focus{border-color:#E5534B}
-button{width:100%;margin-top:14px;background:#E5534B;border:none;border-radius:7px;color:#fff;font-size:14px;font-weight:600;padding:12px;cursor:pointer;transition:background .15s}
-button:hover{background:#CC4A44}
-.error{color:#E5534B;font-size:12px;margin-top:10px;min-height:16px}
-.hint{color:#6E7681;font-size:11px;margin-top:16px}
-</style>
-</head>
-<body>
-<div class="gate" id="gate">
-  <div class="logo">DJI</div>
-  <h2>Access Required</h2>
-  <p>This dashboard contains confidential ad performance data.<br>Enter password to continue.</p>
-  <input type="password" id="pwd" placeholder="Password" autofocus onkeydown="if(event.key==='Enter')unlock()">
-  <button onclick="unlock()">Unlock Dashboard</button>
-  <div class="error" id="err"></div>
-  <div class="hint">W15 2026 · Amazon Ads · DJI Internal</div>
-</div>
 
-<div id="dashboard" style="display:none;width:100%">
-
-<style>
 
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0D1117;color:#E6EDF3;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;line-height:1.5}
@@ -88,9 +62,10 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
 .fc-text{font-size:12px;color:#C9D1D9;line-height:1.5}
 @media(max-width:900px){.chart-grid,.findings{grid-template-columns:1fr}.target-grid{grid-template-columns:1fr 1fr}}
 
-</style>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
+</style>
+</head>
+<body>
 <div class="header">
   <div style="display:flex;align-items:center;gap:10px">
     <div class="logo">DJI</div>
@@ -695,7 +670,258 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
 <div class="fc"><div class="fc-label">SP 整体费比</div><div class="fc-text"><strong>DE</strong>: 8.29% vs 目标 5.12% <span class="red">+3.17pp</span><br><strong>IT</strong>: 19.85% vs 目标 6.06% <span class="red">+13.79pp</span><br></div></div><div class="fc"><div class="fc-label">板块 ACoS 最优 / 最差</div><div class="fc-text">最优: <span class="green">产品词 Product</span> 4.2%<br>最差: <span class="red">行业词 Industry</span> 104.7%<br>ACoS&gt;20%: <span class="red">Attack, 行业词</span></div></div><div class="fc"><div class="fc-label">DE vs IT</div><div class="fc-text">DE ACoS <strong>8.3%</strong> vs IT <strong>19.9%</strong><br>DE CPO €17 | IT CPO €41<br>DE 订单 137 | IT 订单 45</div></div><div class="fc"><div class="fc-label">SB 品牌曝光</div><div class="fc-text">花赐 €250 | 曝光 162K<br>品牌搜索 177 次</div></div></div></div></div>
 </div>
 
+
+
+<div id="tab-deep" class="section">
+  <div class="sec-title">§5 深度分析 — CPO / Orders / Spend 分配 / 转化率</div>
+
+  <!-- ROW 1: CPO by Series x Country + Spend share donut -->
+  <div class="chart-grid" style="grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px">
+    <div class="panel" style="grid-column:span 2">
+      <div class="panel-header">
+        <div class="panel-title">CPO &amp; CVR by Series × Country (SP)</div>
+        <div class="panel-sub">Lower CPO = more efficient · Higher CVR = better quality traffic</div>
+      </div>
+      <div class="panel-body"><div class="chart-wrap"><canvas id="chartDeepCpoCountry"></canvas></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Spend Share by Series</div>
+        <div class="panel-sub">SP + SB combined</div>
+      </div>
+      <div class="panel-body"><div class="chart-wrap"><canvas id="chartDeepSpendShare"></canvas></div></div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Spend % by Bankai (all 3 series) -->
+  <div class="panel" style="margin-bottom:14px">
+    <div class="panel-header">
+      <div class="panel-title">SP 花费分配 by 板块 — OA / OQ / OW</div>
+      <div class="panel-sub">Grouped bars · % of total SP spend per series</div>
+    </div>
+    <div class="panel-body"><div class="chart-wrap"><canvas id="chartDeepSpendPct"></canvas></div></div>
+  </div>
+
+  <!-- ROW 3: CPO by Bankai (all series) + CVR by Bankai -->
+  <div class="chart-grid" style="margin-bottom:14px">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">CPO by 板块 — All Series</div>
+        <div class="panel-sub">Lower = more cost-efficient per order · log scale</div>
+      </div>
+      <div class="panel-body"><div class="chart-wrap"><canvas id="chartDeepCpoBankai"></canvas></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">CVR by 板块 — All Series</div>
+        <div class="panel-sub">% click-to-order · higher = better traffic quality</div>
+      </div>
+      <div class="panel-body"><div class="chart-wrap"><canvas id="chartDeepCvrBankai"></canvas></div></div>
+    </div>
+  </div>
+
+  <!-- ROW 4: ASIN scatter CPO vs CVR + Orders bubble -->
+  <div class="chart-grid" style="margin-bottom:14px">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">ASIN Scatter — CPO vs CVR</div>
+        <div class="panel-sub">X=CPO € · Y=CVR % · bubble size=orders · ideal: low CPO + high CVR</div>
+      </div>
+      <div class="panel-body"><div class="chart-wrap tall"><canvas id="chartDeepScatter"></canvas></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">ASIN Orders vs Spend — Efficiency View</div>
+        <div class="panel-sub">Bubble size=orders · color=series · diagonal = same CPO</div>
+      </div>
+      <div class="panel-body"><div class="chart-wrap tall"><canvas id="chartDeepBubble"></canvas></div></div>
+    </div>
+  </div>
+
+  <!-- ROW 5: Full ASIN table -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">ASIN 深度数据表 (SP · min 5 orders · sorted by CPO asc)</div>
+      <div class="panel-sub">CPO colour: green &lt;€20 · yellow €20–35 · red &gt;€35</div>
+    </div>
+    <div class="panel-body tscroll">
+      <table>
+        <thead><tr>
+          <th>系列</th><th>ASIN</th><th>产品</th>
+          <th class="r">花费€</th><th class="r">花费占比</th>
+          <th class="r">订单</th><th class="r">CPO€</th>
+          <th class="r">CVR%</th><th class="r">ACoS%</th>
+          <th class="r">ROAS</th><th class="r">销售额€</th>
+        </tr></thead>
+        <tbody>
+<tr>
+      <td style="color:#F78166;font-weight:700">OA</td>
+      <td style="font-size:10px;color:#6E7681">B0FNMPZ1RS</td>
+      <td style="font-size:11px">OA6 Enhanced</td>
+      <td class="r">€85</td>
+      <td class="r" style="color:#6E7681">0.5%</td>
+      <td class="r">10</td>
+      <td class="r green">€8</td>
+      <td class="r green">7.0%</td>
+      <td class="r green">2.7%</td>
+      <td class="r">37.3x</td>
+      <td class="r">€3161</td>
+    </tr><tr>
+      <td style="color:#F78166;font-weight:700">OA</td>
+      <td style="font-size:10px;color:#6E7681">B07FW4CZZL</td>
+      <td style="font-size:11px">OA5 Pro Adventure</td>
+      <td class="r">€224</td>
+      <td class="r" style="color:#6E7681">1.4%</td>
+      <td class="r">16</td>
+      <td class="r green">€14</td>
+      <td class="r green">5.7%</td>
+      <td class="r green">4.8%</td>
+      <td class="r">20.7x</td>
+      <td class="r">€4633</td>
+    </tr><tr>
+      <td style="color:#F78166;font-weight:700">OA</td>
+      <td style="font-size:10px;color:#6E7681">B0FNMP8LZX</td>
+      <td style="font-size:11px">OA6 Essential</td>
+      <td class="r">€904</td>
+      <td class="r" style="color:#6E7681">5.6%</td>
+      <td class="r">63</td>
+      <td class="r green">€14</td>
+      <td class="r yellow">4.0%</td>
+      <td class="r green">5.8%</td>
+      <td class="r">17.3x</td>
+      <td class="r">€15682</td>
+    </tr><tr>
+      <td style="color:#F78166;font-weight:700">OA</td>
+      <td style="font-size:10px;color:#6E7681">B0C783YNW7</td>
+      <td style="font-size:11px">OA4 Standard</td>
+      <td class="r">€3404</td>
+      <td class="r" style="color:#6E7681">21.0%</td>
+      <td class="r">206</td>
+      <td class="r green">€17</td>
+      <td class="r green">4.6%</td>
+      <td class="r yellow">10.4%</td>
+      <td class="r">9.7x</td>
+      <td class="r">€32833</td>
+    </tr><tr>
+      <td style="color:#F78166;font-weight:700">OA</td>
+      <td style="font-size:10px;color:#6E7681">B0DS2B3P2B</td>
+      <td style="font-size:11px">OA4 Essential</td>
+      <td class="r">€628</td>
+      <td class="r" style="color:#6E7681">3.9%</td>
+      <td class="r">38</td>
+      <td class="r green">€17</td>
+      <td class="r green">4.1%</td>
+      <td class="r yellow">10.3%</td>
+      <td class="r">9.7x</td>
+      <td class="r">€6080</td>
+    </tr><tr>
+      <td style="color:#F78166;font-weight:700">OA</td>
+      <td style="font-size:10px;color:#6E7681">B0D1YH4B2R</td>
+      <td style="font-size:11px">OA5 Pro Standard</td>
+      <td class="r">€2312</td>
+      <td class="r" style="color:#6E7681">14.3%</td>
+      <td class="r">137</td>
+      <td class="r green">€17</td>
+      <td class="r green">4.3%</td>
+      <td class="r green">7.9%</td>
+      <td class="r">12.7x</td>
+      <td class="r">€29285</td>
+    </tr><tr>
+      <td style="color:#57AB5A;font-weight:700">OW</td>
+      <td style="font-size:10px;color:#6E7681">B0FBFZM45S</td>
+      <td style="font-size:11px">OW 64GB</td>
+      <td class="r">€882</td>
+      <td class="r" style="color:#6E7681">5.4%</td>
+      <td class="r">43</td>
+      <td class="r yellow">€21</td>
+      <td class="r yellow">3.5%</td>
+      <td class="r green">9.8%</td>
+      <td class="r">10.2x</td>
+      <td class="r">€9013</td>
+    </tr><tr>
+      <td style="color:#F78166;font-weight:700">OA</td>
+      <td style="font-size:10px;color:#6E7681">B0C783J9WC</td>
+      <td style="font-size:11px">OA4 Adventure</td>
+      <td class="r">€460</td>
+      <td class="r" style="color:#6E7681">2.8%</td>
+      <td class="r">20</td>
+      <td class="r yellow">€23</td>
+      <td class="r yellow">3.6%</td>
+      <td class="r green">9.4%</td>
+      <td class="r">10.6x</td>
+      <td class="r">€4869</td>
+    </tr><tr>
+      <td style="color:#57AB5A;font-weight:700">OW</td>
+      <td style="font-size:10px;color:#6E7681">B0DYD56G2Y</td>
+      <td style="font-size:11px">OW 128GB</td>
+      <td class="r">€3281</td>
+      <td class="r" style="color:#6E7681">20.2%</td>
+      <td class="r">139</td>
+      <td class="r yellow">€24</td>
+      <td class="r yellow">2.8%</td>
+      <td class="r yellow">11.6%</td>
+      <td class="r">8.6x</td>
+      <td class="r">€28279</td>
+    </tr><tr>
+      <td style="color:#F78166;font-weight:700">OA</td>
+      <td style="font-size:10px;color:#6E7681">B0FM3X3DW5</td>
+      <td style="font-size:11px">OA6 Standard</td>
+      <td class="r">€183</td>
+      <td class="r" style="color:#6E7681">1.1%</td>
+      <td class="r">7</td>
+      <td class="r yellow">€26</td>
+      <td class="r yellow">3.1%</td>
+      <td class="r yellow">10.3%</td>
+      <td class="r">9.7x</td>
+      <td class="r">€1785</td>
+    </tr><tr>
+      <td style="color:#C69026;font-weight:700">OQ</td>
+      <td style="font-size:10px;color:#6E7681">B0DTTZZ6Q3</td>
+      <td style="font-size:11px">OQ Standard</td>
+      <td class="r">€1695</td>
+      <td class="r" style="color:#6E7681">10.5%</td>
+      <td class="r">50</td>
+      <td class="r yellow">€34</td>
+      <td class="r yellow">2.8%</td>
+      <td class="r yellow">15.1%</td>
+      <td class="r">6.6x</td>
+      <td class="r">€11232</td>
+    </tr><tr>
+      <td style="color:#F78166;font-weight:700">OA</td>
+      <td style="font-size:10px;color:#6E7681">B0DS2DF5S5</td>
+      <td style="font-size:11px">OA5 Pro Essential</td>
+      <td class="r">€713</td>
+      <td class="r" style="color:#6E7681">4.4%</td>
+      <td class="r">21</td>
+      <td class="r yellow">€34</td>
+      <td class="r red">2.3%</td>
+      <td class="r yellow">12.5%</td>
+      <td class="r">8.0x</td>
+      <td class="r">€5702</td>
+    </tr><tr>
+      <td style="color:#C69026;font-weight:700">OQ</td>
+      <td style="font-size:10px;color:#6E7681">B0DTTYLFJL</td>
+      <td style="font-size:11px">OQ Adventure</td>
+      <td class="r">€1443</td>
+      <td class="r" style="color:#6E7681">8.9%</td>
+      <td class="r">39</td>
+      <td class="r red">€37</td>
+      <td class="r yellow">3.3%</td>
+      <td class="r yellow">14.7%</td>
+      <td class="r">6.8x</td>
+      <td class="r">€9843</td>
+    </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+</div>
 <script>
+
+
 function switchTab(el,id){
   document.querySelectorAll(".nav-tab").forEach(function(t){t.classList.remove("active");});
   document.querySelectorAll(".section").forEach(function(s){s.classList.remove("active");});
@@ -1590,306 +1816,7 @@ function initDashboard(){
     }
   });
 })();
-);
-</script>
 
-<div id="tab-deep" class="section">
-  <div class="sec-title">§5 深度分析 — CPO / Orders / Spend 分配 / 转化率</div>
-
-  <!-- ROW 1: CPO by Series x Country + Spend share donut -->
-  <div class="chart-grid" style="grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px">
-    <div class="panel" style="grid-column:span 2">
-      <div class="panel-header">
-        <div class="panel-title">CPO &amp; CVR by Series × Country (SP)</div>
-        <div class="panel-sub">Lower CPO = more efficient · Higher CVR = better quality traffic</div>
-      </div>
-      <div class="panel-body"><div class="chart-wrap"><canvas id="chartDeepCpoCountry"></canvas></div></div>
-    </div>
-    <div class="panel">
-      <div class="panel-header">
-        <div class="panel-title">Spend Share by Series</div>
-        <div class="panel-sub">SP + SB combined</div>
-      </div>
-      <div class="panel-body"><div class="chart-wrap"><canvas id="chartDeepSpendShare"></canvas></div></div>
-    </div>
-  </div>
-
-  <!-- ROW 2: Spend % by Bankai (all 3 series) -->
-  <div class="panel" style="margin-bottom:14px">
-    <div class="panel-header">
-      <div class="panel-title">SP 花费分配 by 板块 — OA / OQ / OW</div>
-      <div class="panel-sub">Grouped bars · % of total SP spend per series</div>
-    </div>
-    <div class="panel-body"><div class="chart-wrap"><canvas id="chartDeepSpendPct"></canvas></div></div>
-  </div>
-
-  <!-- ROW 3: CPO by Bankai (all series) + CVR by Bankai -->
-  <div class="chart-grid" style="margin-bottom:14px">
-    <div class="panel">
-      <div class="panel-header">
-        <div class="panel-title">CPO by 板块 — All Series</div>
-        <div class="panel-sub">Lower = more cost-efficient per order · log scale</div>
-      </div>
-      <div class="panel-body"><div class="chart-wrap"><canvas id="chartDeepCpoBankai"></canvas></div></div>
-    </div>
-    <div class="panel">
-      <div class="panel-header">
-        <div class="panel-title">CVR by 板块 — All Series</div>
-        <div class="panel-sub">% click-to-order · higher = better traffic quality</div>
-      </div>
-      <div class="panel-body"><div class="chart-wrap"><canvas id="chartDeepCvrBankai"></canvas></div></div>
-    </div>
-  </div>
-
-  <!-- ROW 4: ASIN scatter CPO vs CVR + Orders bubble -->
-  <div class="chart-grid" style="margin-bottom:14px">
-    <div class="panel">
-      <div class="panel-header">
-        <div class="panel-title">ASIN Scatter — CPO vs CVR</div>
-        <div class="panel-sub">X=CPO € · Y=CVR % · bubble size=orders · ideal: low CPO + high CVR</div>
-      </div>
-      <div class="panel-body"><div class="chart-wrap tall"><canvas id="chartDeepScatter"></canvas></div></div>
-    </div>
-    <div class="panel">
-      <div class="panel-header">
-        <div class="panel-title">ASIN Orders vs Spend — Efficiency View</div>
-        <div class="panel-sub">Bubble size=orders · color=series · diagonal = same CPO</div>
-      </div>
-      <div class="panel-body"><div class="chart-wrap tall"><canvas id="chartDeepBubble"></canvas></div></div>
-    </div>
-  </div>
-
-  <!-- ROW 5: Full ASIN table -->
-  <div class="panel">
-    <div class="panel-header">
-      <div class="panel-title">ASIN 深度数据表 (SP · min 5 orders · sorted by CPO asc)</div>
-      <div class="panel-sub">CPO colour: green &lt;€20 · yellow €20–35 · red &gt;€35</div>
-    </div>
-    <div class="panel-body tscroll">
-      <table>
-        <thead><tr>
-          <th>系列</th><th>ASIN</th><th>产品</th>
-          <th class="r">花费€</th><th class="r">花费占比</th>
-          <th class="r">订单</th><th class="r">CPO€</th>
-          <th class="r">CVR%</th><th class="r">ACoS%</th>
-          <th class="r">ROAS</th><th class="r">销售额€</th>
-        </tr></thead>
-        <tbody>
-<tr>
-      <td style="color:#F78166;font-weight:700">OA</td>
-      <td style="font-size:10px;color:#6E7681">B0FNMPZ1RS</td>
-      <td style="font-size:11px">OA6 Enhanced</td>
-      <td class="r">€85</td>
-      <td class="r" style="color:#6E7681">0.5%</td>
-      <td class="r">10</td>
-      <td class="r green">€8</td>
-      <td class="r green">7.0%</td>
-      <td class="r green">2.7%</td>
-      <td class="r">37.3x</td>
-      <td class="r">€3161</td>
-    </tr><tr>
-      <td style="color:#F78166;font-weight:700">OA</td>
-      <td style="font-size:10px;color:#6E7681">B07FW4CZZL</td>
-      <td style="font-size:11px">OA5 Pro Adventure</td>
-      <td class="r">€224</td>
-      <td class="r" style="color:#6E7681">1.4%</td>
-      <td class="r">16</td>
-      <td class="r green">€14</td>
-      <td class="r green">5.7%</td>
-      <td class="r green">4.8%</td>
-      <td class="r">20.7x</td>
-      <td class="r">€4633</td>
-    </tr><tr>
-      <td style="color:#F78166;font-weight:700">OA</td>
-      <td style="font-size:10px;color:#6E7681">B0FNMP8LZX</td>
-      <td style="font-size:11px">OA6 Essential</td>
-      <td class="r">€904</td>
-      <td class="r" style="color:#6E7681">5.6%</td>
-      <td class="r">63</td>
-      <td class="r green">€14</td>
-      <td class="r yellow">4.0%</td>
-      <td class="r green">5.8%</td>
-      <td class="r">17.3x</td>
-      <td class="r">€15682</td>
-    </tr><tr>
-      <td style="color:#F78166;font-weight:700">OA</td>
-      <td style="font-size:10px;color:#6E7681">B0C783YNW7</td>
-      <td style="font-size:11px">OA4 Standard</td>
-      <td class="r">€3404</td>
-      <td class="r" style="color:#6E7681">21.0%</td>
-      <td class="r">206</td>
-      <td class="r green">€17</td>
-      <td class="r green">4.6%</td>
-      <td class="r yellow">10.4%</td>
-      <td class="r">9.7x</td>
-      <td class="r">€32833</td>
-    </tr><tr>
-      <td style="color:#F78166;font-weight:700">OA</td>
-      <td style="font-size:10px;color:#6E7681">B0DS2B3P2B</td>
-      <td style="font-size:11px">OA4 Essential</td>
-      <td class="r">€628</td>
-      <td class="r" style="color:#6E7681">3.9%</td>
-      <td class="r">38</td>
-      <td class="r green">€17</td>
-      <td class="r green">4.1%</td>
-      <td class="r yellow">10.3%</td>
-      <td class="r">9.7x</td>
-      <td class="r">€6080</td>
-    </tr><tr>
-      <td style="color:#F78166;font-weight:700">OA</td>
-      <td style="font-size:10px;color:#6E7681">B0D1YH4B2R</td>
-      <td style="font-size:11px">OA5 Pro Standard</td>
-      <td class="r">€2312</td>
-      <td class="r" style="color:#6E7681">14.3%</td>
-      <td class="r">137</td>
-      <td class="r green">€17</td>
-      <td class="r green">4.3%</td>
-      <td class="r green">7.9%</td>
-      <td class="r">12.7x</td>
-      <td class="r">€29285</td>
-    </tr><tr>
-      <td style="color:#57AB5A;font-weight:700">OW</td>
-      <td style="font-size:10px;color:#6E7681">B0FBFZM45S</td>
-      <td style="font-size:11px">OW 64GB</td>
-      <td class="r">€882</td>
-      <td class="r" style="color:#6E7681">5.4%</td>
-      <td class="r">43</td>
-      <td class="r yellow">€21</td>
-      <td class="r yellow">3.5%</td>
-      <td class="r green">9.8%</td>
-      <td class="r">10.2x</td>
-      <td class="r">€9013</td>
-    </tr><tr>
-      <td style="color:#F78166;font-weight:700">OA</td>
-      <td style="font-size:10px;color:#6E7681">B0C783J9WC</td>
-      <td style="font-size:11px">OA4 Adventure</td>
-      <td class="r">€460</td>
-      <td class="r" style="color:#6E7681">2.8%</td>
-      <td class="r">20</td>
-      <td class="r yellow">€23</td>
-      <td class="r yellow">3.6%</td>
-      <td class="r green">9.4%</td>
-      <td class="r">10.6x</td>
-      <td class="r">€4869</td>
-    </tr><tr>
-      <td style="color:#57AB5A;font-weight:700">OW</td>
-      <td style="font-size:10px;color:#6E7681">B0DYD56G2Y</td>
-      <td style="font-size:11px">OW 128GB</td>
-      <td class="r">€3281</td>
-      <td class="r" style="color:#6E7681">20.2%</td>
-      <td class="r">139</td>
-      <td class="r yellow">€24</td>
-      <td class="r yellow">2.8%</td>
-      <td class="r yellow">11.6%</td>
-      <td class="r">8.6x</td>
-      <td class="r">€28279</td>
-    </tr><tr>
-      <td style="color:#F78166;font-weight:700">OA</td>
-      <td style="font-size:10px;color:#6E7681">B0FM3X3DW5</td>
-      <td style="font-size:11px">OA6 Standard</td>
-      <td class="r">€183</td>
-      <td class="r" style="color:#6E7681">1.1%</td>
-      <td class="r">7</td>
-      <td class="r yellow">€26</td>
-      <td class="r yellow">3.1%</td>
-      <td class="r yellow">10.3%</td>
-      <td class="r">9.7x</td>
-      <td class="r">€1785</td>
-    </tr><tr>
-      <td style="color:#C69026;font-weight:700">OQ</td>
-      <td style="font-size:10px;color:#6E7681">B0DTTZZ6Q3</td>
-      <td style="font-size:11px">OQ Standard</td>
-      <td class="r">€1695</td>
-      <td class="r" style="color:#6E7681">10.5%</td>
-      <td class="r">50</td>
-      <td class="r yellow">€34</td>
-      <td class="r yellow">2.8%</td>
-      <td class="r yellow">15.1%</td>
-      <td class="r">6.6x</td>
-      <td class="r">€11232</td>
-    </tr><tr>
-      <td style="color:#F78166;font-weight:700">OA</td>
-      <td style="font-size:10px;color:#6E7681">B0DS2DF5S5</td>
-      <td style="font-size:11px">OA5 Pro Essential</td>
-      <td class="r">€713</td>
-      <td class="r" style="color:#6E7681">4.4%</td>
-      <td class="r">21</td>
-      <td class="r yellow">€34</td>
-      <td class="r red">2.3%</td>
-      <td class="r yellow">12.5%</td>
-      <td class="r">8.0x</td>
-      <td class="r">€5702</td>
-    </tr><tr>
-      <td style="color:#C69026;font-weight:700">OQ</td>
-      <td style="font-size:10px;color:#6E7681">B0DTTYLFJL</td>
-      <td style="font-size:11px">OQ Adventure</td>
-      <td class="r">€1443</td>
-      <td class="r" style="color:#6E7681">8.9%</td>
-      <td class="r">39</td>
-      <td class="r red">€37</td>
-      <td class="r yellow">3.3%</td>
-      <td class="r yellow">14.7%</td>
-      <td class="r">6.8x</td>
-      <td class="r">€9843</td>
-    </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-
-</div>
-
-<script>
-var CORRECT_HASH = "a320480f534776bddb5cdb54b1e93d210a3c7d199e80a23c1b2178497b184c76";
-async function sha256(msg){
-  var buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(msg));
-  return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,"0");}).join("");
-}
-async async function unlock(){
-  var pwd=document.getElementById("pwd").value;
-  if(!pwd){document.getElementById("err").textContent="Please enter password.";return;}
-  var h=await sha256(pwd);
-  if(h===CORRECT_HASH){
-    document.getElementById("gate").style.display="none";
-    document.getElementById("dashboard").style.display="block";
-    // Initialize all charts now that dashboard is visible
-    if(!window._dashboardInited){
-      window._dashboardInited=true;
-      initDashboard();
-    }
-  } else {
-    var inp=document.getElementById("pwd");
-    inp.value="";
-    inp.style.borderColor="#E5534B";
-    setTimeout(function(){inp.style.borderColor="#2D333B";},1000);
-    document.getElementById("err").textContent="Incorrect password. Please try again.";
-  }
-}
-// Prevent viewing source easily by overriding common shortcuts
-document.addEventListener("keydown",function(e){
-  if((e.ctrlKey||e.metaKey)&&(e.key==="u"||e.key==="U"||e.key==="s"||e.key==="S")){
-    // Note: this only prevents accidental access, not determined bypass
-    if(document.getElementById("gate").style.display!=="none"){e.preventDefault();}
-  }
-
-(function(){
-  var el=document.getElementById("chartBankaiPieOA"); if(!el) return;
-  if(!window._charts) window._charts={};
-  if(window._charts["chartBankaiPieOA"]) window._charts["chartBankaiPieOA"].destroy();
-  window._charts["chartBankaiPieOA"]=new Chart(el,{
-    type:"doughnut",
-    data:{labels:["产品词", "Attack", "行业词", "本品防守", "自动投放", "品牌词", "Competitor"],datasets:[{data:[2520.0, 2213.0, 1831.0, 1701.0, 583.0, 53.0, 13.0],backgroundColor:["#4184E4", "#E5534B", "#C69026", "#347D39", "#6E7681", "#2EA8A0", "#A371F7"],borderColor:"#161B22",borderWidth:2,hoverOffset:8}]},
-    options:{responsive:true,maintainAspectRatio:false,cutout:"58%",
-      plugins:{legend:{display:false},
-        tooltip:{callbacks:{label:function(ctx){
-          return " "+ctx.label+": €"+ctx.raw.toFixed(0)+" ("+((ctx.raw/8913.0)*100).toFixed(1)+"%)";
-        }}}
-      }
-    }
-  });
-})();
 (function(){
   var el=document.getElementById("chartBankaiPieOvOA"); if(!el) return;
   if(!window._charts) window._charts={};
@@ -1970,7 +1897,9 @@ document.addEventListener("keydown",function(e){
     }
   });
 })();
-});
+);
+
+window.addEventListener('DOMContentLoaded', function(){ initDashboard(); });
 </script>
 </body>
 </html>

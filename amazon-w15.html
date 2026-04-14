@@ -77,6 +77,7 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
   <div class="nav-tab" style="color:#F78166" onclick="switchTab(this,'tab-oa')">§2 OA 行动相机</div>
   <div class="nav-tab" style="color:#C69026" onclick="switchTab(this,'tab-oq')">§3 OQ Osmo 360</div>
   <div class="nav-tab" style="color:#57AB5A" onclick="switchTab(this,'tab-ow')">§4 OW Osmo Nano</div>
+  <div class="nav-tab" style="color:#9E9E9E" onclick="switchTab(this,'tab-deep')">&#167;5 深度分析</div>
 </div>
 
 <!-- OVERVIEW -->
@@ -102,71 +103,53 @@ tr:last-child td{border-bottom:none}tr:hover td{background:rgba(255,255,255,.02)
 </div>
 
 
-  <!-- PROMO x AD PERFORMANCE -->
+  
+  <!-- PROMO x AD PERFORMANCE - 3 CHARTS -->
   <div style="margin-top:20px">
     <div class="sec-title" style="font-size:12px;margin-bottom:4px">
       Promo &times; Ad Performance &mdash; W15 Daily (Apr 6&ndash;12)
     </div>
     <div style="font-size:11px;color:#6E7681;margin-bottom:12px">
-      柱 = SP 每日花费 &nbsp;&middot;&nbsp; 实线 = SP ROAS &nbsp;&middot;&nbsp; 虚线 = 促销价格（各SKU）&nbsp;&middot;&nbsp; 淡黄背景 = 促销激活区间
+      All ASINs combined &nbsp;&middot;&nbsp;
+      SP only &nbsp;&middot;&nbsp;
+      Stacked bars = daily total &nbsp;&middot;&nbsp;
+      Dashed lines = promo price / MSRP &nbsp;&middot;&nbsp;
+      <span style="color:#F5A623">&#9646;</span> Promo active window
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
 
-<div class="panel" style="break-inside:avoid">
-  <div class="panel-header">
-    <div class="panel-title" style="color:#F78166">OA DE</div>
-    <div class="panel-sub">4条促销活跃 (W15期间)</div>
-  </div>
-  <div class="panel-body">
-    <div class="chart-wrap tall"><canvas id="chartPromoOADE"></canvas></div>
-    <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px"><span style="font-size:10px;color:#F5A623;background:rgba(F5A623,0.1);padding:2px 6px;border-radius:4px;border:1px solid #F5A62322">OA4 Adventure Combo &euro;264 (-12%)</span><span style="font-size:10px;color:#7ED321;background:rgba(7ED321,0.1);padding:2px 6px;border-radius:4px;border:1px solid #7ED32122">OA5 Pro Standard Combo &euro;292 (-9%)</span><span style="font-size:10px;color:#BD10E0;background:rgba(BD10E0,0.1);padding:2px 6px;border-radius:4px;border:1px solid #BD10E022">OA5 Pro Adventure Combo &euro;373 (-9%)</span><span style="font-size:10px;color:#4A90E2;background:rgba(4A90E2,0.1);padding:2px 6px;border-radius:4px;border:1px solid #4A90E222">OA4 Standard Combo &euro;201 (-8%)</span></div></div></div>
-
-<div class="panel" style="break-inside:avoid">
-  <div class="panel-header">
-    <div class="panel-title" style="color:#F78166">OA IT</div>
-    <div class="panel-sub">4条促销活跃 (W15期间)</div>
-  </div>
-  <div class="panel-body">
-    <div class="chart-wrap tall"><canvas id="chartPromoOAIT"></canvas></div>
-    <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px"><span style="font-size:10px;color:#F5A623;background:rgba(F5A623,0.1);padding:2px 6px;border-radius:4px;border:1px solid #F5A62322">OA4 Standard Combo &euro;201 (-8%)</span><span style="font-size:10px;color:#7ED321;background:rgba(7ED321,0.1);padding:2px 6px;border-radius:4px;border:1px solid #7ED32122">OA4 Adventure Combo &euro;264 (-12%)</span><span style="font-size:10px;color:#BD10E0;background:rgba(BD10E0,0.1);padding:2px 6px;border-radius:4px;border:1px solid #BD10E022">OA5 Pro Standard Combo &euro;292 (-9%)</span><span style="font-size:10px;color:#4A90E2;background:rgba(4A90E2,0.1);padding:2px 6px;border-radius:4px;border:1px solid #4A90E222">OA5 Pro Adventure Combo &euro;373 (-9%)</span></div></div></div>
-
-<div class="panel" style="break-inside:avoid">
-  <div class="panel-header">
-    <div class="panel-title" style="color:#C69026">OQ DE</div>
-    <div class="panel-sub">2条促销活跃 (W15期间)</div>
-  </div>
-  <div class="panel-body">
-    <div class="chart-wrap tall"><canvas id="chartPromoOQDE"></canvas></div>
-    <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px"><span style="font-size:10px;color:#F5A623;background:rgba(F5A623,0.1);padding:2px 6px;border-radius:4px;border:1px solid #F5A62322">OQ Adventure Combo &euro;411 (-19%)</span><span style="font-size:10px;color:#7ED321;background:rgba(7ED321,0.1);padding:2px 6px;border-radius:4px;border:1px solid #7ED32122">OQ Standard Combo &euro;315 (-19%)</span></div></div></div>
-
-<div class="panel" style="break-inside:avoid">
-  <div class="panel-header">
-    <div class="panel-title" style="color:#C69026">OQ IT</div>
-    <div class="panel-sub">2条促销活跃 (W15期间)</div>
-  </div>
-  <div class="panel-body">
-    <div class="chart-wrap tall"><canvas id="chartPromoOQIT"></canvas></div>
-    <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px"><span style="font-size:10px;color:#F5A623;background:rgba(F5A623,0.1);padding:2px 6px;border-radius:4px;border:1px solid #F5A62322">OQ Adventure Combo &euro;409 (-19%)</span><span style="font-size:10px;color:#7ED321;background:rgba(7ED321,0.1);padding:2px 6px;border-radius:4px;border:1px solid #7ED32122">OQ Standard Combo &euro;314 (-19%)</span></div></div></div>
-
-<div class="panel" style="break-inside:avoid">
-  <div class="panel-header">
-    <div class="panel-title" style="color:#57AB5A">OW DE</div>
-    <div class="panel-sub">本月无促销</div>
-  </div>
-  <div class="panel-body">
-    <div class="chart-wrap tall"><canvas id="chartPromoOWDE"></canvas></div>
-    <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px"></div></div></div>
-
-<div class="panel" style="break-inside:avoid">
-  <div class="panel-header">
-    <div class="panel-title" style="color:#57AB5A">OW IT</div>
-    <div class="panel-sub">本月无促销</div>
-  </div>
-  <div class="panel-body">
-    <div class="chart-wrap tall"><canvas id="chartPromoOWIT"></canvas></div>
-    <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:6px"></div></div></div>
-
+    <!-- Chart 1: Spend -->
+    <div class="panel" style="margin-bottom:14px">
+      <div class="panel-header">
+        <div class="panel-title">Daily SP Spend by ASIN &mdash; All Series</div>
+        <div class="panel-sub">Stacked bar &nbsp;&middot;&nbsp; &euro; &nbsp;&middot;&nbsp; background = promo active</div>
+      </div>
+      <div class="panel-body">
+        <div class="chart-wrap tall"><canvas id="chartP3Spend"></canvas></div>
+      </div>
     </div>
+
+    <!-- Chart 2: Orders -->
+    <div class="panel" style="margin-bottom:14px">
+      <div class="panel-header">
+        <div class="panel-title">Daily SP Orders by ASIN &mdash; All Series</div>
+        <div class="panel-sub">Stacked bar &nbsp;&middot;&nbsp; units</div>
+      </div>
+      <div class="panel-body">
+        <div class="chart-wrap tall"><canvas id="chartP3Orders"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Chart 3: Promo price trend -->
+    <div class="panel" style="margin-bottom:14px">
+      <div class="panel-header">
+        <div class="panel-title">Promo Price Trend by ASIN &mdash; W15 Active Promotions</div>
+        <div class="panel-sub">Dashed = promo price &nbsp;&middot;&nbsp; Dotted = MSRP &nbsp;&middot;&nbsp; null = no promo active</div>
+      </div>
+      <div class="panel-body">
+        <div class="chart-wrap tall"><canvas id="chartP3Promo"></canvas></div>
+      </div>
+    </div>
+
   </div>
 
 </div>
@@ -393,493 +376,543 @@ window.addEventListener("DOMContentLoaded",function(){
   }
 })();
 
-(function(){
-  var el=document.getElementById("chartPromoOADE");
-  if(!el) return;
-  if(window._charts&&window._charts["chartPromoOADE"]) window._charts["chartPromoOADE"].destroy();
-  if(!window._charts) window._charts={};
-  var GRID="rgba(255,255,255,0.06)"; var TICK="#6E7681";
-  function fmtE(n){ return n>=1000?"\u20ac"+(n/1000).toFixed(1)+"K":"\u20ac"+n.toFixed(0); }
-  var activeDays=[true, true, true, true, true, true, true];
-  var spend=[1231.46, 1124.75, 1130.62, 598.74, 821.73, 851.66, 1077.66]; var roas=[13.28, 11.68, 15.08, 11.68, 13.66, 10.62, 8.73]; var sales=[16355.12, 13136.05, 17044.17, 6992.79, 11228.46, 9045.57, 9409.51];
-  var labels=["Apr 6","Apr 7","Apr 8","Apr 9","Apr 10","Apr 11","Apr 12"];
-  window._charts["chartPromoOADE"]=new Chart(el,{
-    data:{
-      labels:labels,
-      datasets:[
-        {label:"SP Spend \u20ac",data:spend,type:"bar",
-         backgroundColor:"rgba(110,118,129,0.35)",
-         borderColor:"rgba(110,118,129,0.6)",borderWidth:1,
-         borderRadius:3,yAxisID:"y",order:2},
-        {label:"SP ROAS",data:roas,type:"line",
-         borderColor:"#F78166",backgroundColor:"transparent",
-         pointBackgroundColor:"#F78166",tension:0.35,
-         borderWidth:2.5,pointRadius:5,pointHoverRadius:7,
-         yAxisID:"y2",order:1},
-      {label:"OA4 Adventure Combo (€264)",data:[264.0, 264.0, 264.0, 264.0, 264.0, 264.0, 264.0],type:"line",
-       borderColor:"#F5A623",backgroundColor:"transparent",
-       pointBackgroundColor:"#F5A623",borderDash:[5,3],borderWidth:1.5,
-       pointRadius:5,pointHoverRadius:7,
-       yAxisID:"y3",spanGaps:false,order:0},
-      {label:"OA5 Pro Standard Combo (€292)",data:[292.0, 292.0, 292.0, 292.0, 292.0, 292.0, 292.0],type:"line",
-       borderColor:"#7ED321",backgroundColor:"transparent",
-       pointBackgroundColor:"#7ED321",borderDash:[5,3],borderWidth:1.5,
-       pointRadius:5,pointHoverRadius:7,
-       yAxisID:"y3",spanGaps:false,order:0},
-      {label:"OA5 Pro Adventure Combo (€373)",data:[373.0, 373.0, 373.0, 373.0, 373.0, 373.0, 373.0],type:"line",
-       borderColor:"#BD10E0",backgroundColor:"transparent",
-       pointBackgroundColor:"#BD10E0",borderDash:[5,3],borderWidth:1.5,
-       pointRadius:5,pointHoverRadius:7,
-       yAxisID:"y3",spanGaps:false,order:0},
-      {label:"OA4 Standard Combo (€201)",data:[null, 201.0, 201.0, 201.0, 201.0, 201.0, 201.0],type:"line",
-       borderColor:"#4A90E2",backgroundColor:"transparent",
-       pointBackgroundColor:"#4A90E2",borderDash:[5,3],borderWidth:1.5,
-       pointRadius:5,pointHoverRadius:7,
-       yAxisID:"y3",spanGaps:false,order:0},
-      ]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      interaction:{mode:"index",intersect:false},
-      plugins:{
-        legend:{labels:{color:TICK,font:{size:10},boxWidth:10,padding:8}},
-        tooltip:{callbacks:{
-          title:function(items){return items[0].label;},
-          afterBody:function(items){
-            var idx=items[0].dataIndex;
-            var sp=spend[idx]||0; var sa=sales[idx]||0;
-            return ["SP Sales: "+fmtE(sa),"Orders: "+(sa>0?Math.round(sa/300):"—")];
-          }
-        }},
-      },
-      scales:{
-        x:{ticks:{color:TICK,font:{size:10}},grid:{color:GRID}},
-        y:{type:"linear",position:"left",
-           ticks:{color:TICK,callback:function(v){return fmtE(v);}},
-           grid:{color:GRID},title:{display:true,text:"Spend \u20ac",color:TICK,font:{size:10}}},
-        y2:{type:"linear",position:"right",
-            ticks:{color:"#F78166",callback:function(v){return v!=null?v.toFixed(1)+"x":"";} },
-            grid:{display:false},title:{display:true,text:"ROAS",color:"#F78166",font:{size:10}}},
-        y3:{type:"linear",position:"right",display:true,
-            ticks:{color:"#F5A623",callback:function(v){return v!=null?"\u20ac"+v:"";} },
-            grid:{display:false},title:{display:true,text:"Promo Price \u20ac",color:"#F5A623",font:{size:10}}}
-      }
-    },
-    plugins:[{
-      id:"promoShade",
-      beforeDraw:function(chart){
-        var ctx=chart.ctx; var xAxis=chart.scales.x; var yAxis=chart.scales.y;
-        var active=[true, true, true, true, true, true, true];
-        active.forEach(function(on,i){
-          if(!on) return;
-          var x0=xAxis.getPixelForValue(i-0.5);
-          var x1=xAxis.getPixelForValue(i+0.5);
-          ctx.save();
-          ctx.fillStyle="rgba(245,166,35,0.07)";
-          ctx.fillRect(x0,yAxis.top,x1-x0,yAxis.bottom-yAxis.top);
-          ctx.restore();
-        });
-      }
-    }]
-  });
-})();
+
+
+
+
+
+
 
 (function(){
-  var el=document.getElementById("chartPromoOAIT");
-  if(!el) return;
-  if(window._charts&&window._charts["chartPromoOAIT"]) window._charts["chartPromoOAIT"].destroy();
-  if(!window._charts) window._charts={};
   var GRID="rgba(255,255,255,0.06)"; var TICK="#6E7681";
-  function fmtE(n){ return n>=1000?"\u20ac"+(n/1000).toFixed(1)+"K":"\u20ac"+n.toFixed(0); }
-  var activeDays=[false, false, false, true, true, true, true];
-  var spend=[308.83, 334.82, 324.6, 157.74, 293.51, 286.67, 370.48]; var roas=[5.77, 19.48, 11.4, 10.83, 8.49, 10.17, 4.57]; var sales=[1781.52, 6523.75, 3702.04, 1707.74, 2493.28, 2916.47, 1694.26];
-  var labels=["Apr 6","Apr 7","Apr 8","Apr 9","Apr 10","Apr 11","Apr 12"];
-  window._charts["chartPromoOAIT"]=new Chart(el,{
-    data:{
-      labels:labels,
-      datasets:[
-        {label:"SP Spend \u20ac",data:spend,type:"bar",
-         backgroundColor:"rgba(110,118,129,0.35)",
-         borderColor:"rgba(110,118,129,0.6)",borderWidth:1,
-         borderRadius:3,yAxisID:"y",order:2},
-        {label:"SP ROAS",data:roas,type:"line",
-         borderColor:"#F78166",backgroundColor:"transparent",
-         pointBackgroundColor:"#F78166",tension:0.35,
-         borderWidth:2.5,pointRadius:5,pointHoverRadius:7,
-         yAxisID:"y2",order:1},
-      {label:"OA4 Standard Combo (€201)",data:[null, null, null, 201.0, 201.0, 201.0, 201.0],type:"line",
-       borderColor:"#F5A623",backgroundColor:"transparent",
-       pointBackgroundColor:"#F5A623",borderDash:[5,3],borderWidth:1.5,
-       pointRadius:5,pointHoverRadius:7,
-       yAxisID:"y3",spanGaps:false,order:0},
-      {label:"OA4 Adventure Combo (€264)",data:[null, null, null, 264.0, 264.0, 264.0, 264.0],type:"line",
-       borderColor:"#7ED321",backgroundColor:"transparent",
-       pointBackgroundColor:"#7ED321",borderDash:[5,3],borderWidth:1.5,
-       pointRadius:5,pointHoverRadius:7,
-       yAxisID:"y3",spanGaps:false,order:0},
-      {label:"OA5 Pro Standard Combo (€292)",data:[null, null, null, 292.0, 292.0, 292.0, 292.0],type:"line",
-       borderColor:"#BD10E0",backgroundColor:"transparent",
-       pointBackgroundColor:"#BD10E0",borderDash:[5,3],borderWidth:1.5,
-       pointRadius:5,pointHoverRadius:7,
-       yAxisID:"y3",spanGaps:false,order:0},
-      {label:"OA5 Pro Adventure Combo (€373)",data:[null, null, null, 373.0, 373.0, 373.0, 373.0],type:"line",
-       borderColor:"#4A90E2",backgroundColor:"transparent",
-       pointBackgroundColor:"#4A90E2",borderDash:[5,3],borderWidth:1.5,
-       pointRadius:5,pointHoverRadius:7,
-       yAxisID:"y3",spanGaps:false,order:0},
-      ]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      interaction:{mode:"index",intersect:false},
-      plugins:{
-        legend:{labels:{color:TICK,font:{size:10},boxWidth:10,padding:8}},
-        tooltip:{callbacks:{
-          title:function(items){return items[0].label;},
-          afterBody:function(items){
-            var idx=items[0].dataIndex;
-            var sp=spend[idx]||0; var sa=sales[idx]||0;
-            return ["SP Sales: "+fmtE(sa),"Orders: "+(sa>0?Math.round(sa/300):"—")];
-          }
-        }},
+  var labels=["Apr 6", "Apr 7", "Apr 8", "Apr 9", "Apr 10", "Apr 11", "Apr 12"];
+  var shadePlugin=
+{
+  id:"promoShade3",
+  beforeDraw:function(chart){
+    var ctx=chart.ctx; var xa=chart.scales.x; var ya=chart.scales.y;
+    var active=[true, true, true, true, true, true, true];
+    active.forEach(function(on,i){
+      if(!on) return;
+      var x0=xa.getPixelForValue(i-0.5),x1=xa.getPixelForValue(i+0.5);
+      ctx.save(); ctx.fillStyle="rgba(245,166,35,0.08)";
+      ctx.fillRect(x0,ya.top,x1-x0,ya.bottom-ya.top); ctx.restore();
+    });
+  }
+};
+  function fmtE(n){ return n>=1000?"€"+(n/1000).toFixed(1)+"K":"€"+n.toFixed(0); }
+  if(!window._charts) window._charts={};
+
+  // Chart 1: Spend
+  var e1=document.getElementById("chartP3Spend");
+  if(e1){
+    if(window._charts.chartP3Spend) window._charts.chartP3Spend.destroy();
+    window._charts.chartP3Spend=new Chart(e1,{
+      type:"bar",
+      data:{labels:labels,datasets:[{"label": "OA4 Standard", "data": [634.89, 560.89, 528.75, 290.82, 414.75, 437.69, 535.74], "backgroundColor": "#FF6B6B", "borderColor": "#FF6B6B", "borderWidth": 0, "stack": "spend", "borderRadius": 2}, {"label": "OA4 Adventure", "data": [54.92, 75.04, 82.05, 51.29, 74.51, 58.58, 63.81], "backgroundColor": "#FF8E8E", "borderColor": "#FF8E8E", "borderWidth": 0, "stack": "spend", "borderRadius": 2}, {"label": "OA4 Essential", "data": [81.41, 96.38, 139.06, 67.92, 61.42, 86.71, 95.07], "backgroundColor": "#FFB1B1", "borderColor": "#FFB1B1", "borderWidth": 0, "stack": "spend", "borderRadius": 2}, {"label": "OA5Pro Standard", "data": [399.77, 366.58, 370.54, 179.93, 313.13, 304.96, 377.51], "backgroundColor": "#F78166", "borderColor": "#F78166", "borderWidth": 0, "stack": "spend", "borderRadius": 2}, {"label": "OA5Pro Adventure", "data": [54.05, 37.38, 35.57, 9.25, 39.18, 25.53, 22.72], "backgroundColor": "#F79E8C", "borderColor": "#F79E8C", "borderWidth": 0, "stack": "spend", "borderRadius": 2}, {"label": "OA5Pro Essential", "data": [103.34, 98.21, 132.65, 55.86, 109.02, 99.23, 115.08], "backgroundColor": "#F7BFB4", "borderColor": "#F7BFB4", "borderWidth": 0, "stack": "spend", "borderRadius": 2}, {"label": "OA6 Essential", "data": [170.71, 169.93, 130.62, 96.62, 99.85, 124.78, 111.69], "backgroundColor": "#E5534B", "borderColor": "#E5534B", "borderWidth": 0, "stack": "spend", "borderRadius": 2}, {"label": "OA6 Enhanced", "data": [21.32, 25.08, 35.98, 2.35, 0, 0, 0], "backgroundColor": "#CC4A44", "borderColor": "#CC4A44", "borderWidth": 0, "stack": "spend", "borderRadius": 2}, {"label": "OA6 Standard", "data": [19.88, 30.08, 0.0, 2.44, 3.38, 0.85, 126.52], "backgroundColor": "#B3403C", "borderColor": "#B3403C", "borderWidth": 0, "stack": "spend", "borderRadius": 2}, {"label": "OQ Standard", "data": [385.31, 200.74, 136.83, 57.8, 264.89, 289.93, 359.61], "backgroundColor": "#F5A623", "borderColor": "#F5A623", "borderWidth": 0, "stack": "spend", "borderRadius": 2}, {"label": "OQ Adventure", "data": [431.02, 255.95, 252.6, 98.98, 121.44, 115.36, 167.41], "backgroundColor": "#F7BD5E", "borderColor": "#F7BD5E", "borderWidth": 0, "stack": "spend", "borderRadius": 2}, {"label": "OW 128GB", "data": [557.78, 538.01, 519.62, 271.2, 371.74, 476.01, 546.74], "backgroundColor": "#57AB5A", "borderColor": "#57AB5A", "borderWidth": 0, "stack": "spend", "borderRadius": 2}, {"label": "OW 64GB", "data": [176.85, 169.46, 145.59, 86.18, 96.3, 98.25, 109.51], "backgroundColor": "#8DC98F", "borderColor": "#8DC98F", "borderWidth": 0, "stack": "spend", "borderRadius": 2}]},
+      options:{responsive:true,maintainAspectRatio:false,
+        interaction:{mode:"index",intersect:false},
+        plugins:{legend:{labels:{color:TICK,font:{size:10},boxWidth:10,padding:6}},
+          tooltip:{callbacks:{footer:function(items){
+            var tot=items.reduce(function(s,i){return s+(i.raw||0);},0);
+            return "Total: "+fmtE(tot);
+          }}}
+        },
+        scales:{
+          x:{ticks:{color:TICK},grid:{color:GRID},stacked:true},
+          y:{ticks:{color:TICK,callback:function(v){return fmtE(v);}},grid:{color:GRID},stacked:true,
+             title:{display:true,text:"SP Spend €",color:TICK,font:{size:10}}}
+        }
       },
-      scales:{
-        x:{ticks:{color:TICK,font:{size:10}},grid:{color:GRID}},
-        y:{type:"linear",position:"left",
-           ticks:{color:TICK,callback:function(v){return fmtE(v);}},
-           grid:{color:GRID},title:{display:true,text:"Spend \u20ac",color:TICK,font:{size:10}}},
-        y2:{type:"linear",position:"right",
-            ticks:{color:"#F78166",callback:function(v){return v!=null?v.toFixed(1)+"x":"";} },
-            grid:{display:false},title:{display:true,text:"ROAS",color:"#F78166",font:{size:10}}},
-        y3:{type:"linear",position:"right",display:true,
-            ticks:{color:"#F5A623",callback:function(v){return v!=null?"\u20ac"+v:"";} },
-            grid:{display:false},title:{display:true,text:"Promo Price \u20ac",color:"#F5A623",font:{size:10}}}
-      }
-    },
-    plugins:[{
-      id:"promoShade",
-      beforeDraw:function(chart){
-        var ctx=chart.ctx; var xAxis=chart.scales.x; var yAxis=chart.scales.y;
-        var active=[false, false, false, true, true, true, true];
-        active.forEach(function(on,i){
-          if(!on) return;
-          var x0=xAxis.getPixelForValue(i-0.5);
-          var x1=xAxis.getPixelForValue(i+0.5);
-          ctx.save();
-          ctx.fillStyle="rgba(245,166,35,0.07)";
-          ctx.fillRect(x0,yAxis.top,x1-x0,yAxis.bottom-yAxis.top);
-          ctx.restore();
-        });
-      }
-    }]
-  });
+      plugins:[shadePlugin]
+    });
+  }
+
+  // Chart 2: Orders
+  var e2=document.getElementById("chartP3Orders");
+  if(e2){
+    if(window._charts.chartP3Orders) window._charts.chartP3Orders.destroy();
+    window._charts.chartP3Orders=new Chart(e2,{
+      type:"bar",
+      data:{labels:labels,datasets:[{"label": "OA4 Standard", "data": [38, 47, 31, 11, 23, 24, 32], "backgroundColor": "#FF6B6B", "borderColor": "#FF6B6B", "borderWidth": 0, "stack": "orders", "borderRadius": 2}, {"label": "OA4 Adventure", "data": [3, 2, 5, 4, 0, 1, 5], "backgroundColor": "#FF8E8E", "borderColor": "#FF8E8E", "borderWidth": 0, "stack": "orders", "borderRadius": 2}, {"label": "OA4 Essential", "data": [6, 10, 11, 6, 0, 1, 4], "backgroundColor": "#FFB1B1", "borderColor": "#FFB1B1", "borderWidth": 0, "stack": "orders", "borderRadius": 2}, {"label": "OA5Pro Standard", "data": [26, 22, 19, 8, 29, 17, 16], "backgroundColor": "#F78166", "borderColor": "#F78166", "borderWidth": 0, "stack": "orders", "borderRadius": 2}, {"label": "OA5Pro Adventure", "data": [2, 1, 5, 3, 3, 2, 0], "backgroundColor": "#F79E8C", "borderColor": "#F79E8C", "borderWidth": 0, "stack": "orders", "borderRadius": 2}, {"label": "OA5Pro Essential", "data": [2, 3, 4, 1, 5, 4, 2], "backgroundColor": "#F7BFB4", "borderColor": "#F7BFB4", "borderWidth": 0, "stack": "orders", "borderRadius": 2}, {"label": "OA6 Essential", "data": [10, 12, 18, 5, 6, 9, 3], "backgroundColor": "#E5534B", "borderColor": "#E5534B", "borderWidth": 0, "stack": "orders", "borderRadius": 2}, {"label": "OA6 Enhanced", "data": [0, 2, 6, 2, 0, 0, 0], "backgroundColor": "#CC4A44", "borderColor": "#CC4A44", "borderWidth": 0, "stack": "orders", "borderRadius": 2}, {"label": "OA6 Standard", "data": [3, 3, 0, 0, 0, 0, 1], "backgroundColor": "#B3403C", "borderColor": "#B3403C", "borderWidth": 0, "stack": "orders", "borderRadius": 2}, {"label": "OQ Standard", "data": [5, 3, 5, 5, 14, 9, 9], "backgroundColor": "#F5A623", "borderColor": "#F5A623", "borderWidth": 0, "stack": "orders", "borderRadius": 2}, {"label": "OQ Adventure", "data": [12, 2, 4, 4, 1, 6, 10], "backgroundColor": "#F7BD5E", "borderColor": "#F7BD5E", "borderWidth": 0, "stack": "orders", "borderRadius": 2}, {"label": "OW 128GB", "data": [30, 16, 24, 6, 23, 19, 21], "backgroundColor": "#57AB5A", "borderColor": "#57AB5A", "borderWidth": 0, "stack": "orders", "borderRadius": 2}, {"label": "OW 64GB", "data": [8, 11, 7, 1, 6, 4, 6], "backgroundColor": "#8DC98F", "borderColor": "#8DC98F", "borderWidth": 0, "stack": "orders", "borderRadius": 2}]},
+      options:{responsive:true,maintainAspectRatio:false,
+        interaction:{mode:"index",intersect:false},
+        plugins:{legend:{labels:{color:TICK,font:{size:10},boxWidth:10,padding:6}},
+          tooltip:{callbacks:{footer:function(items){
+            var tot=items.reduce(function(s,i){return s+(i.raw||0);},0);
+            return "Total orders: "+tot;
+          }}}
+        },
+        scales:{
+          x:{ticks:{color:TICK},grid:{color:GRID},stacked:true},
+          y:{ticks:{color:TICK},grid:{color:GRID},stacked:true,
+             title:{display:true,text:"Orders",color:TICK,font:{size:10}}}
+        }
+      },
+      plugins:[shadePlugin]
+    });
+  }
+
+  // Chart 3: Promo price trend
+  var e3=document.getElementById("chartP3Promo");
+  if(e3){
+    if(window._charts.chartP3Promo) window._charts.chartP3Promo.destroy();
+    window._charts.chartP3Promo=new Chart(e3,{
+      type:"line",
+      data:{labels:labels,datasets:[{"label": "OA4 Standard Promo", "data": [162.0, 201.0, 201.0, 201.0, 201.0, 201.0, 201.0], "type": "line", "borderColor": "#FF6B6B", "backgroundColor": "transparent", "pointBackgroundColor": "#FF6B6B", "borderDash": [6, 3], "borderWidth": 2, "pointRadius": 5, "pointHoverRadius": 7, "spanGaps": false, "tension": 0.1, "yAxisID": "y"}, {"label": "OA4 Standard MSRP", "data": [197, 219, 219, 219, 219, 219, 219], "type": "line", "borderColor": "#FF6B6B", "backgroundColor": "transparent", "pointBackgroundColor": "transparent", "borderDash": [2, 4], "borderWidth": 1, "pointRadius": 0, "spanGaps": false, "tension": 0.1, "yAxisID": "y"}, {"label": "OA4 Adventure Promo", "data": [264.0, 264.0, 264.0, 264.0, 264.0, 264.0, 264.0], "type": "line", "borderColor": "#FF8E8E", "backgroundColor": "transparent", "pointBackgroundColor": "#FF8E8E", "borderDash": [6, 3], "borderWidth": 2, "pointRadius": 5, "pointHoverRadius": 7, "spanGaps": false, "tension": 0.1, "yAxisID": "y"}, {"label": "OA4 Adventure MSRP", "data": [299, 299, 299, 299, 299, 299, 299], "type": "line", "borderColor": "#FF8E8E", "backgroundColor": "transparent", "pointBackgroundColor": "transparent", "borderDash": [2, 4], "borderWidth": 1, "pointRadius": 0, "spanGaps": false, "tension": 0.1, "yAxisID": "y"}, {"label": "OA5Pro Standard Promo", "data": [292.0, 292.0, 292.0, 292.0, 292.0, 292.0, 292.0], "type": "line", "borderColor": "#F78166", "backgroundColor": "transparent", "pointBackgroundColor": "#F78166", "borderDash": [6, 3], "borderWidth": 2, "pointRadius": 5, "pointHoverRadius": 7, "spanGaps": false, "tension": 0.1, "yAxisID": "y"}, {"label": "OA5Pro Standard MSRP", "data": [319, 319, 319, 319, 319, 319, 319], "type": "line", "borderColor": "#F78166", "backgroundColor": "transparent", "pointBackgroundColor": "transparent", "borderDash": [2, 4], "borderWidth": 1, "pointRadius": 0, "spanGaps": false, "tension": 0.1, "yAxisID": "y"}, {"label": "OA5Pro Adventure Promo", "data": [373.0, 373.0, 373.0, 373.0, 373.0, 373.0, 373.0], "type": "line", "borderColor": "#F79E8C", "backgroundColor": "transparent", "pointBackgroundColor": "#F79E8C", "borderDash": [6, 3], "borderWidth": 2, "pointRadius": 5, "pointHoverRadius": 7, "spanGaps": false, "tension": 0.1, "yAxisID": "y"}, {"label": "OA5Pro Adventure MSRP", "data": [409, 409, 409, 409, 409, 409, 409], "type": "line", "borderColor": "#F79E8C", "backgroundColor": "transparent", "pointBackgroundColor": "transparent", "borderDash": [2, 4], "borderWidth": 1, "pointRadius": 0, "spanGaps": false, "tension": 0.1, "yAxisID": "y"}, {"label": "OQ Standard Promo", "data": [315.0, 315.0, 315.0, 314.0, 314.0, 314.0, 314.0], "type": "line", "borderColor": "#F5A623", "backgroundColor": "transparent", "pointBackgroundColor": "#F5A623", "borderDash": [6, 3], "borderWidth": 2, "pointRadius": 5, "pointHoverRadius": 7, "spanGaps": false, "tension": 0.1, "yAxisID": "y"}, {"label": "OQ Standard MSRP", "data": [389, 389, 389, 389, 389, 389, 389], "type": "line", "borderColor": "#F5A623", "backgroundColor": "transparent", "pointBackgroundColor": "transparent", "borderDash": [2, 4], "borderWidth": 1, "pointRadius": 0, "spanGaps": false, "tension": 0.1, "yAxisID": "y"}, {"label": "OQ Adventure Promo", "data": [411.0, 411.0, 411.0, 409.0, 409.0, 409.0, 409.0], "type": "line", "borderColor": "#F7BD5E", "backgroundColor": "transparent", "pointBackgroundColor": "#F7BD5E", "borderDash": [6, 3], "borderWidth": 2, "pointRadius": 5, "pointHoverRadius": 7, "spanGaps": false, "tension": 0.1, "yAxisID": "y"}, {"label": "OQ Adventure MSRP", "data": [509, 509, 509, 509, 509, 509, 509], "type": "line", "borderColor": "#F7BD5E", "backgroundColor": "transparent", "pointBackgroundColor": "transparent", "borderDash": [2, 4], "borderWidth": 1, "pointRadius": 0, "spanGaps": false, "tension": 0.1, "yAxisID": "y"}]},
+      options:{responsive:true,maintainAspectRatio:false,
+        interaction:{mode:"index",intersect:false},
+        plugins:{legend:{labels:{color:TICK,font:{size:10},boxWidth:10,padding:6,
+          filter:function(item){return !item.text.includes("MSRP");}
+        }}},
+        scales:{
+          x:{ticks:{color:TICK},grid:{color:GRID}},
+          y:{ticks:{color:TICK,callback:function(v){return v!=null?"€"+v:""}},grid:{color:GRID},
+             title:{display:true,text:"Price €",color:TICK,font:{size:10}}}
+        }
+      },
+      plugins:[shadePlugin]
+    });
+  }
 })();
 
-(function(){
-  var el=document.getElementById("chartPromoOQDE");
-  if(!el) return;
-  if(window._charts&&window._charts["chartPromoOQDE"]) window._charts["chartPromoOQDE"].destroy();
-  if(!window._charts) window._charts={};
-  var GRID="rgba(255,255,255,0.06)"; var TICK="#6E7681";
-  function fmtE(n){ return n>=1000?"\u20ac"+(n/1000).toFixed(1)+"K":"\u20ac"+n.toFixed(0); }
-  var activeDays=[true, true, true, true, true, true, true];
-  var spend=[702.09, 361.95, 289.07, 114.3, 316.02, 322.97, 428.48]; var roas=[6.83, 3.05, 4.81, 7.53, 10.34, 5.71, 9.48]; var sales=[4795.88, 1103.5, 1391.74, 860.82, 3268.69, 1843.7, 4062.6];
-  var labels=["Apr 6","Apr 7","Apr 8","Apr 9","Apr 10","Apr 11","Apr 12"];
-  window._charts["chartPromoOQDE"]=new Chart(el,{
-    data:{
-      labels:labels,
-      datasets:[
-        {label:"SP Spend \u20ac",data:spend,type:"bar",
-         backgroundColor:"rgba(110,118,129,0.35)",
-         borderColor:"rgba(110,118,129,0.6)",borderWidth:1,
-         borderRadius:3,yAxisID:"y",order:2},
-        {label:"SP ROAS",data:roas,type:"line",
-         borderColor:"#C69026",backgroundColor:"transparent",
-         pointBackgroundColor:"#C69026",tension:0.35,
-         borderWidth:2.5,pointRadius:5,pointHoverRadius:7,
-         yAxisID:"y2",order:1},
-      {label:"OQ Adventure Combo (€411)",data:[411.0, 411.0, 411.0, 411.0, 411.0, 411.0, 411.0],type:"line",
-       borderColor:"#F5A623",backgroundColor:"transparent",
-       pointBackgroundColor:"#F5A623",borderDash:[5,3],borderWidth:1.5,
-       pointRadius:5,pointHoverRadius:7,
-       yAxisID:"y3",spanGaps:false,order:0},
-      {label:"OQ Standard Combo (€315)",data:[315.0, 315.0, 315.0, 315.0, 315.0, 315.0, 315.0],type:"line",
-       borderColor:"#7ED321",backgroundColor:"transparent",
-       pointBackgroundColor:"#7ED321",borderDash:[5,3],borderWidth:1.5,
-       pointRadius:5,pointHoverRadius:7,
-       yAxisID:"y3",spanGaps:false,order:0},
-      ]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      interaction:{mode:"index",intersect:false},
-      plugins:{
-        legend:{labels:{color:TICK,font:{size:10},boxWidth:10,padding:8}},
-        tooltip:{callbacks:{
-          title:function(items){return items[0].label;},
-          afterBody:function(items){
-            var idx=items[0].dataIndex;
-            var sp=spend[idx]||0; var sa=sales[idx]||0;
-            return ["SP Sales: "+fmtE(sa),"Orders: "+(sa>0?Math.round(sa/300):"—")];
-          }
-        }},
-      },
-      scales:{
-        x:{ticks:{color:TICK,font:{size:10}},grid:{color:GRID}},
-        y:{type:"linear",position:"left",
-           ticks:{color:TICK,callback:function(v){return fmtE(v);}},
-           grid:{color:GRID},title:{display:true,text:"Spend \u20ac",color:TICK,font:{size:10}}},
-        y2:{type:"linear",position:"right",
-            ticks:{color:"#C69026",callback:function(v){return v!=null?v.toFixed(1)+"x":"";} },
-            grid:{display:false},title:{display:true,text:"ROAS",color:"#C69026",font:{size:10}}},
-        y3:{type:"linear",position:"right",display:true,
-            ticks:{color:"#F5A623",callback:function(v){return v!=null?"\u20ac"+v:"";} },
-            grid:{display:false},title:{display:true,text:"Promo Price \u20ac",color:"#F5A623",font:{size:10}}}
-      }
-    },
-    plugins:[{
-      id:"promoShade",
-      beforeDraw:function(chart){
-        var ctx=chart.ctx; var xAxis=chart.scales.x; var yAxis=chart.scales.y;
-        var active=[true, true, true, true, true, true, true];
-        active.forEach(function(on,i){
-          if(!on) return;
-          var x0=xAxis.getPixelForValue(i-0.5);
-          var x1=xAxis.getPixelForValue(i+0.5);
-          ctx.save();
-          ctx.fillStyle="rgba(245,166,35,0.07)";
-          ctx.fillRect(x0,yAxis.top,x1-x0,yAxis.bottom-yAxis.top);
-          ctx.restore();
-        });
-      }
-    }]
-  });
-})();
 
 (function(){
-  var el=document.getElementById("chartPromoOQIT");
-  if(!el) return;
-  if(window._charts&&window._charts["chartPromoOQIT"]) window._charts["chartPromoOQIT"].destroy();
-  if(!window._charts) window._charts={};
   var GRID="rgba(255,255,255,0.06)"; var TICK="#6E7681";
-  function fmtE(n){ return n>=1000?"\u20ac"+(n/1000).toFixed(1)+"K":"\u20ac"+n.toFixed(0); }
-  var activeDays=[false, false, false, true, true, true, true];
-  var spend=[114.24, 94.74, 100.36, 42.48, 70.31, 82.32, 98.54]; var roas=[2.99, 8.38, 4.39, 21.03, 4.5, 11.68, 0.0]; var sales=[341.98, 794.17, 440.47, 893.54, 316.55, 961.63, 0.0];
-  var labels=["Apr 6","Apr 7","Apr 8","Apr 9","Apr 10","Apr 11","Apr 12"];
-  window._charts["chartPromoOQIT"]=new Chart(el,{
-    data:{
-      labels:labels,
-      datasets:[
-        {label:"SP Spend \u20ac",data:spend,type:"bar",
-         backgroundColor:"rgba(110,118,129,0.35)",
-         borderColor:"rgba(110,118,129,0.6)",borderWidth:1,
-         borderRadius:3,yAxisID:"y",order:2},
-        {label:"SP ROAS",data:roas,type:"line",
-         borderColor:"#C69026",backgroundColor:"transparent",
-         pointBackgroundColor:"#C69026",tension:0.35,
-         borderWidth:2.5,pointRadius:5,pointHoverRadius:7,
-         yAxisID:"y2",order:1},
-      {label:"OQ Adventure Combo (€409)",data:[null, null, null, 409.0, 409.0, 409.0, 409.0],type:"line",
-       borderColor:"#F5A623",backgroundColor:"transparent",
-       pointBackgroundColor:"#F5A623",borderDash:[5,3],borderWidth:1.5,
-       pointRadius:5,pointHoverRadius:7,
-       yAxisID:"y3",spanGaps:false,order:0},
-      {label:"OQ Standard Combo (€314)",data:[null, null, null, 314.0, 314.0, 314.0, 314.0],type:"line",
-       borderColor:"#7ED321",backgroundColor:"transparent",
-       pointBackgroundColor:"#7ED321",borderDash:[5,3],borderWidth:1.5,
-       pointRadius:5,pointHoverRadius:7,
-       yAxisID:"y3",spanGaps:false,order:0},
-      ]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      interaction:{mode:"index",intersect:false},
-      plugins:{
-        legend:{labels:{color:TICK,font:{size:10},boxWidth:10,padding:8}},
-        tooltip:{callbacks:{
-          title:function(items){return items[0].label;},
-          afterBody:function(items){
-            var idx=items[0].dataIndex;
-            var sp=spend[idx]||0; var sa=sales[idx]||0;
-            return ["SP Sales: "+fmtE(sa),"Orders: "+(sa>0?Math.round(sa/300):"—")];
-          }
-        }},
-      },
-      scales:{
-        x:{ticks:{color:TICK,font:{size:10}},grid:{color:GRID}},
-        y:{type:"linear",position:"left",
-           ticks:{color:TICK,callback:function(v){return fmtE(v);}},
-           grid:{color:GRID},title:{display:true,text:"Spend \u20ac",color:TICK,font:{size:10}}},
-        y2:{type:"linear",position:"right",
-            ticks:{color:"#C69026",callback:function(v){return v!=null?v.toFixed(1)+"x":"";} },
-            grid:{display:false},title:{display:true,text:"ROAS",color:"#C69026",font:{size:10}}},
-        y3:{type:"linear",position:"right",display:true,
-            ticks:{color:"#F5A623",callback:function(v){return v!=null?"\u20ac"+v:"";} },
-            grid:{display:false},title:{display:true,text:"Promo Price \u20ac",color:"#F5A623",font:{size:10}}}
-      }
-    },
-    plugins:[{
-      id:"promoShade",
-      beforeDraw:function(chart){
-        var ctx=chart.ctx; var xAxis=chart.scales.x; var yAxis=chart.scales.y;
-        var active=[false, false, false, true, true, true, true];
-        active.forEach(function(on,i){
-          if(!on) return;
-          var x0=xAxis.getPixelForValue(i-0.5);
-          var x1=xAxis.getPixelForValue(i+0.5);
-          ctx.save();
-          ctx.fillStyle="rgba(245,166,35,0.07)";
-          ctx.fillRect(x0,yAxis.top,x1-x0,yAxis.bottom-yAxis.top);
-          ctx.restore();
-        });
-      }
-    }]
-  });
-})();
+  if(!window._charts) window._charts={};
+  function fmtE(n){ return n>=1000?"€"+(n/1000).toFixed(1)+"K":"€"+n.toFixed(0); }
+  var S_COLOR={"OA": "#F78166", "OQ": "#C69026", "OW": "#57AB5A"};
 
-(function(){
-  var el=document.getElementById("chartPromoOWDE");
-  if(!el) return;
-  if(window._charts&&window._charts["chartPromoOWDE"]) window._charts["chartPromoOWDE"].destroy();
-  if(!window._charts) window._charts={};
-  var GRID="rgba(255,255,255,0.06)"; var TICK="#6E7681";
-  function fmtE(n){ return n>=1000?"\u20ac"+(n/1000).toFixed(1)+"K":"\u20ac"+n.toFixed(0); }
-  var activeDays=[false, false, false, false, false, false, false];
-  var spend=[412.96, 377.01, 373.77, 226.53, 256.13, 346.08, 329.76]; var roas=[14.24, 11.11, 12.47, 1.92, 19.63, 10.7, 12.5]; var sales=[5881.57, 4189.3, 4661.43, 434.68, 5027.26, 3702.76, 4120.68];
-  var labels=["Apr 6","Apr 7","Apr 8","Apr 9","Apr 10","Apr 11","Apr 12"];
-  window._charts["chartPromoOWDE"]=new Chart(el,{
-    data:{
-      labels:labels,
-      datasets:[
-        {label:"SP Spend \u20ac",data:spend,type:"bar",
-         backgroundColor:"rgba(110,118,129,0.35)",
-         borderColor:"rgba(110,118,129,0.6)",borderWidth:1,
-         borderRadius:3,yAxisID:"y",order:2},
-        {label:"SP ROAS",data:roas,type:"line",
-         borderColor:"#57AB5A",backgroundColor:"transparent",
-         pointBackgroundColor:"#57AB5A",tension:0.35,
-         borderWidth:2.5,pointRadius:5,pointHoverRadius:7,
-         yAxisID:"y2",order:1},
-      ]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      interaction:{mode:"index",intersect:false},
-      plugins:{
-        legend:{labels:{color:TICK,font:{size:10},boxWidth:10,padding:8}},
-        tooltip:{callbacks:{
-          title:function(items){return items[0].label;},
-          afterBody:function(items){
-            var idx=items[0].dataIndex;
-            var sp=spend[idx]||0; var sa=sales[idx]||0;
-            return ["SP Sales: "+fmtE(sa),"Orders: "+(sa>0?Math.round(sa/300):"—")];
-          }
-        }},
+  // Chart 1: CPO vs CVR by Series x Country (dual axis bar)
+  (function(){
+    var el=document.getElementById("chartDeepCpoCountry"); if(!el) return;
+    if(window._charts.chartDeepCpoCountry) window._charts.chartDeepCpoCountry.destroy();
+    window._charts.chartDeepCpoCountry=new Chart(el,{
+      data:{
+        labels:["OA-DE", "OA-IT", "OQ-DE", "OQ-IT", "OW-DE", "OW-IT"],
+        datasets:[
+          {label:"CPO €",data:[16.4, 20.4, 34.7, 37.7, 16.9, 40.9],type:"bar",backgroundColor:["#F78166BB", "#F78166BB", "#C69026BB", "#C69026BB", "#57AB5ABB", "#57AB5ABB"],borderRadius:4,yAxisID:"y",order:2},
+          {label:"CVR %",data:[4.55, 3.25, 3.32, 2.03, 3.77, 1.71],type:"line",borderColor:"#4184E4",backgroundColor:"transparent",
+           pointBackgroundColor:"#4184E4",borderWidth:2,pointRadius:5,tension:0.3,yAxisID:"y2",order:1}
+        ]
       },
-      scales:{
-        x:{ticks:{color:TICK,font:{size:10}},grid:{color:GRID}},
-        y:{type:"linear",position:"left",
-           ticks:{color:TICK,callback:function(v){return fmtE(v);}},
-           grid:{color:GRID},title:{display:true,text:"Spend \u20ac",color:TICK,font:{size:10}}},
-        y2:{type:"linear",position:"right",
-            ticks:{color:"#57AB5A",callback:function(v){return v!=null?v.toFixed(1)+"x":"";} },
-            grid:{display:false},title:{display:true,text:"ROAS",color:"#57AB5A",font:{size:10}}},
-        y3:{type:"linear",position:"right",display:false,
-            ticks:{color:"#F5A623",callback:function(v){return v!=null?"\u20ac"+v:"";} },
-            grid:{display:false},title:{display:false,text:"Promo Price \u20ac",color:"#F5A623",font:{size:10}}}
+      options:{responsive:true,maintainAspectRatio:false,
+        interaction:{mode:"index",intersect:false},
+        plugins:{legend:{labels:{color:TICK,font:{size:10},boxWidth:10}}},
+        scales:{
+          x:{ticks:{color:TICK,font:{size:10}},grid:{color:GRID}},
+          y:{ticks:{color:TICK,callback:function(v){return "€"+v;}},grid:{color:GRID},
+             title:{display:true,text:"CPO €",color:TICK,font:{size:10}}},
+          y2:{ticks:{color:"#4184E4",callback:function(v){return v+"%";}},grid:{display:false},position:"right",
+              title:{display:true,text:"CVR %",color:"#4184E4",font:{size:10}}}
+        }
       }
-    },
-    plugins:[{
-      id:"promoShade",
-      beforeDraw:function(chart){
-        var ctx=chart.ctx; var xAxis=chart.scales.x; var yAxis=chart.scales.y;
-        var active=[false, false, false, false, false, false, false];
-        active.forEach(function(on,i){
-          if(!on) return;
-          var x0=xAxis.getPixelForValue(i-0.5);
-          var x1=xAxis.getPixelForValue(i+0.5);
-          ctx.save();
-          ctx.fillStyle="rgba(245,166,35,0.07)";
-          ctx.fillRect(x0,yAxis.top,x1-x0,yAxis.bottom-yAxis.top);
-          ctx.restore();
-        });
-      }
-    }]
-  });
-})();
+    });
+  })();
 
-(function(){
-  var el=document.getElementById("chartPromoOWIT");
-  if(!el) return;
-  if(window._charts&&window._charts["chartPromoOWIT"]) window._charts["chartPromoOWIT"].destroy();
-  if(!window._charts) window._charts={};
-  var GRID="rgba(255,255,255,0.06)"; var TICK="#6E7681";
-  function fmtE(n){ return n>=1000?"\u20ac"+(n/1000).toFixed(1)+"K":"\u20ac"+n.toFixed(0); }
-  var activeDays=[false, false, false, false, false, false, false];
-  var spend=[321.67, 330.46, 291.44, 130.85, 211.91, 228.18, 326.49]; var roas=[5.45, 4.82, 5.69, 5.43, 5.59, 5.27, 3.59]; var sales=[1752.48, 1593.98, 1658.23, 710.67, 1184.45, 1203.31, 1170.83];
-  var labels=["Apr 6","Apr 7","Apr 8","Apr 9","Apr 10","Apr 11","Apr 12"];
-  window._charts["chartPromoOWIT"]=new Chart(el,{
-    data:{
-      labels:labels,
-      datasets:[
-        {label:"SP Spend \u20ac",data:spend,type:"bar",
-         backgroundColor:"rgba(110,118,129,0.35)",
-         borderColor:"rgba(110,118,129,0.6)",borderWidth:1,
-         borderRadius:3,yAxisID:"y",order:2},
-        {label:"SP ROAS",data:roas,type:"line",
-         borderColor:"#57AB5A",backgroundColor:"transparent",
-         pointBackgroundColor:"#57AB5A",tension:0.35,
-         borderWidth:2.5,pointRadius:5,pointHoverRadius:7,
-         yAxisID:"y2",order:1},
-      ]
-    },
-    options:{
-      responsive:true,maintainAspectRatio:false,
-      interaction:{mode:"index",intersect:false},
-      plugins:{
-        legend:{labels:{color:TICK,font:{size:10},boxWidth:10,padding:8}},
-        tooltip:{callbacks:{
-          title:function(items){return items[0].label;},
-          afterBody:function(items){
-            var idx=items[0].dataIndex;
-            var sp=spend[idx]||0; var sa=sales[idx]||0;
-            return ["SP Sales: "+fmtE(sa),"Orders: "+(sa>0?Math.round(sa/300):"—")];
-          }
-        }},
+  // Chart 2: Spend share donut
+  (function(){
+    var el=document.getElementById("chartDeepSpendShare"); if(!el) return;
+    if(window._charts.chartDeepSpendShare) window._charts.chartDeepSpendShare.destroy();
+    window._charts.chartDeepSpendShare=new Chart(el,{
+      type:"doughnut",
+      data:{
+        labels:["OA SP","OA SB","OQ SP","OQ SB","OW SP","OW SB"],
+        datasets:[{
+          data:[8913.27, 3137.87, 4163.24, 355.35, 557.62, 249.92],
+          backgroundColor:["#F78166BB","#F7816644","#C69026BB","#C6902644","#57AB5ABB","#57AB5A44"],
+          borderColor:"#161B22",borderWidth:2,hoverOffset:8
+        }]
       },
-      scales:{
-        x:{ticks:{color:TICK,font:{size:10}},grid:{color:GRID}},
-        y:{type:"linear",position:"left",
-           ticks:{color:TICK,callback:function(v){return fmtE(v);}},
-           grid:{color:GRID},title:{display:true,text:"Spend \u20ac",color:TICK,font:{size:10}}},
-        y2:{type:"linear",position:"right",
-            ticks:{color:"#57AB5A",callback:function(v){return v!=null?v.toFixed(1)+"x":"";} },
-            grid:{display:false},title:{display:true,text:"ROAS",color:"#57AB5A",font:{size:10}}},
-        y3:{type:"linear",position:"right",display:false,
-            ticks:{color:"#F5A623",callback:function(v){return v!=null?"\u20ac"+v:"";} },
-            grid:{display:false},title:{display:false,text:"Promo Price \u20ac",color:"#F5A623",font:{size:10}}}
+      options:{responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{position:"right",labels:{color:TICK,font:{size:10},boxWidth:10,padding:8}}}
       }
-    },
-    plugins:[{
-      id:"promoShade",
-      beforeDraw:function(chart){
-        var ctx=chart.ctx; var xAxis=chart.scales.x; var yAxis=chart.scales.y;
-        var active=[false, false, false, false, false, false, false];
-        active.forEach(function(on,i){
-          if(!on) return;
-          var x0=xAxis.getPixelForValue(i-0.5);
-          var x1=xAxis.getPixelForValue(i+0.5);
-          ctx.save();
-          ctx.fillStyle="rgba(245,166,35,0.07)";
-          ctx.fillRect(x0,yAxis.top,x1-x0,yAxis.bottom-yAxis.top);
-          ctx.restore();
-        });
+    });
+  })();
+
+  // Chart 3: Spend % by Bankai grouped
+  (function(){
+    var el=document.getElementById("chartDeepSpendPct"); if(!el) return;
+    if(window._charts.chartDeepSpendPct) window._charts.chartDeepSpendPct.destroy();
+    window._charts.chartDeepSpendPct=new Chart(el,{
+      type:"bar",
+      data:{
+        labels:["\u4ea7\u54c1\u8bcd", "\u884c\u4e1a\u8bcd", "\u672c\u54c1\u9632\u5b88", "\u6253\u7ade\u54c1\u9875", "\u7ade\u54c1\u8bcd", "\u54c1\u724c\u8bcd", "\u81ea\u52a8\u6295\u653e"],
+        datasets:[
+          {label:"OA",data:[28.3, 20.5, 19.1, 24.8, 0.1, 0.6, 6.5],backgroundColor:"#F78166BB",borderRadius:3},
+          {label:"OQ",data:[23.5, 16.2, 3.8, 35.8, 8.9, 0.0, 11.7],backgroundColor:"#C69026BB",borderRadius:3},
+          {label:"OW",data:[27.0, 23.9, 8.3, 18.7, 0.0, 2.4, 19.6],backgroundColor:"#57AB5ABB",borderRadius:3}
+        ]
+      },
+      options:{responsive:true,maintainAspectRatio:false,
+        interaction:{mode:"index",intersect:false},
+        plugins:{legend:{labels:{color:TICK,font:{size:10},boxWidth:10}}},
+        scales:{
+          x:{ticks:{color:TICK,font:{size:10}},grid:{color:GRID}},
+          y:{ticks:{color:TICK,callback:function(v){return v+"%";}},grid:{color:GRID},
+             title:{display:true,text:"% of Series SP Spend",color:TICK,font:{size:10}}}
+        }
       }
-    }]
-  });
+    });
+  })();
+
+  // Chart 4: CPO by Bankai
+  (function(){
+    var el=document.getElementById("chartDeepCpoBankai"); if(!el) return;
+    if(window._charts.chartDeepCpoBankai) window._charts.chartDeepCpoBankai.destroy();
+    window._charts.chartDeepCpoBankai=new Chart(el,{
+      type:"bar",
+      data:{
+        labels:["\u4ea7\u54c1\u8bcd", "\u884c\u4e1a\u8bcd", "\u672c\u54c1\u9632\u5b88", "\u6253\u7ade\u54c1\u9875", "\u7ade\u54c1\u8bcd", "\u54c1\u724c\u8bcd", "\u81ea\u52a8\u6295\u653e"],
+        datasets:[
+          {label:"OA CPO",data:[9.5, 39.8, 16.2, 28.0, 12.8, 13.2, 30.7],backgroundColor:"#F78166BB",borderRadius:3},
+          {label:"OQ CPO",data:[12.1, 169.8, 15.0, 112.5, 93.0, null, 92.1],backgroundColor:"#C69026BB",borderRadius:3},
+          {label:"OW CPO",data:[8.9, 199.4, 34.5, 111.2, null, 33.8, 27.2],backgroundColor:"#57AB5ABB",borderRadius:3}
+        ]
+      },
+      options:{responsive:true,maintainAspectRatio:false,
+        interaction:{mode:"index",intersect:false},
+        plugins:{legend:{labels:{color:TICK,font:{size:10},boxWidth:10}},
+          tooltip:{callbacks:{label:function(ctx){return ctx.dataset.label+": €"+(ctx.raw||0).toFixed(1);}}}},
+        scales:{
+          x:{ticks:{color:TICK,font:{size:10}},grid:{color:GRID}},
+          y:{ticks:{color:TICK,callback:function(v){return "€"+v;}},grid:{color:GRID},
+             title:{display:true,text:"CPO €",color:TICK,font:{size:10}}}
+        }
+      }
+    });
+  })();
+
+  // Chart 5: CVR by Bankai
+  (function(){
+    var el=document.getElementById("chartDeepCvrBankai"); if(!el) return;
+    if(window._charts.chartDeepCvrBankai) window._charts.chartDeepCvrBankai.destroy();
+    window._charts.chartDeepCvrBankai=new Chart(el,{
+      type:"bar",
+      data:{
+        labels:["\u4ea7\u54c1\u8bcd", "\u884c\u4e1a\u8bcd", "\u672c\u54c1\u9632\u5b88", "\u6253\u7ade\u54c1\u9875", "\u7ade\u54c1\u8bcd", "\u54c1\u724c\u8bcd", "\u81ea\u52a8\u6295\u653e"],
+        datasets:[
+          {label:"OA CVR",data:[5.28, 2.95, 3.95, 3.49, 5.56, 3.67, 2.83],backgroundColor:"#F78166BB",borderRadius:3},
+          {label:"OQ CVR",data:[5.99, 0.88, 5.67, 1.05, 1.47, null, 1.2],backgroundColor:"#C69026BB",borderRadius:3},
+          {label:"OW CVR",data:[4.98, 0.69, 2.05, 0.73, null, 1.24, 2.29],backgroundColor:"#57AB5ABB",borderRadius:3}
+        ]
+      },
+      options:{responsive:true,maintainAspectRatio:false,
+        interaction:{mode:"index",intersect:false},
+        plugins:{legend:{labels:{color:TICK,font:{size:10},boxWidth:10}},
+          tooltip:{callbacks:{label:function(ctx){return ctx.dataset.label+": "+(ctx.raw||0).toFixed(2)+"%";}}}},
+        scales:{
+          x:{ticks:{color:TICK,font:{size:10}},grid:{color:GRID}},
+          y:{ticks:{color:TICK,callback:function(v){return v+"%";}},grid:{color:GRID},
+             title:{display:true,text:"CVR %",color:TICK,font:{size:10}}}
+        }
+      }
+    });
+  })();
+
+  // Chart 6: ASIN Scatter CPO vs CVR
+  (function(){
+    var el=document.getElementById("chartDeepScatter"); if(!el) return;
+    if(window._charts.chartDeepScatter) window._charts.chartDeepScatter.destroy();
+    var scatterRaw=[{"x": 8.5, "y": 6.99, "r": 7, "name": "OA6 Enhanced", "series": "OA", "orders": 10, "spend": 85.0, "acos": 2.7}, {"x": 14.0, "y": 5.65, "r": 10, "name": "OA5 Pro Adventure", "series": "OA", "orders": 16, "spend": 224.0, "acos": 4.8}, {"x": 14.3, "y": 3.95, "r": 19, "name": "OA6 Essential", "series": "OA", "orders": 63, "spend": 904.0, "acos": 5.8}, {"x": 16.5, "y": 4.63, "r": 35, "name": "OA4 Standard", "series": "OA", "orders": 206, "spend": 3404.0, "acos": 10.4}, {"x": 16.5, "y": 4.13, "r": 15, "name": "OA4 Essential", "series": "OA", "orders": 38, "spend": 628.0, "acos": 10.3}, {"x": 16.9, "y": 4.31, "r": 29, "name": "OA5 Pro Standard", "series": "OA", "orders": 137, "spend": 2312.0, "acos": 7.9}, {"x": 20.5, "y": 3.45, "r": 16, "name": "OW 64GB", "series": "OW", "orders": 43, "spend": 882.0, "acos": 9.8}, {"x": 23.0, "y": 3.57, "r": 11, "name": "OA4 Adventure", "series": "OA", "orders": 20, "spend": 460.0, "acos": 9.4}, {"x": 23.6, "y": 2.77, "r": 29, "name": "OW 128GB", "series": "OW", "orders": 139, "spend": 3281.0, "acos": 11.6}, {"x": 26.2, "y": 3.08, "r": 6, "name": "OA6 Standard", "series": "OA", "orders": 7, "spend": 183.0, "acos": 10.3}, {"x": 33.9, "y": 2.76, "r": 17, "name": "OQ Standard", "series": "OQ", "orders": 50, "spend": 1695.0, "acos": 15.1}, {"x": 34.0, "y": 2.3, "r": 11, "name": "OA5 Pro Essential", "series": "OA", "orders": 21, "spend": 713.0, "acos": 12.5}, {"x": 37.0, "y": 3.31, "r": 15, "name": "OQ Adventure", "series": "OQ", "orders": 39, "spend": 1443.0, "acos": 14.7}];
+    var scatterDS=[
+      {label:"OA",data:scatterRaw.filter(function(d){return d.series==="OA"}),backgroundColor:"#F78166AA",borderColor:"#F78166"},
+      {label:"OQ",data:scatterRaw.filter(function(d){return d.series==="OQ"}),backgroundColor:"#C69026AA",borderColor:"#C69026"},
+      {label:"OW",data:scatterRaw.filter(function(d){return d.series==="OW"}),backgroundColor:"#57AB5AAA",borderColor:"#57AB5A"}
+    ];
+    window._charts.chartDeepScatter=new Chart(el,{
+      type:"bubble",
+      data:{datasets:scatterDS},
+      options:{responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{labels:{color:TICK,font:{size:10},boxWidth:10}},
+          tooltip:{callbacks:{label:function(ctx){
+            var d=ctx.raw;
+            return [d.name,"CPO: €"+d.x,"CVR: "+d.y+"%","Orders: "+d.orders,"ACoS: "+d.acos+"%"];
+          }}}},
+        scales:{
+          x:{title:{display:true,text:"CPO €",color:TICK},ticks:{color:TICK,callback:function(v){return "€"+v;}},grid:{color:GRID}},
+          y:{title:{display:true,text:"CVR %",color:TICK},ticks:{color:TICK,callback:function(v){return v+"%";}},grid:{color:GRID}}
+        }
+      }
+    });
+  })();
+
+  // Chart 7: ASIN Bubble spend vs orders
+  (function(){
+    var el=document.getElementById("chartDeepBubble"); if(!el) return;
+    if(window._charts.chartDeepBubble) window._charts.chartDeepBubble.destroy();
+    var bubbleRaw=[{"x": 85.0, "y": 10, "r": 7, "name": "OA6 Enhanced", "series": "OA", "cpo": 8.5, "acos": 2.7}, {"x": 224.0, "y": 16, "r": 10, "name": "OA5 Pro Adventure", "series": "OA", "cpo": 14.0, "acos": 4.8}, {"x": 904.0, "y": 63, "r": 19, "name": "OA6 Essential", "series": "OA", "cpo": 14.3, "acos": 5.8}, {"x": 3404.0, "y": 206, "r": 35, "name": "OA4 Standard", "series": "OA", "cpo": 16.5, "acos": 10.4}, {"x": 628.0, "y": 38, "r": 15, "name": "OA4 Essential", "series": "OA", "cpo": 16.5, "acos": 10.3}, {"x": 2312.0, "y": 137, "r": 29, "name": "OA5 Pro Standard", "series": "OA", "cpo": 16.9, "acos": 7.9}, {"x": 882.0, "y": 43, "r": 16, "name": "OW 64GB", "series": "OW", "cpo": 20.5, "acos": 9.8}, {"x": 460.0, "y": 20, "r": 11, "name": "OA4 Adventure", "series": "OA", "cpo": 23.0, "acos": 9.4}, {"x": 3281.0, "y": 139, "r": 29, "name": "OW 128GB", "series": "OW", "cpo": 23.6, "acos": 11.6}, {"x": 183.0, "y": 7, "r": 6, "name": "OA6 Standard", "series": "OA", "cpo": 26.2, "acos": 10.3}, {"x": 1695.0, "y": 50, "r": 17, "name": "OQ Standard", "series": "OQ", "cpo": 33.9, "acos": 15.1}, {"x": 713.0, "y": 21, "r": 11, "name": "OA5 Pro Essential", "series": "OA", "cpo": 34.0, "acos": 12.5}, {"x": 1443.0, "y": 39, "r": 15, "name": "OQ Adventure", "series": "OQ", "cpo": 37.0, "acos": 14.7}];
+    var bubbleDS=[
+      {label:"OA",data:bubbleRaw.filter(function(d){return d.series==="OA"}),backgroundColor:"#F78166AA",borderColor:"#F78166"},
+      {label:"OQ",data:bubbleRaw.filter(function(d){return d.series==="OQ"}),backgroundColor:"#C69026AA",borderColor:"#C69026"},
+      {label:"OW",data:bubbleRaw.filter(function(d){return d.series==="OW"}),backgroundColor:"#57AB5AAA",borderColor:"#57AB5A"}
+    ];
+    window._charts.chartDeepBubble=new Chart(el,{
+      type:"bubble",
+      data:{datasets:bubbleDS},
+      options:{responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{labels:{color:TICK,font:{size:10},boxWidth:10}},
+          tooltip:{callbacks:{label:function(ctx){
+            var d=ctx.raw;
+            return [d.name,"Spend: €"+d.x,"Orders: "+d.y,"CPO: €"+d.cpo,"ACoS: "+d.acos+"%"];
+          }}}},
+        scales:{
+          x:{title:{display:true,text:"Spend €",color:TICK},ticks:{color:TICK,callback:function(v){return fmtE(v);}},grid:{color:GRID}},
+          y:{title:{display:true,text:"Orders",color:TICK},ticks:{color:TICK},grid:{color:GRID}}
+        }
+      }
+    });
+  })();
+
 })();
 
 });
 </script>
+
+<div id="tab-deep" class="section">
+  <div class="sec-title">§5 深度分析 — CPO / Orders / Spend 分配 / 转化率</div>
+
+  <!-- ROW 1: CPO by Series x Country + Spend share donut -->
+  <div class="chart-grid" style="grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px">
+    <div class="panel" style="grid-column:span 2">
+      <div class="panel-header">
+        <div class="panel-title">CPO &amp; CVR by Series × Country (SP)</div>
+        <div class="panel-sub">Lower CPO = more efficient · Higher CVR = better quality traffic</div>
+      </div>
+      <div class="panel-body"><div class="chart-wrap"><canvas id="chartDeepCpoCountry"></canvas></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">Spend Share by Series</div>
+        <div class="panel-sub">SP + SB combined</div>
+      </div>
+      <div class="panel-body"><div class="chart-wrap"><canvas id="chartDeepSpendShare"></canvas></div></div>
+    </div>
+  </div>
+
+  <!-- ROW 2: Spend % by Bankai (all 3 series) -->
+  <div class="panel" style="margin-bottom:14px">
+    <div class="panel-header">
+      <div class="panel-title">SP 花费分配 by 板块 — OA / OQ / OW</div>
+      <div class="panel-sub">Grouped bars · % of total SP spend per series</div>
+    </div>
+    <div class="panel-body"><div class="chart-wrap"><canvas id="chartDeepSpendPct"></canvas></div></div>
+  </div>
+
+  <!-- ROW 3: CPO by Bankai (all series) + CVR by Bankai -->
+  <div class="chart-grid" style="margin-bottom:14px">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">CPO by 板块 — All Series</div>
+        <div class="panel-sub">Lower = more cost-efficient per order · log scale</div>
+      </div>
+      <div class="panel-body"><div class="chart-wrap"><canvas id="chartDeepCpoBankai"></canvas></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">CVR by 板块 — All Series</div>
+        <div class="panel-sub">% click-to-order · higher = better traffic quality</div>
+      </div>
+      <div class="panel-body"><div class="chart-wrap"><canvas id="chartDeepCvrBankai"></canvas></div></div>
+    </div>
+  </div>
+
+  <!-- ROW 4: ASIN scatter CPO vs CVR + Orders bubble -->
+  <div class="chart-grid" style="margin-bottom:14px">
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">ASIN Scatter — CPO vs CVR</div>
+        <div class="panel-sub">X=CPO € · Y=CVR % · bubble size=orders · ideal: low CPO + high CVR</div>
+      </div>
+      <div class="panel-body"><div class="chart-wrap tall"><canvas id="chartDeepScatter"></canvas></div></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">ASIN Orders vs Spend — Efficiency View</div>
+        <div class="panel-sub">Bubble size=orders · color=series · diagonal = same CPO</div>
+      </div>
+      <div class="panel-body"><div class="chart-wrap tall"><canvas id="chartDeepBubble"></canvas></div></div>
+    </div>
+  </div>
+
+  <!-- ROW 5: Full ASIN table -->
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">ASIN 深度数据表 (SP · min 5 orders · sorted by CPO asc)</div>
+      <div class="panel-sub">CPO colour: green &lt;€20 · yellow €20–35 · red &gt;€35</div>
+    </div>
+    <div class="panel-body tscroll">
+      <table>
+        <thead><tr>
+          <th>系列</th><th>ASIN</th><th>产品</th>
+          <th class="r">花费€</th><th class="r">花费占比</th>
+          <th class="r">订单</th><th class="r">CPO€</th>
+          <th class="r">CVR%</th><th class="r">ACoS%</th>
+          <th class="r">ROAS</th><th class="r">销售额€</th>
+        </tr></thead>
+        <tbody>
+<tr>
+      <td style="color:#F78166;font-weight:700">OA</td>
+      <td style="font-size:10px;color:#6E7681">B0FNMPZ1RS</td>
+      <td style="font-size:11px">OA6 Enhanced</td>
+      <td class="r">€85</td>
+      <td class="r" style="color:#6E7681">0.5%</td>
+      <td class="r">10</td>
+      <td class="r green">€8</td>
+      <td class="r green">7.0%</td>
+      <td class="r green">2.7%</td>
+      <td class="r">37.3x</td>
+      <td class="r">€3161</td>
+    </tr><tr>
+      <td style="color:#F78166;font-weight:700">OA</td>
+      <td style="font-size:10px;color:#6E7681">B07FW4CZZL</td>
+      <td style="font-size:11px">OA5 Pro Adventure</td>
+      <td class="r">€224</td>
+      <td class="r" style="color:#6E7681">1.4%</td>
+      <td class="r">16</td>
+      <td class="r green">€14</td>
+      <td class="r green">5.7%</td>
+      <td class="r green">4.8%</td>
+      <td class="r">20.7x</td>
+      <td class="r">€4633</td>
+    </tr><tr>
+      <td style="color:#F78166;font-weight:700">OA</td>
+      <td style="font-size:10px;color:#6E7681">B0FNMP8LZX</td>
+      <td style="font-size:11px">OA6 Essential</td>
+      <td class="r">€904</td>
+      <td class="r" style="color:#6E7681">5.6%</td>
+      <td class="r">63</td>
+      <td class="r green">€14</td>
+      <td class="r yellow">4.0%</td>
+      <td class="r green">5.8%</td>
+      <td class="r">17.3x</td>
+      <td class="r">€15682</td>
+    </tr><tr>
+      <td style="color:#F78166;font-weight:700">OA</td>
+      <td style="font-size:10px;color:#6E7681">B0C783YNW7</td>
+      <td style="font-size:11px">OA4 Standard</td>
+      <td class="r">€3404</td>
+      <td class="r" style="color:#6E7681">21.0%</td>
+      <td class="r">206</td>
+      <td class="r green">€17</td>
+      <td class="r green">4.6%</td>
+      <td class="r yellow">10.4%</td>
+      <td class="r">9.7x</td>
+      <td class="r">€32833</td>
+    </tr><tr>
+      <td style="color:#F78166;font-weight:700">OA</td>
+      <td style="font-size:10px;color:#6E7681">B0DS2B3P2B</td>
+      <td style="font-size:11px">OA4 Essential</td>
+      <td class="r">€628</td>
+      <td class="r" style="color:#6E7681">3.9%</td>
+      <td class="r">38</td>
+      <td class="r green">€17</td>
+      <td class="r green">4.1%</td>
+      <td class="r yellow">10.3%</td>
+      <td class="r">9.7x</td>
+      <td class="r">€6080</td>
+    </tr><tr>
+      <td style="color:#F78166;font-weight:700">OA</td>
+      <td style="font-size:10px;color:#6E7681">B0D1YH4B2R</td>
+      <td style="font-size:11px">OA5 Pro Standard</td>
+      <td class="r">€2312</td>
+      <td class="r" style="color:#6E7681">14.3%</td>
+      <td class="r">137</td>
+      <td class="r green">€17</td>
+      <td class="r green">4.3%</td>
+      <td class="r green">7.9%</td>
+      <td class="r">12.7x</td>
+      <td class="r">€29285</td>
+    </tr><tr>
+      <td style="color:#57AB5A;font-weight:700">OW</td>
+      <td style="font-size:10px;color:#6E7681">B0FBFZM45S</td>
+      <td style="font-size:11px">OW 64GB</td>
+      <td class="r">€882</td>
+      <td class="r" style="color:#6E7681">5.4%</td>
+      <td class="r">43</td>
+      <td class="r yellow">€21</td>
+      <td class="r yellow">3.5%</td>
+      <td class="r green">9.8%</td>
+      <td class="r">10.2x</td>
+      <td class="r">€9013</td>
+    </tr><tr>
+      <td style="color:#F78166;font-weight:700">OA</td>
+      <td style="font-size:10px;color:#6E7681">B0C783J9WC</td>
+      <td style="font-size:11px">OA4 Adventure</td>
+      <td class="r">€460</td>
+      <td class="r" style="color:#6E7681">2.8%</td>
+      <td class="r">20</td>
+      <td class="r yellow">€23</td>
+      <td class="r yellow">3.6%</td>
+      <td class="r green">9.4%</td>
+      <td class="r">10.6x</td>
+      <td class="r">€4869</td>
+    </tr><tr>
+      <td style="color:#57AB5A;font-weight:700">OW</td>
+      <td style="font-size:10px;color:#6E7681">B0DYD56G2Y</td>
+      <td style="font-size:11px">OW 128GB</td>
+      <td class="r">€3281</td>
+      <td class="r" style="color:#6E7681">20.2%</td>
+      <td class="r">139</td>
+      <td class="r yellow">€24</td>
+      <td class="r yellow">2.8%</td>
+      <td class="r yellow">11.6%</td>
+      <td class="r">8.6x</td>
+      <td class="r">€28279</td>
+    </tr><tr>
+      <td style="color:#F78166;font-weight:700">OA</td>
+      <td style="font-size:10px;color:#6E7681">B0FM3X3DW5</td>
+      <td style="font-size:11px">OA6 Standard</td>
+      <td class="r">€183</td>
+      <td class="r" style="color:#6E7681">1.1%</td>
+      <td class="r">7</td>
+      <td class="r yellow">€26</td>
+      <td class="r yellow">3.1%</td>
+      <td class="r yellow">10.3%</td>
+      <td class="r">9.7x</td>
+      <td class="r">€1785</td>
+    </tr><tr>
+      <td style="color:#C69026;font-weight:700">OQ</td>
+      <td style="font-size:10px;color:#6E7681">B0DTTZZ6Q3</td>
+      <td style="font-size:11px">OQ Standard</td>
+      <td class="r">€1695</td>
+      <td class="r" style="color:#6E7681">10.5%</td>
+      <td class="r">50</td>
+      <td class="r yellow">€34</td>
+      <td class="r yellow">2.8%</td>
+      <td class="r yellow">15.1%</td>
+      <td class="r">6.6x</td>
+      <td class="r">€11232</td>
+    </tr><tr>
+      <td style="color:#F78166;font-weight:700">OA</td>
+      <td style="font-size:10px;color:#6E7681">B0DS2DF5S5</td>
+      <td style="font-size:11px">OA5 Pro Essential</td>
+      <td class="r">€713</td>
+      <td class="r" style="color:#6E7681">4.4%</td>
+      <td class="r">21</td>
+      <td class="r yellow">€34</td>
+      <td class="r red">2.3%</td>
+      <td class="r yellow">12.5%</td>
+      <td class="r">8.0x</td>
+      <td class="r">€5702</td>
+    </tr><tr>
+      <td style="color:#C69026;font-weight:700">OQ</td>
+      <td style="font-size:10px;color:#6E7681">B0DTTYLFJL</td>
+      <td style="font-size:11px">OQ Adventure</td>
+      <td class="r">€1443</td>
+      <td class="r" style="color:#6E7681">8.9%</td>
+      <td class="r">39</td>
+      <td class="r red">€37</td>
+      <td class="r yellow">3.3%</td>
+      <td class="r yellow">14.7%</td>
+      <td class="r">6.8x</td>
+      <td class="r">€9843</td>
+    </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
